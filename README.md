@@ -10,7 +10,7 @@ Cyrillic Phonetic is a keyboard layout that is designed to make typing Cyrillic 
 
 # Installation
 
- - Clone this git repository on your local computer `git clone git@github.com:overthetop/bg-dvorak-phonetic.git`
+ - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
  - Append all the contents of `symbols-bg-dv` file in the end of `/usr/share/X11/xkb/symbols/bg` file of your Linux distro
  - Insert all the contents of `evdev.xml` under `configItem > bg > variantList` element of `/usr/share/X11/xkb/rules/evdev.xml` file:
     
