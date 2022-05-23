@@ -8,6 +8,8 @@ Dvorak is an alternative typing layout for English based languages. It is one of
 
 Cyrillic Phonetic is a keyboard layout that is designed to make typing Cyrillic for native english speakers easier, by transliterating (finding similar sounds and letters across both languages) the keys. This often makes learning to type Cyrillic easier for English speakers because it doesn't require memorizing a completly new layout that is the typical Cyrillic layout.
 
+![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/layout.jpg?raw=true)
+
 # Installation
 
  - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
