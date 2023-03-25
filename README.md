@@ -12,7 +12,7 @@ Linux Layout
 ![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/linux/layout.jpg?raw=true)
 
 Mac OS Layout
-![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/mac-os/layout.png?raw=true)
+![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/mac-os/layout.jpg?raw=true)
 
 # Instalation Mac OS
  
