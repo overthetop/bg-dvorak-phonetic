@@ -17,6 +17,7 @@ Mac OS Layout
 # Instalation Mac OS
  
  - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
+ - The layout is create with Ukelele https://software.sil.org/ukelele/ but you don't need to install it
  - Copy /mac-os/bg-dvorak-phonetic.bundle dir into ~/Library/Keyboard Layouts
  - Go to System Settings -> Keyboard on your Mac machine and hit the + button
  - Select your layout `bg-dvorak-phonetic` from the list and add it
