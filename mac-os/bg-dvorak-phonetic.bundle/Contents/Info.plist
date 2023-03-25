@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>org.sil.ukelele.keyboardlayout.bg-dvorak-phonetic</string>
+	<key>CFBundleName</key>
+	<string>bg-dvorak-phonetic</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.0</string>
+	<key>KLInfo_bg-dvorak-phonetic</key>
+	<dict>
+		<key>TICapsLockLanguageSwitchCapable</key>
+		<false/>
+		<key>TISIconIsTemplate</key>
+		<false/>
+		<key>TISInputSourceID</key>
+		<string>org.sil.ukelele.keyboardlayout.bg-dvorak-phonetic.bg-dvorak-phonetic</string>
+		<key>TISIntendedLanguage</key>
+		<string>bg</string>
+	</dict>
+</dict>
+</plist>
