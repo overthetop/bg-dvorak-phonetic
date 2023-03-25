@@ -17,8 +17,8 @@ Mac OS Layout
 # Instalation Mac OS
  
  - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
- - The layout is create with Ukelele https://software.sil.org/ukelele/ but you don't need to install it
- - Copy /mac-os/bg-dvorak-phonetic.bundle dir into ~/Library/Keyboard Layouts
+ - The layout is create with `Ukelele` https://software.sil.org/ukelele/ but you don't need to install it
+ - Copy `/mac-os/bg-dvorak-phonetic.bundle` dir into `~/Library/Keyboard Layouts`
  - Go to System Settings -> Keyboard on your Mac machine and hit the + button
  - Select your layout `bg-dvorak-phonetic` from the list and add it
  - You should be able to switch layouts with `^ + Space` shortcut and use it right away 
@@ -26,8 +26,8 @@ Mac OS Layout
 # Installation Linux
 
  - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
- - Append all the contents of `symbols-bg-dv` file in the end of `/usr/share/X11/xkb/symbols/bg` file of your Linux distro
- - Insert all the contents of `evdev.xml` under `configItem > bg > variantList` element of `/usr/share/X11/xkb/rules/evdev.xml` file:
+ - Append all the contents of `/linux/symbols-bg-dv` file in the end of `/usr/share/X11/xkb/symbols/bg` file of your Linux distro
+ - Insert all the contents of `/linux/evdev.xml` under `configItem > bg > variantList` element of `/usr/share/X11/xkb/rules/evdev.xml` file:
     
     ```xml
     <layout>
