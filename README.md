@@ -2,7 +2,8 @@
 
 `Bulgarian Dvorak Phonetic Keyboard Layout`
 
-This is a traditional bulgarian dvorak keyboard layout that maps the `US Dvorak` keys to the `Bulgarian Cyrillic` alphabet.
+If you wonder what Dvorak is you can read more here https://en.wikipedia.org/wiki/Dvorak_keyboard_layout
+This one is a traditional `Bulgarian Dvorak Keyboard Layout` that maps the `US Dvorak` keys to the `Bulgarian Cyrillic` alphabet.
 
 Dvorak is an alternative typing layout for English based languages. It is one of the most popular alternative layouts and if you have invested into Dvorak and haven't maintained your Qwerty touchtyping it can be quite awkward to go back.
 
