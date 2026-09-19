@@ -1,0 +1,79 @@
+name: Windows prerequisites
+on:
+  workflow_dispatch:
+  push:
+    branches: ['windows-prerequisites-ci']
+permissions:
+  contents: read
+jobs:
+  resources:
+    name: Isolated resources (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, windows-11-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Record native environment and available tools
+        run: |
+          New-Item -ItemType Directory -Force evidence | Out-Null
+          $os = Get-CimInstance Win32_OperatingSystem
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vs = @()
+          if (Test-Path $vswhere) {
+            $vs = @(& $vswhere -all -products '*' -format json | ConvertFrom-Json)
+          }
+          $kits = "${env:ProgramFiles(x86)}\Windows Kits\10"
+          $inputs = @()
+          foreach ($installation in $vs) {
+            $tools = Join-Path $installation.installationPath 'VC\Tools\MSVC'
+            if (Test-Path $tools) {
+              $inputs += @(Get-ChildItem $tools -Recurse -File -Filter cl.exe |
+                Where-Object { $_.FullName -match 'Hostx64\\x64\\cl.exe$' })
+            }
+          }
+          if (Test-Path "$kits\Include") {
+            $inputs += @(Get-ChildItem "$kits\Include" -Recurse -File -Filter kbd.h)
+          }
+          $record = [ordered]@{
+            commit = '${{ github.sha }}'
+            runner = '${{ matrix.os }}'
+            image_version = $env:ImageVersion
+            captured_utc = [DateTime]::UtcNow.ToString('o')
+            os = $os.Caption
+            build = $os.BuildNumber
+            architecture = $os.OSArchitecture
+            visual_studio = $vs
+            sdk_include_versions = @(Get-ChildItem "$kits\Include" -Directory -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name)
+            observed_inputs = @($inputs | ForEach-Object {
+              @{path=$_.FullName; version=$_.VersionInfo.FileVersion; sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash}
+            })
+            scope = 'Tool discovery and isolated resource fixtures only; no layout build or desktop acceptance.'
+          }
+          $record | ConvertTo-Json -Depth 12 | Set-Content evidence/environment.json
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9
+        with:
+          version: '0.12.16'
+      - name: Prepare locked Python environment
+        run: |
+          uv python install 3.14.7
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv sync --locked --dev
+          exit $LASTEXITCODE
+      - name: Test isolated native resources
+        run: |
+          uv run --locked pytest -v tests/unit/test_windows_resources.py --junitxml=evidence/resources.xml
+          exit $LASTEXITCODE
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: windows-prerequisites-${{ matrix.os }}-${{ github.sha }}
+          path: evidence/
+          if-no-files-found: error
