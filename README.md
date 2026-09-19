@@ -1,57 +1,72 @@
-# What is that?
+# Bulgarian Dvorak Phonetic Keyboard Layout
 
-`Bulgarian Dvorak Phonetic Keyboard Layout`
+Type Bulgarian Cyrillic using phonetic positions based on US Dvorak.
+The supplied mappings and native layout identities are preserved by the installer.
 
-If you wonder what Dvorak is you can read more here https://en.wikipedia.org/wiki/Dvorak_keyboard_layout
-This one is a traditional `Bulgarian Dvorak Keyboard Layout` that maps the `US Dvorak` keys to the `Bulgarian Cyrillic` alphabet.
+![Linux layout](linux/layout.jpg)
+![macOS layout](mac-os/layout.jpg)
 
-Dvorak is an alternative typing layout for English based languages. It is one of the most popular alternative layouts and if you have invested into Dvorak and haven't maintained your Qwerty touchtyping it can be quite awkward to go back.
+## Installation, update, or repair
 
-Cyrillic Phonetic is a keyboard layout that is designed to make typing Cyrillic for native english speakers easier, by transliterating (finding similar sounds and letters across both languages) the keys. This often makes learning to type Cyrillic easier for English speakers because it doesn't require memorizing a completly new layout that is the typical Cyrillic layout.
+The same command installs a fresh layout, updates an existing copy, repairs identifiable
+project components, or reports that everything is current. Installation does not select
+an input source or restart your session.
 
-Linux Layout
-![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/linux/layout.jpg?raw=true)
+Target environments:
 
-Mac OS Layout
-![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/mac-os/layout.jpg?raw=true)
+| OS | Architecture | Scope |
+|---|---|---|
+| Ubuntu Desktop 24.04, GNOME X11/Wayland | x86_64 | Explicit system scope |
+| macOS 15 | Intel / Apple Silicon | Current user |
+| macOS 26 | Apple Silicon | Current user |
 
-# Instalation Mac OS
- 
- - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
- - The layout is created with `Ukelele` `v.3.5.7` https://software.sil.org/ukelele/, but you don't need to install it
- - Copy `/mac-os/bg-dvorak-phonetic.bundle` dir into `~/Library/Keyboard Layouts`
- - Go to System Settings -> Keyboard on your Mac machine and hit the + button
- - Select your layout `bg-dvorak-phonetic` from the list and add it
- - You should be able to switch layouts with `^ + Space` shortcut and use it right away 
+Native macOS and desktop release validation remain pending; see
+[validation status](specs/001-automate-layout-install/validation/final.md).
+Windows and other OS versions are not supported by this feature.
 
-# Installation Linux
+### Prepare once
 
- - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
- - Append all the contents of `/linux/symbols-bg-dv` file in the end of `/usr/share/X11/xkb/symbols/bg` file of your Linux distro
- - Insert all the contents of `/linux/evdev.xml` under `configItem > bg > variantList` element of `/usr/share/X11/xkb/rules/evdev.xml` file:
-    
-    ```xml
-    <layout>
-    <configItem>
-        <name>bg</name>
-        <!-- Keyboard indicator for Bulgarian layouts -->
-        <shortDescription>bg</shortDescription>
-        <description>Bulgarian</description>
-        <languageList>
-        <iso639Id>bul</iso639Id>
-        </languageList>
-    </configItem>
-    <variantList>
-        <variant>
-        <configItem>
-            <name>bg-dvorak-phonetic</name>
-            <description>Bulgarian (Dvorak phonetic)</description>
-        </configItem>
-        </variant>
-        <!--more variants follow ... -->
-    </variantList>
-    ```
+Install **uv 0.12.16** using the [official release instructions](https://github.com/astral-sh/uv/releases/tag/0.12.16).
+Python **3.14.7** is required (`>=3.14.7,<3.15`); the explicit setup below obtains it even
+when your OS does not include Python. Do not run uv or environment setup with sudo.
 
- - Reboot or `sudo systemctl restart display-manager` (warning: closes everything!)
- - If you'd like, you can fiddle a bit with it, so run `setxkbmap -layout bg-dvorak-phonetic` to reload changes
+```sh
+git clone https://github.com/overthetop/bg-dvorak-phonetic.git
+cd bg-dvorak-phonetic
+uv python install 3.14.7
+uv sync --locked --dev
+```
 
+On Ubuntu, install native validation prerequisites before running the installer:
+
+```sh
+sudo apt-get install xkb-data libxkbcommon-tools
+```
+
+macOS uses its native `plutil` tool; Ukelele is not required.
+
+### Run the installer
+
+Ubuntu:
+
+```sh
+uv run --no-project --python .venv/bin/python --no-python-downloads --offline bg-dvorak-phonetic install --scope system
+```
+
+macOS:
+
+```sh
+uv run --no-project --python .venv/bin/python --no-python-downloads --offline bg-dvorak-phonetic install
+```
+
+Add `--dry-run` to preview. Review the plan before accepting it. `--yes` accepts the plan
+for noninteractive use; it does not bypass sudo authorization or select system scope.
+Product commands do not provision or upgrade the Python environment. If preparation is
+missing or stale, rerun the explicit setup commands.
+
+After installation, add the layout in your OS keyboard settings. Linux uses layout **bg**
+and variant **bg-dvorak-phonetic**. On macOS use System Settings → Keyboard → Text Input → Edit.
+Actual discovery, selection, and typing must be checked on your desktop.
+
+Read the [installation and recovery guide](docs/installation.md),
+[contributor guide](docs/development.md), and [release checklist](docs/release-validation.md).
