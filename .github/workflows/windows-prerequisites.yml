@@ -91,7 +91,12 @@ jobs:
           $compilerInputs = @(Get-ChildItem $compiler -File | Sort-Object Name | ForEach-Object {
             @{name=$_.Name; sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
           })
+          $headerRoot = Join-Path $installation 'VC\Tools\MSVC\14.44.35207\include'
+          $compilerHeaders = @(Get-ChildItem $headerRoot -Recurse -File | Sort-Object FullName | ForEach-Object {
+            @{name=[IO.Path]::GetRelativePath($headerRoot, $_.FullName); sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
+          })
           $record = @{
+            compiler_headers=$compilerHeaders
             commit='${{ github.sha }}'; runner='${{ matrix.os }}'; image_version=$env:ImageVersion
             captured_utc=[DateTime]::UtcNow.ToString('o'); visual_studio_version=$vs[0].installationVersion
             tools=$observedTools; compiler_inputs=$compilerInputs; packages=$packages
