@@ -58,6 +58,45 @@ jobs:
             scope = 'Tool discovery and isolated resource fixtures only; no layout build or desktop acceptance.'
           }
           $record | ConvertTo-Json -Depth 12 | Set-Content evidence/environment.json
+      - name: Acquire pinned kits and capture VS 2022 tools
+        if: matrix.os == 'windows-11-arm'
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $lock = Get-Content windows/toolchain.lock.json -Raw | ConvertFrom-Json
+          $packageRoot = Join-Path $env:RUNNER_TEMP 'bg-dvorak-kits'
+          New-Item -ItemType Directory -Force $packageRoot | Out-Null
+          $packages = @()
+          foreach ($inputPackage in $lock.acquired_inputs) {
+            $archive = Join-Path $packageRoot ($inputPackage.package + '.zip')
+            Invoke-WebRequest -Uri $inputPackage.url -OutFile $archive -TimeoutSec 180
+            $hash = (Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($hash -ne $inputPackage.sha256) { throw "Package hash mismatch: $($inputPackage.package)" }
+            $destination = Join-Path $packageRoot $inputPackage.package
+            Expand-Archive -Path $archive -DestinationPath $destination
+            $nuspec = Get-ChildItem $destination -Filter '*.nuspec' | Select-Object -First 1
+            [xml]$metadata = Get-Content $nuspec.FullName -Raw
+            if ($metadata.package.metadata.version -ne $inputPackage.version) { throw 'Package version mismatch' }
+            $packages += @{package=$inputPackage.package; version=$metadata.package.metadata.version; sha256=$hash; url=$inputPackage.url}
+          }
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vs = @(& $vswhere -version '[17.14,17.15)' -products '*' -format json | ConvertFrom-Json)
+          if ($vs.Count -ne 1) { throw 'Expected exactly one VS 2022 17.14 installation' }
+          $installation = $vs[0].installationPath
+          $compiler = Join-Path $installation 'VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64'
+          $toolPaths = @((Join-Path $compiler 'cl.exe'), (Join-Path $compiler 'link.exe'), (Join-Path $installation 'MSBuild\Current\Bin\MSBuild.exe'))
+          $observedTools = @($toolPaths | ForEach-Object {
+            $file = Get-Item $_
+            @{path=$file.FullName; version=$file.VersionInfo.FileVersion; sha256=(Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
+          })
+          $compilerInputs = @(Get-ChildItem $compiler -File | Sort-Object Name | ForEach-Object {
+            @{name=$_.Name; sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
+          })
+          $record = @{
+            commit='${{ github.sha }}'; runner='${{ matrix.os }}'; image_version=$env:ImageVersion
+            captured_utc=[DateTime]::UtcNow.ToString('o'); visual_studio_version=$vs[0].installationVersion
+            tools=$observedTools; compiler_inputs=$compilerInputs; packages=$packages
+          }
+          $record | ConvertTo-Json -Depth 10 | Set-Content evidence/pinned-toolchain.json
       - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9
         with:
           version: '0.12.16'

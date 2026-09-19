@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "status": "pending-native-capture",
+  "build_ready": false,
+  "target_architecture": "x64",
+  "requested": {
+    "visual_studio": "2022 17.14",
+    "windows_sdk": "26100.6584",
+    "windows_wdk": "26100.6584"
+  },
+  "observed": {
+    "compiler_version": null,
+    "linker_version": null,
+    "msbuild_version": null,
+    "sdk_package_version": null,
+    "wdk_package_version": null
+  },
+  "acquired_inputs": [
+    {
+      "package": "microsoft.windows.sdk.cpp",
+      "version": "10.0.26100.6584",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.cpp/10.0.26100.6584/microsoft.windows.sdk.cpp.10.0.26100.6584.nupkg",
+      "sha256": "5d31b38205bdd9ac761b4cb39fbbc6b7209b01c11194324afc674d7d119483a0",
+      "size": 160036542
+    },
+    {
+      "package": "microsoft.windows.sdk.cpp.x64",
+      "version": "10.0.26100.6584",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.cpp.x64/10.0.26100.6584/microsoft.windows.sdk.cpp.x64.10.0.26100.6584.nupkg",
+      "sha256": "c29ce7a4641cb37ee32ebb8078cc65cfbabc7025076bcfba869039204b1e960d",
+      "size": 52245405
+    },
+    {
+      "package": "microsoft.windows.wdk.x64",
+      "version": "10.0.26100.6584",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.wdk.x64/10.0.26100.6584/microsoft.windows.wdk.x64.10.0.26100.6584.nupkg",
+      "sha256": "c393d03dfb640b5c92f546b32f6770ef68cd3aaf691956e7d66d8e2c28a1b55e",
+      "size": 110872506
+    }
+  ],
+  "upstream_reference": {
+    "url": "https://github.com/microsoft/Windows-driver-samples/tree/3c3fb49073c047c4cc8e6c203c6331f62b426507/input/layout",
+    "revision": "3c3fb49073c047c4cc8e6c203c6331f62b426507",
+    "files": [
+      {
+        "path": "input/layout/kbdus/kbdus.c",
+        "url": "https://raw.githubusercontent.com/microsoft/Windows-driver-samples/3c3fb49073c047c4cc8e6c203c6331f62b426507/input/layout/kbdus/kbdus.c",
+        "sha256": "5a271ed235e0034fd4be0d919e22d90d795fc1a4cc07f44f749f0d4375fc3f96"
+      },
+      {
+        "path": "input/layout/kbdus/kbdus.h",
+        "url": "https://raw.githubusercontent.com/microsoft/Windows-driver-samples/3c3fb49073c047c4cc8e6c203c6331f62b426507/input/layout/kbdus/kbdus.h",
+        "sha256": "d0da267b8ba581f7670e1299cd375c12f70e5b72aaefb7888f38e1d8eee1503c"
+      },
+      {
+        "path": "input/layout/kbdus/kbdus.def",
+        "url": "https://raw.githubusercontent.com/microsoft/Windows-driver-samples/3c3fb49073c047c4cc8e6c203c6331f62b426507/input/layout/kbdus/kbdus.def",
+        "sha256": "6462d1e95eb3bfb17fc5237ad42fbea78917181fef6c492186502dad4933f49e"
+      },
+      {
+        "path": "input/layout/kbdus/kbdus.rc",
+        "url": "https://raw.githubusercontent.com/microsoft/Windows-driver-samples/3c3fb49073c047c4cc8e6c203c6331f62b426507/input/layout/kbdus/kbdus.rc",
+        "sha256": "03db5ca0346eb3466f17b964fd656f358fd1406e9e6e5f8da719032db2969a0e"
+      },
+      {
+        "path": "input/layout/kbdus/kbdus.vcxproj",
+        "url": "https://raw.githubusercontent.com/microsoft/Windows-driver-samples/3c3fb49073c047c4cc8e6c203c6331f62b426507/input/layout/kbdus/kbdus.vcxproj",
+        "sha256": "4cec300e6d5be11a00b0ba8a701cbbd7e99feae5662c164396624a20bc50e8ef"
+      }
+    ],
+    "license_verified": true,
+    "license": "MS-PL",
+    "license_sha256": "07639618c7b94ab9953cc61715f6325877e1854dca611ed9b1bd54497cf5e93a"
+  },
+  "reason": "Hosted native tool inventory captured; exact SDK/WDK servicing packages, acquisition provenance, linker/MSBuild lock and sample license provenance still pending. See hosted_inventory_evidence; inventory is not an approved build lock.",
+  "hosted_inventory_evidence": {
+    "run_url": "https://github.com/overthetop/bg-dvorak-phonetic/actions/runs/35467757790",
+    "commit": "c6c8cbb54b2559682b700a822abe5108b327a125",
+    "records": [
+      "specs/002-add-windows-11/validation/hosted-prerequisites/windows-2025-environment.json",
+      "specs/002-add-windows-11/validation/hosted-prerequisites/windows-11-arm-environment.json"
+    ]
+  }
+}
