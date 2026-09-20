@@ -1,0 +1,39 @@
+{
+  "source_revision": "095c3941f79ed4837f3e4834f58044f906283015",
+  "logical_id": "bg-dvorak-phonetic",
+  "target": {
+    "build_family": 26200,
+    "editions": [
+      "Home",
+      "Pro"
+    ],
+    "architecture": "x64"
+  },
+  "mapping_sha256": "2565f17940b15e27c18bc66e32598ec86798ae2c61c3677bcbb48c1f2f835187",
+  "schema_version": 1,
+  "architecture": "x64",
+  "display_name": "Bulgarian (Dvorak phonetic)",
+  "klid": "A0D00402",
+  "layout_id": "0D00",
+  "resource_id": 1,
+  "dll": {
+    "path": "bgdv_196e0f17ae452d2d038f45bb0ba7c490984863895cf61312b108bb9632968931.dll",
+    "sha256": "196e0f17ae452d2d038f45bb0ba7c490984863895cf61312b108bb9632968931"
+  },
+  "sources": {
+    "windows/mapping.json": "2565f17940b15e27c18bc66e32598ec86798ae2c61c3677bcbb48c1f2f835187",
+    "linux/symbols-bg-dv": "9a36eb692d95ee9dd7a499f6559bb39a17fc61cc7e78b7d0f411cdb317a38739",
+    "tools/build_windows_layout.py": "5848eb2a9d6b1af3cdbddb0a13d08d6addfdb480c85b20525b935cab916cec45",
+    "windows/layout/bgdv.vcxproj": "4c917b19e12eab281ebee0cba41392595dcbc52223a7e93a98ce4c2a2d88c2af",
+    "windows/layout/reference/kbdus.c": "5a271ed235e0034fd4be0d919e22d90d795fc1a4cc07f44f749f0d4375fc3f96"
+  },
+  "toolchain_sha256": "4bd604dcf184bdcc29b19f40640df72961bc8b7c8477b66df4c576be6627c9bb",
+  "toolchain": {
+    "compiler_version": "19.44.35228.0",
+    "linker_version": "14.44.35228.0",
+    "msbuild_version": "17.14.51.32402",
+    "visual_studio_version": "17.14.37628.2",
+    "sdk_package_version": "10.0.26100.6584",
+    "wdk_package_version": "10.0.26100.6584"
+  }
+}

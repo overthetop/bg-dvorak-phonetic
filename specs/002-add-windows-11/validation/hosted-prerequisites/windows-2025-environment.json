@@ -1,0 +1,93 @@
+{
+  "commit": "c6c8cbb54b2559682b700a822abe5108b327a125",
+  "runner": "windows-2025",
+  "image_version": "20260907.229.1",
+  "captured_utc": "2026-09-19T20:33:53.8285180Z",
+  "os": "Microsoft Windows Server 2025 Datacenter",
+  "build": "26100",
+  "architecture": "64-bit",
+  "visual_studio": [
+    {
+      "instanceId": "b6dfadce",
+      "installDate": "2026-09-07T21:19:28Z",
+      "installationName": "VisualStudio/18.9.2+12120.119",
+      "installationPath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise",
+      "installationVersion": "18.9.12120.119",
+      "productId": "Microsoft.VisualStudio.Product.Enterprise",
+      "productPath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\Common7\\IDE\\devenv.exe",
+      "state": 4294967295,
+      "isComplete": true,
+      "isLaunchable": true,
+      "isPrerelease": false,
+      "isRebootRequired": false,
+      "displayName": "Visual Studio Enterprise 2026",
+      "description": "Built for scale, security, and speed – the IDE for complex, high-impact development.",
+      "channelId": "VisualStudio.18.Release",
+      "channelUri": "https://aka.ms/vs/18/stable/channel",
+      "enginePath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\resources\\app\\ServiceHub\\Services\\Microsoft.VisualStudio.Setup.Service",
+      "expirationDate": "2027-02-16T17:00:00+00:00",
+      "installChannelUri": "https://aka.ms/vs/18/stable/channel",
+      "installedChannelId": "VisualStudio.18.Release",
+      "installedChannelUri": "https://aka.ms/vs/18/stable/channel",
+      "releaseNotes": "https://docs.microsoft.com/en-us/visualstudio/releases/18/release-notes-v18.9#18.9.2",
+      "resolvedInstallationPath": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise",
+      "thirdPartyNotices": "https://go.microsoft.com/fwlink/?LinkId=661480",
+      "updateDate": "2026-09-07T21:19:28.7207421Z",
+      "catalog": {
+        "buildBranch": "stable",
+        "buildVersion": "18.9.12120.119",
+        "featureReleaseMonth": "08",
+        "featureReleaseYear": "2026",
+        "id": "VisualStudio/18.9.2+12120.119",
+        "includeBuildVersionInDisplayVersion": "False",
+        "localBuild": "build-lab",
+        "manifestName": "VisualStudio",
+        "manifestType": "installer",
+        "productDisplayVersion": "18.9.2",
+        "productLine": "Dev18",
+        "productLineVersion": "18",
+        "productMilestone": "RTW",
+        "productMilestoneIsPreRelease": "False",
+        "productName": "Visual Studio",
+        "productPatchVersion": "2",
+        "productPreReleaseMilestoneSuffix": "1.0",
+        "productRelease": "RTW",
+        "productSemanticVersion": "18.9.2+12120.119",
+        "requiredEngineVersion": "4.9.50.62957"
+      },
+      "properties": {
+        "campaignId": "",
+        "channelManifestId": "VisualStudio.18.Release/18.9.2+12120.119",
+        "includeRecommended": "1",
+        "nickname": "",
+        "setupEngineFilePath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\setup.exe"
+      }
+    }
+  ],
+  "sdk_include_versions": [
+    "10.0.26100.0"
+  ],
+  "observed_inputs": [
+    {
+      "version": "19.29.30159.0 built by: cloudtest",
+      "sha256": "8E4352B523F4FF37B429AEA1D340094BE1E17BBDF4F687247FC0BE92D6EB9440",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe"
+    },
+    {
+      "version": "19.44.35228.0",
+      "sha256": "88C8344236A27A6E727E0A8EDC49AAA2690BDC7A9464B9D18CC7ABE70A9F1C0D",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\cl.exe"
+    },
+    {
+      "version": "19.51.36256.0",
+      "sha256": "E6D57100C82AE0310C18B16ABFE52BC0DF8FBB272CA6C5FB287D485807CFCE91",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\cl.exe"
+    },
+    {
+      "version": null,
+      "sha256": "45C584D1DF780DC149A5DEA0A8CDA38A35FD9B7FD82EB0D91C4AEAB2018A1493",
+      "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\kbd.h"
+    }
+  ],
+  "scope": "Tool discovery and isolated resource fixtures only; no layout build or desktop acceptance."
+}

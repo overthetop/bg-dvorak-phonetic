@@ -1,0 +1,124 @@
+name: Layout tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    name: Native (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15-intel, macos-15, macos-26]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: '0.12.16'
+          enable-cache: true
+      - name: Prepare pinned environment
+        run: |
+          uv python install 3.14.7
+          uv sync --locked --dev
+      - name: Native Linux validator
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xkb-data libxkbcommon-tools
+      - name: Static checks
+        run: |
+          uv run --locked ruff check src tests tools
+          uv run --locked ruff format --check src tests tools
+          uv run --locked mypy src
+          uv run --locked python -m compileall -q src tools
+      - name: Unit, contract, and native integration tests
+        run: |
+          set -o pipefail
+          uv run --locked coverage run --parallel-mode -m pytest --junitxml=test-results/pytest.xml 2>&1 | tee pytest.log
+      - name: Record artifact provenance
+        if: always()
+        env:
+          NATIVE_RUNNER: ${{ matrix.os }}
+          NATIVE_RESULT: ${{ job.status }}
+          NATIVE_COMMIT: ${{ github.sha }}
+        run: |
+          uv run --no-sync --no-python-downloads --offline python - <<'PY'
+          import json, os, platform
+          from pathlib import Path
+          record = {
+              'commit': os.environ['NATIVE_COMMIT'],
+              'runner': os.environ['NATIVE_RUNNER'],
+              'result': 'passed' if os.environ['NATIVE_RESULT'] == 'success' else 'failed',
+              'runtime_version': platform.python_version(),
+              'os_version': platform.platform(),
+              'architecture': platform.machine(),
+              'scenario': 'native',
+              'diagnostics': 'pytest.log',
+              'coverage_artifact': 'native-' + os.environ['NATIVE_RUNNER'],
+              'manual_evidence': '',
+          }
+          Path('metadata.json').write_text(json.dumps(record), encoding='utf-8')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: native-${{ matrix.os }}-${{ github.sha }}
+          include-hidden-files: true
+          if-no-files-found: error
+          path: |
+            .coverage.*
+            metadata.json
+            pytest.log
+            test-results/
+  aggregate:
+    name: Required native coverage
+    if: always()
+    needs: native
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Require every native job
+        env:
+          NATIVE_RESULT: ${{ needs.native.result }}
+        run: test "$NATIVE_RESULT" = success
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: '0.12.16'
+      - name: Prepare locked tools
+        run: |
+          uv python install 3.14.7
+          uv sync --locked --dev
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          pattern: native-*-${{ github.sha }}
+          path: artifacts
+      - name: Validate and combine required evidence
+        env:
+          NATIVE_COMMIT: ${{ github.sha }}
+        run: |
+          uv run --locked python tools/collect_coverage.py artifacts "$NATIVE_COMMIT" coverage-input
+          uv run --locked coverage combine coverage-input
+          uv run --locked coverage report -m
+          uv run --locked coverage json -o coverage.json
+          uv run --locked coverage html
+          uv run --locked python tools/check_coverage.py coverage.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: combined-coverage-${{ github.sha }}
+          path: |
+            coverage.json
+            htmlcov/
