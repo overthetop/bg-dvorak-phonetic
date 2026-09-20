@@ -236,7 +236,7 @@ def build_typing_probes(
     vc_root = compiler_root.parents[2]
     header_root = vc_root / "include"
     sdk_include = kits / "microsoft.windows.sdk.cpp/c/Include/10.0.26100.0"
-    include_paths = [sdk_include / "um", sdk_include / "shared", header_root]
+    include_paths = [sdk_include / "um", sdk_include / "shared", sdk_include / "ucrt", header_root]
     results: dict[str, str] = {}
     configurations: dict[str, ProbeConfiguration] = {
         "x64": {
