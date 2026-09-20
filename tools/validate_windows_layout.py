@@ -163,6 +163,11 @@ def validate_manifest(
     Hashes provide consistency, not publisher authentication. Callers must first trust
     the acquired checkout/release. No registration, library loading or downloads occur.
     """
+    if not isinstance(manifest, dict):
+        raise ValueError("Manifest must be a JSON object")
+    revision = manifest.get("source_revision")
+    if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("Invalid source revision provenance")
     expected = {
         "schema_version": 1,
         "architecture": "x64",

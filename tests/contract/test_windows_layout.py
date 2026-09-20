@@ -174,6 +174,7 @@ def asset_fixture(tmp_path):
     lock = {"build_ready": True, "observed": {"compiler_version": "fixture"}}
     (source / "toolchain.lock.json").write_text(json.dumps(lock))
     manifest = {
+        "source_revision": "1" * 40,
         "schema_version": 1,
         "architecture": "x64",
         "display_name": "Bulgarian (Dvorak phonetic)",
@@ -261,3 +262,28 @@ def test_generation_and_validation_never_execute_native_code(tmp_path, monkeypat
     generate_sources(read("windows/mapping.json"))
     assets, source, manifest = asset_fixture(tmp_path)
     validate_manifest(manifest, assets, source, source / "toolchain.lock.json")
+
+
+def test_generated_control_characters_preserve_native_base_layout():
+    import re
+
+    generated = generate_sources(read("windows/mapping.json"))["bgdv.c"]
+    rows = {
+        int(vk, 16): values.split(", ")
+        for vk, values in re.findall(r"\{0x([0-9A-F]{2}), \d+, \{([^}]+)\}\}", generated)
+        if vk != "FF"
+    }
+    # Native kbdus.c: Enter/Backspace and punctuation have distinct Ctrl outputs.
+    for vk, control, shifted_control in [
+        (0x0D, "0x000A", "WCH_NONE"),
+        (0x08, "0x007F", "WCH_NONE"),
+        (0xDB, "0x001B", "WCH_NONE"),
+        (0xDD, "0x001D", "WCH_NONE"),
+        (0xDC, "0x001C", "WCH_NONE"),
+        (0xE2, "0x001C", "WCH_NONE"),
+        (0x32, "WCH_NONE", "0x0000"),
+        (0x36, "WCH_NONE", "0x001E"),
+        (0xBD, "WCH_NONE", "0x001F"),
+        (0x09, "WCH_NONE", "WCH_NONE"),
+    ]:
+        assert rows[vk][2:4] == [control, shifted_control]

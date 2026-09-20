@@ -82,6 +82,19 @@ def generate_sources(mapping: dict[str, Any]) -> dict[str, str]:
             return "WCH_NONE"
         return "WCH_DEAD" if value in dead else f"0x{ord(value):04X}"
 
+    # Native base-layout ASCII control semantics, separate from Bulgarian output levels.
+    native_ctrl = {
+        0xDB: "\x1b",
+        0xDD: "\x1d",
+        0xDC: "\x1c",
+        0xE2: "\x1c",
+        0x08: "\x7f",
+        0x0D: "\n",
+        0x1B: "\x1b",
+        0x20: " ",
+        0x03: "\x03",
+    }
+    native_shift_ctrl = {0x32: "\x00", 0x36: "\x1e", 0xBD: "\x1f"}
     rows = []
     for key in mapping["keys"]:
         vk = key["virtual_key"]
@@ -89,8 +102,9 @@ def generate_sources(mapping: dict[str, Any]) -> dict[str, str]:
         caps = (1 if levels[:2] != key["caps_levels"][:2] else 0) | (
             4 if levels[2:] != key["caps_levels"][2:] else 0
         )
-        control = chr(vk & 31) if 65 <= vk <= 90 else None
-        values = [levels[0], levels[1], control, control, levels[2], levels[3]]
+        control = chr(vk & 31) if 65 <= vk <= 90 else native_ctrl.get(vk)
+        shift_control = chr(vk & 31) if 65 <= vk <= 90 else native_shift_ctrl.get(vk)
+        values = [levels[0], levels[1], control, shift_control, levels[2], levels[3]]
         rows.append(f"{{0x{vk:02X}, {caps}, {{{', '.join(wchar(v) for v in values)}}}}},")
         if any(value in dead for value in values if value is not None):
             accents = [
@@ -98,6 +112,7 @@ def generate_sources(mapping: dict[str, Any]) -> dict[str, str]:
             ]
             rows.append("{0xFF, 0, {" + ", ".join(accents) + "}},")
     for vk, base, shift in [
+        (0x03, "\x03", "\x03"),
         (0x20, " ", " "),
         (0x0D, "\r", "\r"),
         (0x09, "\t", "\t"),
@@ -114,8 +129,8 @@ def generate_sources(mapping: dict[str, Any]) -> dict[str, str]:
         values = [
             base,
             shift,
-            base if vk < 0x21 else None,
-            base if vk < 0x21 else None,
+            native_ctrl.get(vk),
+            native_shift_ctrl.get(vk),
             base,
             shift,
         ]
@@ -234,17 +249,26 @@ def main(argv: list[str] | None = None) -> int:
         include = sdk / "Include/10.0.26100.0"
         # SDK headers plus the compiler's standard intrinsic headers; no ambient INCLUDE.
         vc_include = args.compiler_root.parents[2] / "include"
-        include_args = " ".join(
-            f'/I"{p}"' for p in [include / "um", include / "shared", include / "ucrt", vc_include]
-        )
+        include_paths = [include / "um", include / "shared", include / "ucrt", vc_include]
+        include_args = " ".join(f'/I"{p}"' for p in include_paths)
         (build / "compile.rsp").write_text(
             f"/nologo /c /X /GS- /Zl /O2 /Brepro /D_AMD64_ {include_args} "
             f'/Fo"{build / "bgdv.obj"}" "{build / "bgdv.c"}"',
             encoding="utf-16",
         )
-        (build / "resource.rsp").write_text(
-            f'/nologo {include_args} /fo"{build / "bgdv.res"}" "{build / "bgdv.rc"}"',
-            encoding="utf-16",
+        # RC does not accept CL's UTF-16 response-file format. Pass Unicode argv
+        # directly instead of converting paths through an ANSI response file or shell.
+        subprocess.run(
+            [
+                str(sdk / "bin/10.0.26100.0/x64/rc.exe"),
+                "/nologo",
+                *[argument for path in include_paths for argument in ("/I", str(path))],
+                "/fo",
+                str(build / "bgdv.res"),
+                str(build / "bgdv.rc"),
+            ],
+            check=True,
+            timeout=120,
         )
         (build / "link.rsp").write_text(
             "/NOLOGO /DLL /NOENTRY /NODEFAULTLIB /MACHINE:X64 /Brepro /DYNAMICBASE /NXCOMPAT "
@@ -259,7 +283,6 @@ def main(argv: list[str] | None = None) -> int:
                 "/nologo",
                 f"/p:CompilerRoot={args.compiler_root}",
                 f"/p:BuildDirectory={build}",
-                f"/p:ResourceCompiler={sdk / 'bin/10.0.26100.0/x64/rc.exe'}",
             ],
             check=True,
             timeout=120,
@@ -275,7 +298,15 @@ def main(argv: list[str] | None = None) -> int:
             "windows/layout/bgdv.vcxproj",
             "windows/layout/reference/kbdus.c",
         ]
+        revision = subprocess.run(
+            ["git", "-C", str(ROOT), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        ).stdout.strip()
         manifest = {
+            "source_revision": revision,
             "schema_version": 1,
             "architecture": "x64",
             "display_name": DISPLAY_NAME,

@@ -2,9 +2,8 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Explicit response files are generated only after Python verifies the input lock. -->
   <Target Name="Build">
-    <Error Condition="'$(CompilerRoot)' == '' or '$(ResourceCompiler)' == '' or '$(BuildDirectory)' == ''" Text="Invoke the locked Python build tool with explicit compiler and kit paths." />
+    <Error Condition="'$(CompilerRoot)' == '' or '$(BuildDirectory)' == ''" Text="Invoke the locked Python build tool with explicit compiler and kit paths." />
     <Exec Command="&quot;$(CompilerRoot)\cl.exe&quot; @&quot;$(BuildDirectory)\compile.rsp&quot;" />
-    <Exec Command="&quot;$(ResourceCompiler)&quot; @&quot;$(BuildDirectory)\resource.rsp&quot;" />
     <Exec Command="&quot;$(CompilerRoot)\link.exe&quot; @&quot;$(BuildDirectory)\link.rsp&quot;" />
   </Target>
 </Project>
