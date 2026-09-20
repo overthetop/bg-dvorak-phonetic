@@ -162,7 +162,7 @@ class WindowsResourceBackend:
     def apply_file(self, staged: Path, destination: Path) -> None:
         guard_file_path(destination, self.system_root)
         os.replace(staged, destination)
-        with destination.open("rb") as handle:
+        with destination.open("rb+") as handle:
             os.fsync(handle.fileno())
 
     def verify_file(self, path: Path, expected: Observation) -> bool:
