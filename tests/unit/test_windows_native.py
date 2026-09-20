@@ -5,6 +5,7 @@ import pytest
 from bg_dvorak_phonetic.platforms.windows_native import (
     WindowsResourceBackend,
     guard_file_path,
+    resolve_known_folder,
     snapshot_registry,
 )
 from tests.fixtures.windows_resources import windows_resources
@@ -57,6 +58,7 @@ def test_native_registry_snapshot_preserves_types_and_order():
             winreg.SetValueEx(key, "binary", 0, winreg.REG_BINARY, b"\x00\xff")
         snapshot = snapshot_registry(winreg.HKEY_CURRENT_USER, 0, resources.registry_subkey)
         assert snapshot.exists
+        assert snapshot.security_descriptor
         assert [value.name for value in snapshot.values] == ["binary", "Empty", "z"]
         assert [(value.value_type, value.value) for value in snapshot.values] == [
             ("REG_BINARY", "00ff"),
@@ -86,3 +88,12 @@ def test_windows_backend_file_roundtrip_and_read_only_inspection():
         observed = backend.snapshot_file(destination)
         assert observed.exists
         assert backend.verify_file(destination, observed)
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="requires native Windows")
+def test_known_folder_resolution_uses_native_api():
+    program_data = resolve_known_folder("62ab5d82-fdc1-4dc3-a9dd-070d1d495d97")
+    system = resolve_known_folder("1ac14e77-02e7-4e5d-b744-2eb1ae5198b7")
+    assert program_data.is_absolute()
+    assert system.is_absolute()
+    assert program_data.name.casefold() == "programdata"

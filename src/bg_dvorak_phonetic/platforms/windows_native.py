@@ -90,6 +90,63 @@ def guard_file_path(path: Path, root: Path, *, allow_absent: bool = True) -> Pat
     return path
 
 
+def resolve_known_folder(folder_id: str) -> Path:
+    """Resolve a Windows known folder without trusting environment variables."""
+    _require_windows()
+    import uuid
+
+    windows = cast(Any, ctypes)
+    shell32 = windows.WinDLL("shell32", use_last_error=True)
+    ole32 = windows.WinDLL("ole32", use_last_error=True)
+    raw = (ctypes.c_ubyte * 16).from_buffer_copy(uuid.UUID(folder_id).bytes_le)
+    output = ctypes.c_wchar_p()
+    result = shell32.SHGetKnownFolderPath(ctypes.byref(raw), 0, None, ctypes.byref(output))
+    if result:
+        raise OSError(f"SHGetKnownFolderPath failed: 0x{result & 0xFFFFFFFF:08x}")
+    try:
+        if output.value is None:
+            raise RuntimeError("Known-folder API returned no path")
+        return Path(output.value)
+    finally:
+        ole32.CoTaskMemFree(output)
+
+
+def _registry_security_descriptor(key: Any) -> str:
+    advapi32 = cast(Any, ctypes).WinDLL("advapi32", use_last_error=True)
+    flags = 0x00000001 | 0x00000004
+    needed = ctypes.c_ulong()
+    status = advapi32.RegGetKeySecurity(int(key.handle), flags, None, ctypes.byref(needed))
+    if status not in (0, 122):
+        raise OSError(status, "RegGetKeySecurity size query failed")
+    buffer = ctypes.create_string_buffer(needed.value)
+    status = advapi32.RegGetKeySecurity(int(key.handle), flags, buffer, ctypes.byref(needed))
+    if status:
+        raise OSError(status, "RegGetKeySecurity failed")
+    return buffer.raw[: needed.value].hex()
+
+
+def _registry_native_value(value: RegistryValue) -> tuple[object, int]:
+    winreg = cast(Any, importlib.import_module("winreg"))
+    kinds = {
+        "REG_SZ": winreg.REG_SZ,
+        "REG_EXPAND_SZ": winreg.REG_EXPAND_SZ,
+        "REG_MULTI_SZ": winreg.REG_MULTI_SZ,
+        "REG_BINARY": winreg.REG_BINARY,
+        "REG_DWORD": winreg.REG_DWORD,
+        "REG_QWORD": winreg.REG_QWORD,
+    }
+    content: object = value.value
+    if value.value_type == "REG_BINARY":
+        if not isinstance(content, str):
+            raise ValueError("REG_BINARY snapshots use hexadecimal text")
+        content = bytes.fromhex(content)
+    elif value.value_type == "REG_MULTI_SZ":
+        if not isinstance(content, tuple):
+            raise ValueError("REG_MULTI_SZ snapshots use string tuples")
+        content = list(content)
+    return content, kinds[value.value_type]
+
+
 def snapshot_registry(hive: Any, view: int, subkey: str) -> RegistrySnapshot:
     """Capture raw registry value types/content in canonical name order."""
     _require_windows()
@@ -123,7 +180,7 @@ def snapshot_registry(hive: Any, view: int, subkey: str) -> RegistrySnapshot:
         return RegistrySnapshot(
             exists=True,
             values=tuple(values),
-            security_descriptor=None,
+            security_descriptor=_registry_security_descriptor(key),
         )
 
 
@@ -173,6 +230,36 @@ class WindowsResourceBackend:
 
         self._guard_subkey(subkey)
         return snapshot_registry(winreg.HKEY_LOCAL_MACHINE, winreg.KEY_WOW64_64KEY, subkey)
+
+    def apply_registry(self, subkey: str, expected: RegistrySnapshot) -> None:
+        winreg = cast(Any, importlib.import_module("winreg"))
+        self._guard_subkey(subkey)
+        access = winreg.KEY_ALL_ACCESS | winreg.KEY_WOW64_64KEY
+        if not expected.exists:
+            try:
+                winreg.DeleteKeyEx(
+                    winreg.HKEY_LOCAL_MACHINE,
+                    subkey,
+                    access=winreg.KEY_WOW64_64KEY,
+                )
+            except FileNotFoundError:
+                return
+            return
+        with winreg.CreateKeyEx(winreg.HKEY_LOCAL_MACHINE, subkey, 0, access) as key:
+            children, count, _ = winreg.QueryInfoKey(key)
+            if children:
+                raise ValueError("Refusing to replace a key with child keys")
+            current = [winreg.EnumValue(key, index)[0] for index in range(count)]
+            expected_names = {value.name.casefold() for value in expected.values}
+            for name in current:
+                if name.casefold() not in expected_names:
+                    winreg.DeleteValue(key, name)
+            for value in expected.values:
+                content, kind = _registry_native_value(value)
+                winreg.SetValueEx(key, value.name, 0, kind, content)
+            winreg.FlushKey(key)
+        if self.registry_snapshot(subkey).values != expected.values:
+            raise RuntimeError("Registry postcondition verification failed")
 
     @staticmethod
     def _guard_subkey(subkey: str) -> None:
