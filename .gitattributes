@@ -1,0 +1,13 @@
+# Native build provenance must hash identical source bytes on every host.
+*.py text eol=lf
+*.json text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.def text eol=lf
+*.rc text eol=lf
+*.vcxproj text eol=lf
+linux/symbols-bg-dv text eol=lf
+*.dll binary
+*.exe binary
+# Preserve the byte-for-byte, hash-pinned upstream ABI reference.
+windows/layout/reference/kbdus.c whitespace=-blank-at-eol

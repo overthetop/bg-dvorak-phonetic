@@ -115,6 +115,31 @@ jobs:
         run: |
           uv run --locked pytest -v tests/unit/test_windows_resources.py --junitxml=evidence/resources.xml
           exit $LASTEXITCODE
+      - name: Run native asset contracts
+        run: |
+          uv run --locked pytest -v tests/contract/test_windows_layout.py --junitxml=evidence/layout-contracts.xml
+          exit $LASTEXITCODE
+      - name: Build and validate x64 layout twice
+        if: matrix.os == 'windows-11-arm'
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $installation = 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise'
+          $compiler = Join-Path $installation 'VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64'
+          $msbuild = Join-Path $installation 'MSBuild\Current\Bin\MSBuild.exe'
+          $kits = Join-Path $env:RUNNER_TEMP 'bg-dvorak-kits'
+          uv run --locked python tools/build_windows_layout.py --compiler-root $compiler --msbuild $msbuild --kits $kits
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --locked python tools/validate_windows_layout.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $first = (Get-Content windows/assets/manifest.json -Raw | ConvertFrom-Json).dll.sha256
+          uv run --locked python tools/build_windows_layout.py --compiler-root $compiler --msbuild $msbuild --kits $kits
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $second = (Get-Content windows/assets/manifest.json -Raw | ConvertFrom-Json).dll.sha256
+          if ($first -ne $second) { throw 'Native DLL build is not deterministic' }
+          uv run --locked python tools/validate_windows_layout.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Copy-Item windows/assets evidence/assets -Recurse
+          @{first_sha256=$first; second_sha256=$second; commit='${{ github.sha }}'} | ConvertTo-Json | Set-Content evidence/build.json
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
