@@ -68,3 +68,37 @@ For native Ubuntu fixture timings and diagnostic transcripts, run
 `uv run --locked python tools/measure_linux.py`. It reads distro XKB inputs, seeds explicit
 fresh/update/repair states in temporary copies, runs the native validator, and refreshes
 `validation/performance.md` and `validation/us3.md`. It never writes live keyboard paths.
+
+## Windows native build prerequisites
+
+Native input acquisition is locked in `windows/toolchain.lock.json`: VS 2022 17.14.37628.2,
+MSVC 19.44.35228.0 (toolset directory 14.44.35207), linker 14.44.35228.0, MSBuild 17.14.51.32402,
+and Microsoft SDK CPP, SDK CPP x64 and WDK x64 NuGet packages 10.0.26100.6584. Package URLs,
+SHA-256 values and native tool hashes are recorded. All 72 files alongside the selected
+Hostx64/x64 compiler were hashed. Upstream sample revision/license is in `windows/layout/NOTICE.md`.
+
+GitHub Actions run 35468187758 captured these tools on `windows-11-arm` image 20260914.169.1;
+the selected compiler targets x64 using Windows x64 emulation. ARM64 product support is not
+implied. Acquisition occurs only in the explicit maintainer prerequisite workflow. Future
+builds must verify the input lock and fail on mismatch rather than accepting runner updates.
+Product install/status/recover must never provision build tools or compile assets.
+
+The input lock being ready does not mean a layout was built or proved. The native proof still
+requires Windows 11 25H2 Home/Pro x64 desktop acceptance under normal security settings; follow
+the [validation protocol](../specs/002-add-windows-11/validation/README.md) and
+[quickstart](../specs/002-add-windows-11/quickstart.md). Hosted ARM64 Enterprise and x64 Server
+provide separate native API/build evidence.
+
+### Hosted Windows prerequisite checks
+
+`.github/workflows/windows-prerequisites.yml` runs the isolated resource fixture tests on
+`windows-2025` (x64 Server) and `windows-11-arm` (Windows 11 ARM64), with locked Python/uv.
+It records actual OS/build/architecture, installed Visual Studio/SDK inventory and available
+compiler/header hashes as downloadable artifacts. Missing tools remain missing; inventory
+collection alone does not establish a usable lock; run 35468187758 additionally acquired and
+verified the exact pinned packages and tools.
+
+The initial run uses the dedicated `windows-prerequisites-ci` branch. The workflow also supports
+manual dispatch once available on the default branch. This early prerequisite check is separate
+from the later five-job release coverage matrix. The ARM64 run tests resource scaffolding;
+it does not expand the product's x64 support scope or replace Home/Pro desktop acceptance.

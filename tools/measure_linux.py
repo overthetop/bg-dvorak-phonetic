@@ -7,14 +7,22 @@ import time
 import xml.etree.ElementTree as ET
 from dataclasses import replace
 from pathlib import Path
+from typing import TypedDict
 
 from bg_dvorak_phonetic.diagnostics import Diagnostics, InstallerError
 from bg_dvorak_phonetic.platforms.linux import LinuxAdapter, symbol_spans
 from bg_dvorak_phonetic.workflow import execute, project_root
 
+
+class Measurement(TypedDict):
+    scenario: str
+    action: str
+    seconds: float
+
+
 root = project_root()
-records = []
-transcripts = []
+records: list[Measurement] = []
+transcripts: list[str] = []
 with tempfile.TemporaryDirectory(prefix="bg-native-validation-") as name:
     temporary = Path(name)
     checkout = temporary / "checkout проект"
@@ -38,6 +46,8 @@ with tempfile.TemporaryDirectory(prefix="bg-native-validation-") as name:
         for layout in document.findall("./layoutList/layout"):
             if layout.findtext("configItem/name") == "bg":
                 variants = layout.find("variantList")
+                if variants is None:
+                    continue
                 for variant in list(variants):
                     if variant.findtext("configItem/name") == "bg-dvorak-phonetic":
                         variants.remove(variant)
@@ -49,7 +59,7 @@ with tempfile.TemporaryDirectory(prefix="bg-native-validation-") as name:
     context = replace(adapter.probe("system"), scope="user")
     adapter.context = context
 
-    def run(scenario, expected="unchanged"):
+    def run(scenario: str, expected: str = "unchanged") -> None:
         stream = io.StringIO()
         start = time.perf_counter()
         result = execute(adapter, context, yes=True, diagnostics=Diagnostics(stream=stream))

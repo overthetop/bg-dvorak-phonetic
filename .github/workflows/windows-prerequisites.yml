@@ -118,7 +118,7 @@ jobs:
           exit $LASTEXITCODE
       - name: Test isolated native resources
         run: |
-          uv run --locked pytest -v tests/unit/test_windows_resources.py --junitxml=evidence/resources.xml
+          uv run --locked pytest -v tests/unit/test_windows_resources.py tests/unit/test_windows_native.py tests/contract/test_resource_backend.py --junitxml=evidence/resources.xml
           exit $LASTEXITCODE
       - name: Run native asset contracts
         run: |
