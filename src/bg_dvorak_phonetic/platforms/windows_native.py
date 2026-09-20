@@ -56,6 +56,67 @@ def _security_descriptor(path: Path) -> str:
     return buffer.raw[: needed.value].hex()
 
 
+def _validate_handle_identity(path: Path, root: Path) -> None:
+    """Validate the final native handle path, type, and link count."""
+    _require_windows()
+    windows = cast(Any, ctypes)
+    kernel32 = windows.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateFileW.restype = ctypes.c_void_p
+
+    class FileTime(ctypes.Structure):
+        _fields_ = [("low", ctypes.c_ulong), ("high", ctypes.c_ulong)]
+
+    class FileInformation(ctypes.Structure):
+        _fields_ = [
+            ("attributes", ctypes.c_ulong),
+            ("created", FileTime),
+            ("accessed", FileTime),
+            ("written", FileTime),
+            ("volume_serial", ctypes.c_ulong),
+            ("size_high", ctypes.c_ulong),
+            ("size_low", ctypes.c_ulong),
+            ("links", ctypes.c_ulong),
+            ("index_high", ctypes.c_ulong),
+            ("index_low", ctypes.c_ulong),
+        ]
+
+    handle = kernel32.CreateFileW(
+        str(path),
+        0x80,
+        0x1 | 0x2 | 0x4,
+        None,
+        3,
+        0x00200000,
+        None,
+    )
+    if handle == ctypes.c_void_p(-1).value:
+        raise windows.WinError(windows.get_last_error())
+    try:
+        information = FileInformation()
+        if not kernel32.GetFileInformationByHandle(handle, ctypes.byref(information)):
+            raise windows.WinError(windows.get_last_error())
+        if information.attributes & 0x400 or information.links != 1:
+            raise ValueError("Handle identifies a reparse point or multiply linked file")
+        size = kernel32.GetFinalPathNameByHandleW(handle, None, 0, 0)
+        if not size:
+            raise windows.WinError(windows.get_last_error())
+        buffer = ctypes.create_unicode_buffer(size + 1)
+        if not kernel32.GetFinalPathNameByHandleW(handle, buffer, len(buffer), 0):
+            raise windows.WinError(windows.get_last_error())
+        final = buffer.value
+        if final.startswith("\\\\?\\"):
+            final = final[4:]
+        final_path = Path(os.path.normcase(final))
+        expected = Path(os.path.normcase(path.resolve(strict=True)))
+        resolved_root = Path(os.path.normcase(root.resolve(strict=True)))
+        if final_path != expected or (
+            final_path.parent != resolved_root and resolved_root not in final_path.parents
+        ):
+            raise ValueError("Final handle identity escapes the fixed root")
+    finally:
+        kernel32.CloseHandle(handle)
+
+
 def guard_file_path(path: Path, root: Path, *, allow_absent: bool = True) -> Path:
     """Return a contained ordinary Windows path or reject ambiguous identities."""
     if not path.is_absolute() or not root.is_absolute() or ".." in path.parts:
@@ -87,6 +148,8 @@ def guard_file_path(path: Path, root: Path, *, allow_absent: bool = True) -> Pat
     resolved_parent = Path(os.path.normcase(path.parent.resolve(strict=True)))
     if resolved_parent != resolved_root and resolved_root not in resolved_parent.parents:
         raise ValueError("Resolved path escapes the fixed root")
+    if sys.platform == "win32" and path.exists():
+        _validate_handle_identity(path, root)
     return path
 
 
