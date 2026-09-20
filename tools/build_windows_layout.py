@@ -250,7 +250,7 @@ def build_typing_probes(
             "compiler": vc_root / "bin/Hostx64/x86",
             "machine": "X86",
             "define": "_X86_",
-            "entry": "_probe_entry",
+            "entry": "probe_entry",
             "libraries": kits / "microsoft.windows.sdk.cpp.x86/c/um/x86",
         },
     }
