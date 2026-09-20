@@ -117,6 +117,61 @@ def _validate_handle_identity(path: Path, root: Path) -> None:
         kernel32.CloseHandle(handle)
 
 
+def _security_sddl(path: Path) -> str:
+    _require_windows()
+    windows = cast(Any, ctypes)
+    advapi32 = windows.WinDLL("advapi32", use_last_error=True)
+    kernel32 = windows.WinDLL("kernel32", use_last_error=True)
+    descriptor = bytes.fromhex(_security_descriptor(path))
+    buffer = ctypes.create_string_buffer(descriptor)
+    output = ctypes.c_wchar_p()
+    length = ctypes.c_ulong()
+    flags = 0x00000001 | 0x00000004
+    if not advapi32.ConvertSecurityDescriptorToStringSecurityDescriptorW(
+        buffer, 1, flags, ctypes.byref(output), ctypes.byref(length)
+    ):
+        raise windows.WinError(windows.get_last_error())
+    try:
+        if output.value is None:
+            raise RuntimeError("Security descriptor conversion returned no value")
+        return output.value
+    finally:
+        kernel32.LocalFree(output)
+
+
+def _validate_protected_sddl(sddl: str) -> None:
+    owner = re.search(r"(?:^|O:)(BA|SY)(?=G:|D:|S:|$)", sddl)
+    if owner is None:
+        raise PermissionError("Protected state owner must be Administrators or SYSTEM")
+    aces = re.findall(r"\(([^)]*)\)", sddl)
+    if not aces:
+        raise PermissionError("Protected state requires an explicit DACL")
+    for ace in aces:
+        fields = ace.split(";")
+        if len(fields) < 6 or fields[0] != "A" or fields[-1] not in {"BA", "SY"}:
+            raise PermissionError("Protected state DACL grants an unexpected principal")
+
+
+def _set_protected_security(path: Path) -> None:
+    _require_windows()
+    windows = cast(Any, ctypes)
+    advapi32 = windows.WinDLL("advapi32", use_last_error=True)
+    kernel32 = windows.WinDLL("kernel32", use_last_error=True)
+    descriptor = ctypes.c_void_p()
+    size = ctypes.c_ulong()
+    sddl = "O:BAG:BAD:P(A;;FA;;;SY)(A;;FA;;;BA)"
+    if not advapi32.ConvertStringSecurityDescriptorToSecurityDescriptorW(
+        sddl, 1, ctypes.byref(descriptor), ctypes.byref(size)
+    ):
+        raise windows.WinError(windows.get_last_error())
+    try:
+        flags = 0x00000001 | 0x00000004
+        if not advapi32.SetFileSecurityW(str(path), flags, descriptor):
+            raise windows.WinError(windows.get_last_error())
+    finally:
+        kernel32.LocalFree(descriptor)
+
+
 def guard_file_path(path: Path, root: Path, *, allow_absent: bool = True) -> Path:
     """Return a contained ordinary Windows path or reject ambiguous identities."""
     if not path.is_absolute() or not root.is_absolute() or ".." in path.parts:
@@ -257,6 +312,16 @@ class WindowsResourceBackend:
         if not self.system_root.is_absolute() or not state_root.is_absolute():
             raise ValueError("Windows roots must be absolute")
 
+    def prepare_state_root(self) -> None:
+        self.state_root.mkdir(parents=True, exist_ok=True)
+        _set_protected_security(self.state_root)
+        self.validate_state_root()
+
+    def validate_state_root(self) -> None:
+        if not self.state_root.is_dir():
+            raise FileNotFoundError("Protected state root is unavailable")
+        _validate_protected_sddl(_security_sddl(self.state_root))
+
     def snapshot_file(self, path: Path) -> Observation:
         guarded = guard_file_path(path, self.system_root)
         if not guarded.exists():
@@ -335,8 +400,7 @@ class WindowsResourceBackend:
     def acquire_lock(self) -> Iterator[None]:
         msvcrt = cast(Any, importlib.import_module("msvcrt"))
 
-        if not self.state_root.exists():
-            raise FileNotFoundError("Protected state root must be prepared before locking")
+        self.validate_state_root()
         path = self.state_root / "lock"
         descriptor = os.open(path, os.O_CREAT | os.O_RDWR | getattr(os, "O_BINARY", 0), 0o600)
         try:
@@ -354,8 +418,7 @@ class WindowsResourceBackend:
     def store_record(self, name: str, content: bytes) -> None:
         if not re.fullmatch(r"[A-Za-z0-9_.-]+", name):
             raise ValueError("Invalid record name")
-        if not self.state_root.is_dir():
-            raise FileNotFoundError("Protected state root is unavailable")
+        self.validate_state_root()
         descriptor, temporary_name = tempfile.mkstemp(prefix=".journal-", dir=self.state_root)
         temporary = Path(temporary_name)
         try:
@@ -377,6 +440,7 @@ class WindowsResourceBackend:
     def load_record(self, name: str) -> bytes:
         if not re.fullmatch(r"[A-Za-z0-9_.-]+", name):
             raise ValueError("Invalid record name")
+        self.validate_state_root()
         return (self.state_root / name).read_bytes()
 
     def reconcile_file(self, path: Path, before: Observation, after: Observation) -> Reconciliation:

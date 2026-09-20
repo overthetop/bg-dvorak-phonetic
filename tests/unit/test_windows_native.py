@@ -4,6 +4,7 @@ import pytest
 
 from bg_dvorak_phonetic.platforms.windows_native import (
     WindowsResourceBackend,
+    _validate_protected_sddl,
     guard_file_path,
     resolve_known_folder,
     snapshot_registry,
@@ -71,13 +72,17 @@ def test_native_registry_snapshot_preserves_types_and_order():
 def test_windows_backend_file_roundtrip_and_read_only_inspection():
     with windows_resources() as resources:
         state = resources.root / "state"
-        state.mkdir()
         system = resources.root / "system"
         system.mkdir()
         source = resources.root / "source"
         source.write_bytes(b"layout")
         destination = system / "bgdv.dll"
         backend = WindowsResourceBackend(system, state)
+        backend.prepare_state_root()
+        backend.validate_state_root()
+        with backend.acquire_lock():
+            backend.store_record("journal", b"record")
+        assert backend.load_record("journal") == b"record"
 
         before_names = set(state.iterdir())
         assert not backend.snapshot_file(destination).exists
@@ -97,3 +102,13 @@ def test_known_folder_resolution_uses_native_api():
     assert program_data.is_absolute()
     assert system.is_absolute()
     assert program_data.name.casefold() == "programdata"
+
+
+def test_protected_state_sddl_allows_only_system_and_administrators():
+    _validate_protected_sddl("O:BAG:BAD:P(A;;FA;;;SY)(A;;FA;;;BA)")
+    with pytest.raises(PermissionError, match="owner"):
+        _validate_protected_sddl("O:OWG:OWD:P(A;;FA;;;SY)(A;;FA;;;BA)")
+    with pytest.raises(PermissionError, match="unexpected principal"):
+        _validate_protected_sddl("O:BAG:BAD:P(A;;FA;;;SY)(A;;FA;;;BU)")
+    with pytest.raises(PermissionError, match="explicit DACL"):
+        _validate_protected_sddl("O:BAG:BAD:P")
