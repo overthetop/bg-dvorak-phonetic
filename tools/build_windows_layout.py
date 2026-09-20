@@ -307,6 +307,9 @@ def main(argv: list[str] | None = None) -> int:
         ).stdout.strip()
         manifest = {
             "source_revision": revision,
+            "logical_id": "bg-dvorak-phonetic",
+            "target": {"build_family": 26200, "editions": ["Home", "Pro"], "architecture": "x64"},
+            "mapping_sha256": sha256(ROOT / "windows/mapping.json"),
             "schema_version": 1,
             "architecture": "x64",
             "display_name": DISPLAY_NAME,

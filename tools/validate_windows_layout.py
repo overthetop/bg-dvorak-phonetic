@@ -168,7 +168,11 @@ def validate_manifest(
     revision = manifest.get("source_revision")
     if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision):
         raise ValueError("Invalid source revision provenance")
+    if type(manifest.get("schema_version")) is not int:
+        raise ValueError("Invalid manifest schema version type")
     expected = {
+        "logical_id": "bg-dvorak-phonetic",
+        "target": {"build_family": 26200, "editions": ["Home", "Pro"], "architecture": "x64"},
         "schema_version": 1,
         "architecture": "x64",
         "display_name": DISPLAY_NAME,
@@ -194,7 +198,11 @@ def validate_manifest(
     names = [path.name.casefold() for path in asset_root.iterdir()]
     if len(names) != len(set(names)):
         raise ValueError("Case-insensitive duplicate asset names")
+    if manifest.get("mapping_sha256") != sources["windows/mapping.json"]:
+        raise ValueError("Mapping provenance mismatch")
     artifact = manifest["dll"]
+    if not isinstance(artifact, dict) or set(artifact) != {"path", "sha256"}:
+        raise ValueError("Invalid DLL metadata")
     expected_hash = artifact["sha256"]
     if not isinstance(expected_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_hash):
         raise ValueError("Invalid DLL hash")

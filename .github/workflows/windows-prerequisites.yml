@@ -95,7 +95,12 @@ jobs:
           $compilerHeaders = @(Get-ChildItem $headerRoot -Recurse -File | Sort-Object FullName | ForEach-Object {
             @{name=[IO.Path]::GetRelativePath($headerRoot, $_.FullName); sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
           })
+          $probeCompiler = Join-Path $installation 'VC\Tools\MSVC\14.44.35207\bin\Hostx64\x86'
+          $probeInputs = @(Get-ChildItem $probeCompiler -File | Sort-Object Name | ForEach-Object {
+            @{name=$_.Name; version=$_.VersionInfo.FileVersion; sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
+          })
           $record = @{
+            probe_compiler_inputs=$probeInputs
             compiler_headers=$compilerHeaders
             commit='${{ github.sha }}'; runner='${{ matrix.os }}'; image_version=$env:ImageVersion
             captured_utc=[DateTime]::UtcNow.ToString('o'); visual_studio_version=$vs[0].installationVersion

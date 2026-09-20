@@ -37,6 +37,13 @@
       "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.wdk.x64/10.0.26100.6584/microsoft.windows.wdk.x64.10.0.26100.6584.nupkg",
       "sha256": "c393d03dfb640b5c92f546b32f6770ef68cd3aaf691956e7d66d8e2c28a1b55e",
       "size": 110872506
+    },
+    {
+      "package": "microsoft.windows.sdk.cpp.x86",
+      "version": "10.0.26100.6584",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.cpp.x86/10.0.26100.6584/microsoft.windows.sdk.cpp.x86.10.0.26100.6584.nupkg",
+      "sha256": "47bfc24ae5d594b62154acc062e04f7a0e54ff1534a50659f71cb40e878ee9cf",
+      "size": 49788719
     }
   ],
   "upstream_reference": {

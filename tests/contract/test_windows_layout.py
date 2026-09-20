@@ -175,6 +175,9 @@ def asset_fixture(tmp_path):
     (source / "toolchain.lock.json").write_text(json.dumps(lock))
     manifest = {
         "source_revision": "1" * 40,
+        "logical_id": "bg-dvorak-phonetic",
+        "target": {"build_family": 26200, "editions": ["Home", "Pro"], "architecture": "x64"},
+        "mapping_sha256": hashlib.sha256(b"mapping").hexdigest(),
         "schema_version": 1,
         "architecture": "x64",
         "display_name": "Bulgarian (Dvorak phonetic)",
@@ -287,3 +290,11 @@ def test_generated_control_characters_preserve_native_base_layout():
         (0x09, "WCH_NONE", "WCH_NONE"),
     ]:
         assert rows[vk][2:4] == [control, shifted_control]
+
+
+@pytest.mark.parametrize(
+    "manifest", [None, [], True, {}, {"source_revision": "1" * 40, "schema_version": True}]
+)
+def test_malformed_manifest_types_are_rejected(tmp_path, manifest):
+    with pytest.raises(ValueError):
+        validate_manifest(manifest, tmp_path, tmp_path, tmp_path / "lock.json")
