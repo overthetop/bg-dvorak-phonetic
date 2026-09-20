@@ -18,6 +18,7 @@ from bg_dvorak_phonetic.models import (
     validate_id,
 )
 from bg_dvorak_phonetic.platforms.base import FileSystem
+from bg_dvorak_phonetic.resources import PosixResourceBackend
 from bg_dvorak_phonetic.workflow import digest, safe_path
 
 
@@ -125,17 +126,8 @@ def remove_object(path: Path) -> None:
         path.unlink(missing_ok=True)
 
 
-class LocalFileSystem:
-    """Native filesystem boundary, replaceable for operation-level fault tests."""
-
-    def read_bytes(self, path: Path) -> bytes:
-        return path.read_bytes()
-
-    def replace(self, source: Path, target: Path) -> None:
-        os.replace(source, target)
-
-    def unlink(self, path: Path) -> None:
-        path.unlink(missing_ok=True)
+class LocalFileSystem(PosixResourceBackend):
+    """Compatibility name for the default POSIX resource backend."""
 
 
 class Transaction:
@@ -147,10 +139,13 @@ class Transaction:
         fault: Callable[[str, int], None] | None = None,
         lock_factory: Callable[[PlatformContext], AbstractContextManager[None]] = scope_lock,
         filesystem: FileSystem | None = None,
+        resource_backend: FileSystem | None = None,
     ) -> None:
+        if filesystem is not None and resource_backend is not None:
+            raise ValueError("Choose one injected resource backend")
         self.fault = fault or (lambda stage, index: None)
         self.lock_factory = lock_factory
-        self.filesystem = filesystem or LocalFileSystem()
+        self.filesystem = resource_backend or filesystem or LocalFileSystem()
 
     def _save(self, root: Path, record: RecoveryRecord) -> None:
         path = root / "journal.json"

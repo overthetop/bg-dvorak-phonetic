@@ -10,7 +10,7 @@ MATRIX = ("ubuntu-24.04", "macos-15-intel", "macos-15", "macos-26")
 
 def collect(root: Path, commit: str, destination: Path) -> None:
     """Validate every artifact before copying any coverage input."""
-    inputs = []
+    inputs: list[tuple[str, Path]] = []
     for label in MATRIX:
         folder = root / f"native-{label}-{commit}"
         metadata = json.loads((folder / "metadata.json").read_text(encoding="utf-8"))

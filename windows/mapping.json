@@ -1,0 +1,4133 @@
+{
+  "schema_version": 1,
+  "source": "linux/symbols-bg-dv",
+  "architecture": "x64",
+  "display_name": "Bulgarian (Dvorak phonetic)",
+  "klid": "A0D00402",
+  "layout_id": "0D00",
+  "resource_id": 1,
+  "modifiers": [
+    "base",
+    "shift",
+    "altgr",
+    "shift_altgr"
+  ],
+  "keys": [
+    {
+      "position": "TLDE",
+      "scan_code": 41,
+      "virtual_key": 192,
+      "source_keysyms": [
+        "grave",
+        "asciitilde",
+        "dead_grave",
+        "dead_tilde"
+      ],
+      "levels": [
+        "`",
+        "~",
+        "dead_grave",
+        "dead_tilde"
+      ],
+      "caps_levels": [
+        "`",
+        "~",
+        "dead_grave",
+        "dead_tilde"
+      ]
+    },
+    {
+      "position": "AE01",
+      "scan_code": 2,
+      "virtual_key": 49,
+      "source_keysyms": [
+        "1",
+        "exclam"
+      ],
+      "levels": [
+        "1",
+        "!",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "1",
+        "!",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE02",
+      "scan_code": 3,
+      "virtual_key": 50,
+      "source_keysyms": [
+        "2",
+        "at"
+      ],
+      "levels": [
+        "2",
+        "@",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "2",
+        "@",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE03",
+      "scan_code": 4,
+      "virtual_key": 51,
+      "source_keysyms": [
+        "3",
+        "numbersign"
+      ],
+      "levels": [
+        "3",
+        "#",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "3",
+        "#",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE04",
+      "scan_code": 5,
+      "virtual_key": 52,
+      "source_keysyms": [
+        "4",
+        "dollar"
+      ],
+      "levels": [
+        "4",
+        "$",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "4",
+        "$",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE05",
+      "scan_code": 6,
+      "virtual_key": 53,
+      "source_keysyms": [
+        "5",
+        "percent"
+      ],
+      "levels": [
+        "5",
+        "%",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "5",
+        "%",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE06",
+      "scan_code": 7,
+      "virtual_key": 54,
+      "source_keysyms": [
+        "6",
+        "asciicircum",
+        "dead_circumflex",
+        "dead_circumflex"
+      ],
+      "levels": [
+        "6",
+        "^",
+        "dead_circumflex",
+        "dead_circumflex"
+      ],
+      "caps_levels": [
+        "6",
+        "^",
+        "dead_circumflex",
+        "dead_circumflex"
+      ]
+    },
+    {
+      "position": "AE07",
+      "scan_code": 8,
+      "virtual_key": 55,
+      "source_keysyms": [
+        "7",
+        "ampersand"
+      ],
+      "levels": [
+        "7",
+        "&",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "7",
+        "&",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE08",
+      "scan_code": 9,
+      "virtual_key": 56,
+      "source_keysyms": [
+        "8",
+        "asterisk"
+      ],
+      "levels": [
+        "8",
+        "*",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "8",
+        "*",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE09",
+      "scan_code": 10,
+      "virtual_key": 57,
+      "source_keysyms": [
+        "9",
+        "parenleft",
+        "dead_grave",
+        "dead_breve"
+      ],
+      "levels": [
+        "9",
+        "(",
+        "dead_grave",
+        "dead_breve"
+      ],
+      "caps_levels": [
+        "9",
+        "(",
+        "dead_grave",
+        "dead_breve"
+      ]
+    },
+    {
+      "position": "AE10",
+      "scan_code": 11,
+      "virtual_key": 48,
+      "source_keysyms": [
+        "0",
+        "parenright"
+      ],
+      "levels": [
+        "0",
+        ")",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "0",
+        ")",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE11",
+      "scan_code": 12,
+      "virtual_key": 219,
+      "source_keysyms": [
+        "bracketleft",
+        "braceleft"
+      ],
+      "levels": [
+        "[",
+        "{",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "[",
+        "{",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AE12",
+      "scan_code": 13,
+      "virtual_key": 221,
+      "source_keysyms": [
+        "bracketright",
+        "braceright",
+        "dead_tilde"
+      ],
+      "levels": [
+        "]",
+        "}",
+        "dead_tilde",
+        null
+      ],
+      "caps_levels": [
+        "]",
+        "}",
+        "dead_tilde",
+        null
+      ]
+    },
+    {
+      "position": "AD01",
+      "scan_code": 16,
+      "virtual_key": 222,
+      "source_keysyms": [
+        "Cyrillic_yu",
+        "Cyrillic_YU"
+      ],
+      "levels": [
+        "ю",
+        "Ю",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Ю",
+        "ю",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD02",
+      "scan_code": 17,
+      "virtual_key": 188,
+      "source_keysyms": [
+        "comma",
+        "doublelowquotemark"
+      ],
+      "levels": [
+        ",",
+        "„",
+        null,
+        null
+      ],
+      "caps_levels": [
+        ",",
+        "„",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD03",
+      "scan_code": 18,
+      "virtual_key": 190,
+      "source_keysyms": [
+        "period",
+        "leftdoublequotemark"
+      ],
+      "levels": [
+        ".",
+        "“",
+        null,
+        null
+      ],
+      "caps_levels": [
+        ".",
+        "“",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD04",
+      "scan_code": 19,
+      "virtual_key": 80,
+      "source_keysyms": [
+        "Cyrillic_pe",
+        "Cyrillic_PE"
+      ],
+      "levels": [
+        "п",
+        "П",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "П",
+        "п",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD05",
+      "scan_code": 20,
+      "virtual_key": 89,
+      "source_keysyms": [
+        "Cyrillic_u",
+        "Cyrillic_U"
+      ],
+      "levels": [
+        "у",
+        "У",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "У",
+        "у",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD06",
+      "scan_code": 21,
+      "virtual_key": 70,
+      "source_keysyms": [
+        "Cyrillic_ef",
+        "Cyrillic_EF"
+      ],
+      "levels": [
+        "ф",
+        "Ф",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Ф",
+        "ф",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD07",
+      "scan_code": 22,
+      "virtual_key": 71,
+      "source_keysyms": [
+        "Cyrillic_ghe",
+        "Cyrillic_GHE"
+      ],
+      "levels": [
+        "г",
+        "Г",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Г",
+        "г",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD08",
+      "scan_code": 23,
+      "virtual_key": 67,
+      "source_keysyms": [
+        "Cyrillic_tse",
+        "Cyrillic_TSE",
+        "copyright",
+        "copyright"
+      ],
+      "levels": [
+        "ц",
+        "Ц",
+        "©",
+        "©"
+      ],
+      "caps_levels": [
+        "Ц",
+        "ц",
+        "©",
+        "©"
+      ]
+    },
+    {
+      "position": "AD09",
+      "scan_code": 24,
+      "virtual_key": 82,
+      "source_keysyms": [
+        "Cyrillic_er",
+        "Cyrillic_ER",
+        "registered",
+        "registered"
+      ],
+      "levels": [
+        "р",
+        "Р",
+        "®",
+        "®"
+      ],
+      "caps_levels": [
+        "Р",
+        "р",
+        "®",
+        "®"
+      ]
+    },
+    {
+      "position": "AD10",
+      "scan_code": 25,
+      "virtual_key": 76,
+      "source_keysyms": [
+        "Cyrillic_el",
+        "Cyrillic_EL"
+      ],
+      "levels": [
+        "л",
+        "Л",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Л",
+        "л",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD11",
+      "scan_code": 26,
+      "virtual_key": 191,
+      "source_keysyms": [
+        "slash",
+        "question"
+      ],
+      "levels": [
+        "/",
+        "?",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "/",
+        "?",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AD12",
+      "scan_code": 27,
+      "virtual_key": 187,
+      "source_keysyms": [
+        "Cyrillic_sha",
+        "Cyrillic_SHA"
+      ],
+      "levels": [
+        "ш",
+        "Ш",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Ш",
+        "ш",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC01",
+      "scan_code": 30,
+      "virtual_key": 65,
+      "source_keysyms": [
+        "Cyrillic_a",
+        "Cyrillic_A"
+      ],
+      "levels": [
+        "а",
+        "А",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "А",
+        "а",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC02",
+      "scan_code": 31,
+      "virtual_key": 79,
+      "source_keysyms": [
+        "Cyrillic_o",
+        "Cyrillic_O"
+      ],
+      "levels": [
+        "о",
+        "О",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "О",
+        "о",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC03",
+      "scan_code": 32,
+      "virtual_key": 69,
+      "source_keysyms": [
+        "Cyrillic_ie",
+        "Cyrillic_IE",
+        "Cyrillic_e",
+        "Cyrillic_E"
+      ],
+      "levels": [
+        "е",
+        "Е",
+        "э",
+        "Э"
+      ],
+      "caps_levels": [
+        "Е",
+        "е",
+        "Э",
+        "э"
+      ]
+    },
+    {
+      "position": "AC04",
+      "scan_code": 33,
+      "virtual_key": 85,
+      "source_keysyms": [
+        "Cyrillic_hardsign",
+        "Cyrillic_HARDSIGN",
+        "U046B",
+        "U046A"
+      ],
+      "levels": [
+        "ъ",
+        "Ъ",
+        "ѫ",
+        "Ѫ"
+      ],
+      "caps_levels": [
+        "Ъ",
+        "ъ",
+        "Ѫ",
+        "ѫ"
+      ]
+    },
+    {
+      "position": "AC05",
+      "scan_code": 34,
+      "virtual_key": 73,
+      "source_keysyms": [
+        "Cyrillic_i",
+        "Cyrillic_I"
+      ],
+      "levels": [
+        "и",
+        "И",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "И",
+        "и",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC06",
+      "scan_code": 35,
+      "virtual_key": 68,
+      "source_keysyms": [
+        "Cyrillic_de",
+        "Cyrillic_DE"
+      ],
+      "levels": [
+        "д",
+        "Д",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Д",
+        "д",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC07",
+      "scan_code": 36,
+      "virtual_key": 72,
+      "source_keysyms": [
+        "Cyrillic_ha",
+        "Cyrillic_HA"
+      ],
+      "levels": [
+        "х",
+        "Х",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Х",
+        "х",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC08",
+      "scan_code": 37,
+      "virtual_key": 84,
+      "source_keysyms": [
+        "Cyrillic_te",
+        "Cyrillic_TE",
+        "trademark",
+        "trademark"
+      ],
+      "levels": [
+        "т",
+        "Т",
+        "™",
+        "™"
+      ],
+      "caps_levels": [
+        "Т",
+        "т",
+        "™",
+        "™"
+      ]
+    },
+    {
+      "position": "AC09",
+      "scan_code": 38,
+      "virtual_key": 78,
+      "source_keysyms": [
+        "Cyrillic_en",
+        "Cyrillic_EN"
+      ],
+      "levels": [
+        "н",
+        "Н",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Н",
+        "н",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AC10",
+      "scan_code": 39,
+      "virtual_key": 83,
+      "source_keysyms": [
+        "Cyrillic_es",
+        "Cyrillic_ES",
+        "copyright",
+        "copyright"
+      ],
+      "levels": [
+        "с",
+        "С",
+        "©",
+        "©"
+      ],
+      "caps_levels": [
+        "С",
+        "с",
+        "©",
+        "©"
+      ]
+    },
+    {
+      "position": "AC11",
+      "scan_code": 40,
+      "virtual_key": 189,
+      "source_keysyms": [
+        "minus",
+        "underscore"
+      ],
+      "levels": [
+        "-",
+        "_",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "-",
+        "_",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB01",
+      "scan_code": 44,
+      "virtual_key": 186,
+      "source_keysyms": [
+        "semicolon",
+        "colon",
+        "dead_ogonek",
+        "dead_doubleacute"
+      ],
+      "levels": [
+        ";",
+        ":",
+        "dead_ogonek",
+        "dead_doubleacute"
+      ],
+      "caps_levels": [
+        ";",
+        ":",
+        "dead_ogonek",
+        "dead_doubleacute"
+      ]
+    },
+    {
+      "position": "AB02",
+      "scan_code": 45,
+      "virtual_key": 81,
+      "source_keysyms": [
+        "Cyrillic_ya",
+        "Cyrillic_YA",
+        "U0463",
+        "U0462"
+      ],
+      "levels": [
+        "я",
+        "Я",
+        "ѣ",
+        "Ѣ"
+      ],
+      "caps_levels": [
+        "Я",
+        "я",
+        "Ѣ",
+        "ѣ"
+      ]
+    },
+    {
+      "position": "AB03",
+      "scan_code": 46,
+      "virtual_key": 74,
+      "source_keysyms": [
+        "Cyrillic_shorti",
+        "Cyrillic_SHORTI",
+        "U046D",
+        "U046C"
+      ],
+      "levels": [
+        "й",
+        "Й",
+        "ѭ",
+        "Ѭ"
+      ],
+      "caps_levels": [
+        "Й",
+        "й",
+        "Ѭ",
+        "ѭ"
+      ]
+    },
+    {
+      "position": "AB04",
+      "scan_code": 47,
+      "virtual_key": 75,
+      "source_keysyms": [
+        "Cyrillic_ka",
+        "Cyrillic_KA"
+      ],
+      "levels": [
+        "к",
+        "К",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "К",
+        "к",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB05",
+      "scan_code": 48,
+      "virtual_key": 88,
+      "source_keysyms": [
+        "Cyrillic_che",
+        "Cyrillic_CHE"
+      ],
+      "levels": [
+        "ч",
+        "Ч",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Ч",
+        "ч",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB06",
+      "scan_code": 49,
+      "virtual_key": 66,
+      "source_keysyms": [
+        "Cyrillic_be",
+        "Cyrillic_BE"
+      ],
+      "levels": [
+        "б",
+        "Б",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Б",
+        "б",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB07",
+      "scan_code": 50,
+      "virtual_key": 77,
+      "source_keysyms": [
+        "Cyrillic_em",
+        "Cyrillic_EM"
+      ],
+      "levels": [
+        "м",
+        "М",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "М",
+        "м",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB08",
+      "scan_code": 51,
+      "virtual_key": 87,
+      "source_keysyms": [
+        "Cyrillic_zhe",
+        "Cyrillic_ZHE"
+      ],
+      "levels": [
+        "ж",
+        "Ж",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Ж",
+        "ж",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB09",
+      "scan_code": 52,
+      "virtual_key": 86,
+      "source_keysyms": [
+        "Cyrillic_ve",
+        "Cyrillic_VE"
+      ],
+      "levels": [
+        "в",
+        "В",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "В",
+        "в",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "AB10",
+      "scan_code": 53,
+      "virtual_key": 90,
+      "source_keysyms": [
+        "Cyrillic_ze",
+        "Cyrillic_ZE"
+      ],
+      "levels": [
+        "з",
+        "З",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "З",
+        "з",
+        null,
+        null
+      ]
+    },
+    {
+      "position": "BKSL",
+      "scan_code": 43,
+      "virtual_key": 220,
+      "source_keysyms": [
+        "Cyrillic_shcha",
+        "Cyrillic_SHCHA"
+      ],
+      "levels": [
+        "щ",
+        "Щ",
+        null,
+        null
+      ],
+      "caps_levels": [
+        "Щ",
+        "щ",
+        null,
+        null
+      ]
+    }
+  ],
+  "dead_keys": [
+    {
+      "name": "dead_grave",
+      "spacing": "`",
+      "combining": "̀",
+      "cases": [
+        {
+          "next": "!",
+          "output": "`!",
+          "pending": null
+        },
+        {
+          "next": "#",
+          "output": "`#",
+          "pending": null
+        },
+        {
+          "next": "$",
+          "output": "`$",
+          "pending": null
+        },
+        {
+          "next": "%",
+          "output": "`%",
+          "pending": null
+        },
+        {
+          "next": "&",
+          "output": "`&",
+          "pending": null
+        },
+        {
+          "next": "(",
+          "output": "`(",
+          "pending": null
+        },
+        {
+          "next": ")",
+          "output": "`)",
+          "pending": null
+        },
+        {
+          "next": "*",
+          "output": "`*",
+          "pending": null
+        },
+        {
+          "next": ",",
+          "output": "`,",
+          "pending": null
+        },
+        {
+          "next": "-",
+          "output": "`-",
+          "pending": null
+        },
+        {
+          "next": ".",
+          "output": "`.",
+          "pending": null
+        },
+        {
+          "next": "/",
+          "output": "`/",
+          "pending": null
+        },
+        {
+          "next": "0",
+          "output": "`0",
+          "pending": null
+        },
+        {
+          "next": "1",
+          "output": "`1",
+          "pending": null
+        },
+        {
+          "next": "2",
+          "output": "`2",
+          "pending": null
+        },
+        {
+          "next": "3",
+          "output": "`3",
+          "pending": null
+        },
+        {
+          "next": "4",
+          "output": "`4",
+          "pending": null
+        },
+        {
+          "next": "5",
+          "output": "`5",
+          "pending": null
+        },
+        {
+          "next": "6",
+          "output": "`6",
+          "pending": null
+        },
+        {
+          "next": "7",
+          "output": "`7",
+          "pending": null
+        },
+        {
+          "next": "8",
+          "output": "`8",
+          "pending": null
+        },
+        {
+          "next": "9",
+          "output": "`9",
+          "pending": null
+        },
+        {
+          "next": ":",
+          "output": "`:",
+          "pending": null
+        },
+        {
+          "next": ";",
+          "output": "`;",
+          "pending": null
+        },
+        {
+          "next": "?",
+          "output": "`?",
+          "pending": null
+        },
+        {
+          "next": "@",
+          "output": "`@",
+          "pending": null
+        },
+        {
+          "next": "[",
+          "output": "`[",
+          "pending": null
+        },
+        {
+          "next": "]",
+          "output": "`]",
+          "pending": null
+        },
+        {
+          "next": "^",
+          "output": "`^",
+          "pending": null
+        },
+        {
+          "next": "_",
+          "output": "`_",
+          "pending": null
+        },
+        {
+          "next": "`",
+          "output": "``",
+          "pending": null
+        },
+        {
+          "next": "{",
+          "output": "`{",
+          "pending": null
+        },
+        {
+          "next": "}",
+          "output": "`}",
+          "pending": null
+        },
+        {
+          "next": "~",
+          "output": "`~",
+          "pending": null
+        },
+        {
+          "next": "А",
+          "output": "`А",
+          "pending": null
+        },
+        {
+          "next": "Б",
+          "output": "`Б",
+          "pending": null
+        },
+        {
+          "next": "В",
+          "output": "`В",
+          "pending": null
+        },
+        {
+          "next": "Г",
+          "output": "`Г",
+          "pending": null
+        },
+        {
+          "next": "Д",
+          "output": "`Д",
+          "pending": null
+        },
+        {
+          "next": "Е",
+          "output": "Ѐ",
+          "pending": null
+        },
+        {
+          "next": "Ж",
+          "output": "`Ж",
+          "pending": null
+        },
+        {
+          "next": "З",
+          "output": "`З",
+          "pending": null
+        },
+        {
+          "next": "И",
+          "output": "Ѝ",
+          "pending": null
+        },
+        {
+          "next": "Й",
+          "output": "`Й",
+          "pending": null
+        },
+        {
+          "next": "К",
+          "output": "`К",
+          "pending": null
+        },
+        {
+          "next": "Л",
+          "output": "`Л",
+          "pending": null
+        },
+        {
+          "next": "М",
+          "output": "`М",
+          "pending": null
+        },
+        {
+          "next": "Н",
+          "output": "`Н",
+          "pending": null
+        },
+        {
+          "next": "О",
+          "output": "`О",
+          "pending": null
+        },
+        {
+          "next": "П",
+          "output": "`П",
+          "pending": null
+        },
+        {
+          "next": "Р",
+          "output": "`Р",
+          "pending": null
+        },
+        {
+          "next": "С",
+          "output": "`С",
+          "pending": null
+        },
+        {
+          "next": "Т",
+          "output": "`Т",
+          "pending": null
+        },
+        {
+          "next": "У",
+          "output": "`У",
+          "pending": null
+        },
+        {
+          "next": "Ф",
+          "output": "`Ф",
+          "pending": null
+        },
+        {
+          "next": "Х",
+          "output": "`Х",
+          "pending": null
+        },
+        {
+          "next": "Ц",
+          "output": "`Ц",
+          "pending": null
+        },
+        {
+          "next": "Ч",
+          "output": "`Ч",
+          "pending": null
+        },
+        {
+          "next": "Ш",
+          "output": "`Ш",
+          "pending": null
+        },
+        {
+          "next": "Щ",
+          "output": "`Щ",
+          "pending": null
+        },
+        {
+          "next": "Ъ",
+          "output": "`Ъ",
+          "pending": null
+        },
+        {
+          "next": "Ю",
+          "output": "`Ю",
+          "pending": null
+        },
+        {
+          "next": "Я",
+          "output": "`Я",
+          "pending": null
+        },
+        {
+          "next": "а",
+          "output": "`а",
+          "pending": null
+        },
+        {
+          "next": "б",
+          "output": "`б",
+          "pending": null
+        },
+        {
+          "next": "в",
+          "output": "`в",
+          "pending": null
+        },
+        {
+          "next": "г",
+          "output": "`г",
+          "pending": null
+        },
+        {
+          "next": "д",
+          "output": "`д",
+          "pending": null
+        },
+        {
+          "next": "е",
+          "output": "ѐ",
+          "pending": null
+        },
+        {
+          "next": "ж",
+          "output": "`ж",
+          "pending": null
+        },
+        {
+          "next": "з",
+          "output": "`з",
+          "pending": null
+        },
+        {
+          "next": "и",
+          "output": "ѝ",
+          "pending": null
+        },
+        {
+          "next": "й",
+          "output": "`й",
+          "pending": null
+        },
+        {
+          "next": "к",
+          "output": "`к",
+          "pending": null
+        },
+        {
+          "next": "л",
+          "output": "`л",
+          "pending": null
+        },
+        {
+          "next": "м",
+          "output": "`м",
+          "pending": null
+        },
+        {
+          "next": "н",
+          "output": "`н",
+          "pending": null
+        },
+        {
+          "next": "о",
+          "output": "`о",
+          "pending": null
+        },
+        {
+          "next": "п",
+          "output": "`п",
+          "pending": null
+        },
+        {
+          "next": "р",
+          "output": "`р",
+          "pending": null
+        },
+        {
+          "next": "с",
+          "output": "`с",
+          "pending": null
+        },
+        {
+          "next": "т",
+          "output": "`т",
+          "pending": null
+        },
+        {
+          "next": "у",
+          "output": "`у",
+          "pending": null
+        },
+        {
+          "next": "ф",
+          "output": "`ф",
+          "pending": null
+        },
+        {
+          "next": "х",
+          "output": "`х",
+          "pending": null
+        },
+        {
+          "next": "ц",
+          "output": "`ц",
+          "pending": null
+        },
+        {
+          "next": "ч",
+          "output": "`ч",
+          "pending": null
+        },
+        {
+          "next": "ш",
+          "output": "`ш",
+          "pending": null
+        },
+        {
+          "next": "щ",
+          "output": "`щ",
+          "pending": null
+        },
+        {
+          "next": "ъ",
+          "output": "`ъ",
+          "pending": null
+        },
+        {
+          "next": "ю",
+          "output": "`ю",
+          "pending": null
+        },
+        {
+          "next": "я",
+          "output": "`я",
+          "pending": null
+        },
+        {
+          "next": "“",
+          "output": "`“",
+          "pending": null
+        },
+        {
+          "next": "„",
+          "output": "`„",
+          "pending": null
+        },
+        {
+          "next": " ",
+          "output": "`",
+          "pending": null
+        },
+        {
+          "next": "dead_grave",
+          "output": "`",
+          "pending": null
+        },
+        {
+          "next": "Backspace",
+          "output": "",
+          "pending": null
+        },
+        {
+          "next": "dead_tilde",
+          "output": "`",
+          "pending": "dead_tilde"
+        },
+        {
+          "next": "dead_circumflex",
+          "output": "`",
+          "pending": "dead_circumflex"
+        },
+        {
+          "next": "dead_breve",
+          "output": "`",
+          "pending": "dead_breve"
+        },
+        {
+          "next": "dead_ogonek",
+          "output": "`",
+          "pending": "dead_ogonek"
+        },
+        {
+          "next": "dead_doubleacute",
+          "output": "`",
+          "pending": "dead_doubleacute"
+        }
+      ]
+    },
+    {
+      "name": "dead_tilde",
+      "spacing": "~",
+      "combining": "̃",
+      "cases": [
+        {
+          "next": "!",
+          "output": "~!",
+          "pending": null
+        },
+        {
+          "next": "#",
+          "output": "~#",
+          "pending": null
+        },
+        {
+          "next": "$",
+          "output": "~$",
+          "pending": null
+        },
+        {
+          "next": "%",
+          "output": "~%",
+          "pending": null
+        },
+        {
+          "next": "&",
+          "output": "~&",
+          "pending": null
+        },
+        {
+          "next": "(",
+          "output": "~(",
+          "pending": null
+        },
+        {
+          "next": ")",
+          "output": "~)",
+          "pending": null
+        },
+        {
+          "next": "*",
+          "output": "~*",
+          "pending": null
+        },
+        {
+          "next": ",",
+          "output": "~,",
+          "pending": null
+        },
+        {
+          "next": "-",
+          "output": "~-",
+          "pending": null
+        },
+        {
+          "next": ".",
+          "output": "~.",
+          "pending": null
+        },
+        {
+          "next": "/",
+          "output": "~/",
+          "pending": null
+        },
+        {
+          "next": "0",
+          "output": "~0",
+          "pending": null
+        },
+        {
+          "next": "1",
+          "output": "~1",
+          "pending": null
+        },
+        {
+          "next": "2",
+          "output": "~2",
+          "pending": null
+        },
+        {
+          "next": "3",
+          "output": "~3",
+          "pending": null
+        },
+        {
+          "next": "4",
+          "output": "~4",
+          "pending": null
+        },
+        {
+          "next": "5",
+          "output": "~5",
+          "pending": null
+        },
+        {
+          "next": "6",
+          "output": "~6",
+          "pending": null
+        },
+        {
+          "next": "7",
+          "output": "~7",
+          "pending": null
+        },
+        {
+          "next": "8",
+          "output": "~8",
+          "pending": null
+        },
+        {
+          "next": "9",
+          "output": "~9",
+          "pending": null
+        },
+        {
+          "next": ":",
+          "output": "~:",
+          "pending": null
+        },
+        {
+          "next": ";",
+          "output": "~;",
+          "pending": null
+        },
+        {
+          "next": "?",
+          "output": "~?",
+          "pending": null
+        },
+        {
+          "next": "@",
+          "output": "~@",
+          "pending": null
+        },
+        {
+          "next": "[",
+          "output": "~[",
+          "pending": null
+        },
+        {
+          "next": "]",
+          "output": "~]",
+          "pending": null
+        },
+        {
+          "next": "^",
+          "output": "~^",
+          "pending": null
+        },
+        {
+          "next": "_",
+          "output": "~_",
+          "pending": null
+        },
+        {
+          "next": "`",
+          "output": "~`",
+          "pending": null
+        },
+        {
+          "next": "{",
+          "output": "~{",
+          "pending": null
+        },
+        {
+          "next": "}",
+          "output": "~}",
+          "pending": null
+        },
+        {
+          "next": "~",
+          "output": "~~",
+          "pending": null
+        },
+        {
+          "next": "А",
+          "output": "~А",
+          "pending": null
+        },
+        {
+          "next": "Б",
+          "output": "~Б",
+          "pending": null
+        },
+        {
+          "next": "В",
+          "output": "~В",
+          "pending": null
+        },
+        {
+          "next": "Г",
+          "output": "~Г",
+          "pending": null
+        },
+        {
+          "next": "Д",
+          "output": "~Д",
+          "pending": null
+        },
+        {
+          "next": "Е",
+          "output": "~Е",
+          "pending": null
+        },
+        {
+          "next": "Ж",
+          "output": "~Ж",
+          "pending": null
+        },
+        {
+          "next": "З",
+          "output": "~З",
+          "pending": null
+        },
+        {
+          "next": "И",
+          "output": "~И",
+          "pending": null
+        },
+        {
+          "next": "Й",
+          "output": "~Й",
+          "pending": null
+        },
+        {
+          "next": "К",
+          "output": "~К",
+          "pending": null
+        },
+        {
+          "next": "Л",
+          "output": "~Л",
+          "pending": null
+        },
+        {
+          "next": "М",
+          "output": "~М",
+          "pending": null
+        },
+        {
+          "next": "Н",
+          "output": "~Н",
+          "pending": null
+        },
+        {
+          "next": "О",
+          "output": "~О",
+          "pending": null
+        },
+        {
+          "next": "П",
+          "output": "~П",
+          "pending": null
+        },
+        {
+          "next": "Р",
+          "output": "~Р",
+          "pending": null
+        },
+        {
+          "next": "С",
+          "output": "~С",
+          "pending": null
+        },
+        {
+          "next": "Т",
+          "output": "~Т",
+          "pending": null
+        },
+        {
+          "next": "У",
+          "output": "~У",
+          "pending": null
+        },
+        {
+          "next": "Ф",
+          "output": "~Ф",
+          "pending": null
+        },
+        {
+          "next": "Х",
+          "output": "~Х",
+          "pending": null
+        },
+        {
+          "next": "Ц",
+          "output": "~Ц",
+          "pending": null
+        },
+        {
+          "next": "Ч",
+          "output": "~Ч",
+          "pending": null
+        },
+        {
+          "next": "Ш",
+          "output": "~Ш",
+          "pending": null
+        },
+        {
+          "next": "Щ",
+          "output": "~Щ",
+          "pending": null
+        },
+        {
+          "next": "Ъ",
+          "output": "~Ъ",
+          "pending": null
+        },
+        {
+          "next": "Ю",
+          "output": "~Ю",
+          "pending": null
+        },
+        {
+          "next": "Я",
+          "output": "~Я",
+          "pending": null
+        },
+        {
+          "next": "а",
+          "output": "~а",
+          "pending": null
+        },
+        {
+          "next": "б",
+          "output": "~б",
+          "pending": null
+        },
+        {
+          "next": "в",
+          "output": "~в",
+          "pending": null
+        },
+        {
+          "next": "г",
+          "output": "~г",
+          "pending": null
+        },
+        {
+          "next": "д",
+          "output": "~д",
+          "pending": null
+        },
+        {
+          "next": "е",
+          "output": "~е",
+          "pending": null
+        },
+        {
+          "next": "ж",
+          "output": "~ж",
+          "pending": null
+        },
+        {
+          "next": "з",
+          "output": "~з",
+          "pending": null
+        },
+        {
+          "next": "и",
+          "output": "~и",
+          "pending": null
+        },
+        {
+          "next": "й",
+          "output": "~й",
+          "pending": null
+        },
+        {
+          "next": "к",
+          "output": "~к",
+          "pending": null
+        },
+        {
+          "next": "л",
+          "output": "~л",
+          "pending": null
+        },
+        {
+          "next": "м",
+          "output": "~м",
+          "pending": null
+        },
+        {
+          "next": "н",
+          "output": "~н",
+          "pending": null
+        },
+        {
+          "next": "о",
+          "output": "~о",
+          "pending": null
+        },
+        {
+          "next": "п",
+          "output": "~п",
+          "pending": null
+        },
+        {
+          "next": "р",
+          "output": "~р",
+          "pending": null
+        },
+        {
+          "next": "с",
+          "output": "~с",
+          "pending": null
+        },
+        {
+          "next": "т",
+          "output": "~т",
+          "pending": null
+        },
+        {
+          "next": "у",
+          "output": "~у",
+          "pending": null
+        },
+        {
+          "next": "ф",
+          "output": "~ф",
+          "pending": null
+        },
+        {
+          "next": "х",
+          "output": "~х",
+          "pending": null
+        },
+        {
+          "next": "ц",
+          "output": "~ц",
+          "pending": null
+        },
+        {
+          "next": "ч",
+          "output": "~ч",
+          "pending": null
+        },
+        {
+          "next": "ш",
+          "output": "~ш",
+          "pending": null
+        },
+        {
+          "next": "щ",
+          "output": "~щ",
+          "pending": null
+        },
+        {
+          "next": "ъ",
+          "output": "~ъ",
+          "pending": null
+        },
+        {
+          "next": "ю",
+          "output": "~ю",
+          "pending": null
+        },
+        {
+          "next": "я",
+          "output": "~я",
+          "pending": null
+        },
+        {
+          "next": "“",
+          "output": "~“",
+          "pending": null
+        },
+        {
+          "next": "„",
+          "output": "~„",
+          "pending": null
+        },
+        {
+          "next": " ",
+          "output": "~",
+          "pending": null
+        },
+        {
+          "next": "dead_tilde",
+          "output": "~",
+          "pending": null
+        },
+        {
+          "next": "Backspace",
+          "output": "",
+          "pending": null
+        },
+        {
+          "next": "dead_grave",
+          "output": "~",
+          "pending": "dead_grave"
+        },
+        {
+          "next": "dead_circumflex",
+          "output": "~",
+          "pending": "dead_circumflex"
+        },
+        {
+          "next": "dead_breve",
+          "output": "~",
+          "pending": "dead_breve"
+        },
+        {
+          "next": "dead_ogonek",
+          "output": "~",
+          "pending": "dead_ogonek"
+        },
+        {
+          "next": "dead_doubleacute",
+          "output": "~",
+          "pending": "dead_doubleacute"
+        }
+      ]
+    },
+    {
+      "name": "dead_circumflex",
+      "spacing": "^",
+      "combining": "̂",
+      "cases": [
+        {
+          "next": "!",
+          "output": "^!",
+          "pending": null
+        },
+        {
+          "next": "#",
+          "output": "^#",
+          "pending": null
+        },
+        {
+          "next": "$",
+          "output": "^$",
+          "pending": null
+        },
+        {
+          "next": "%",
+          "output": "^%",
+          "pending": null
+        },
+        {
+          "next": "&",
+          "output": "^&",
+          "pending": null
+        },
+        {
+          "next": "(",
+          "output": "^(",
+          "pending": null
+        },
+        {
+          "next": ")",
+          "output": "^)",
+          "pending": null
+        },
+        {
+          "next": "*",
+          "output": "^*",
+          "pending": null
+        },
+        {
+          "next": ",",
+          "output": "^,",
+          "pending": null
+        },
+        {
+          "next": "-",
+          "output": "^-",
+          "pending": null
+        },
+        {
+          "next": ".",
+          "output": "^.",
+          "pending": null
+        },
+        {
+          "next": "/",
+          "output": "^/",
+          "pending": null
+        },
+        {
+          "next": "0",
+          "output": "^0",
+          "pending": null
+        },
+        {
+          "next": "1",
+          "output": "^1",
+          "pending": null
+        },
+        {
+          "next": "2",
+          "output": "^2",
+          "pending": null
+        },
+        {
+          "next": "3",
+          "output": "^3",
+          "pending": null
+        },
+        {
+          "next": "4",
+          "output": "^4",
+          "pending": null
+        },
+        {
+          "next": "5",
+          "output": "^5",
+          "pending": null
+        },
+        {
+          "next": "6",
+          "output": "^6",
+          "pending": null
+        },
+        {
+          "next": "7",
+          "output": "^7",
+          "pending": null
+        },
+        {
+          "next": "8",
+          "output": "^8",
+          "pending": null
+        },
+        {
+          "next": "9",
+          "output": "^9",
+          "pending": null
+        },
+        {
+          "next": ":",
+          "output": "^:",
+          "pending": null
+        },
+        {
+          "next": ";",
+          "output": "^;",
+          "pending": null
+        },
+        {
+          "next": "?",
+          "output": "^?",
+          "pending": null
+        },
+        {
+          "next": "@",
+          "output": "^@",
+          "pending": null
+        },
+        {
+          "next": "[",
+          "output": "^[",
+          "pending": null
+        },
+        {
+          "next": "]",
+          "output": "^]",
+          "pending": null
+        },
+        {
+          "next": "^",
+          "output": "^^",
+          "pending": null
+        },
+        {
+          "next": "_",
+          "output": "^_",
+          "pending": null
+        },
+        {
+          "next": "`",
+          "output": "^`",
+          "pending": null
+        },
+        {
+          "next": "{",
+          "output": "^{",
+          "pending": null
+        },
+        {
+          "next": "}",
+          "output": "^}",
+          "pending": null
+        },
+        {
+          "next": "~",
+          "output": "^~",
+          "pending": null
+        },
+        {
+          "next": "А",
+          "output": "^А",
+          "pending": null
+        },
+        {
+          "next": "Б",
+          "output": "^Б",
+          "pending": null
+        },
+        {
+          "next": "В",
+          "output": "^В",
+          "pending": null
+        },
+        {
+          "next": "Г",
+          "output": "^Г",
+          "pending": null
+        },
+        {
+          "next": "Д",
+          "output": "^Д",
+          "pending": null
+        },
+        {
+          "next": "Е",
+          "output": "^Е",
+          "pending": null
+        },
+        {
+          "next": "Ж",
+          "output": "^Ж",
+          "pending": null
+        },
+        {
+          "next": "З",
+          "output": "^З",
+          "pending": null
+        },
+        {
+          "next": "И",
+          "output": "^И",
+          "pending": null
+        },
+        {
+          "next": "Й",
+          "output": "^Й",
+          "pending": null
+        },
+        {
+          "next": "К",
+          "output": "^К",
+          "pending": null
+        },
+        {
+          "next": "Л",
+          "output": "^Л",
+          "pending": null
+        },
+        {
+          "next": "М",
+          "output": "^М",
+          "pending": null
+        },
+        {
+          "next": "Н",
+          "output": "^Н",
+          "pending": null
+        },
+        {
+          "next": "О",
+          "output": "^О",
+          "pending": null
+        },
+        {
+          "next": "П",
+          "output": "^П",
+          "pending": null
+        },
+        {
+          "next": "Р",
+          "output": "^Р",
+          "pending": null
+        },
+        {
+          "next": "С",
+          "output": "^С",
+          "pending": null
+        },
+        {
+          "next": "Т",
+          "output": "^Т",
+          "pending": null
+        },
+        {
+          "next": "У",
+          "output": "^У",
+          "pending": null
+        },
+        {
+          "next": "Ф",
+          "output": "^Ф",
+          "pending": null
+        },
+        {
+          "next": "Х",
+          "output": "^Х",
+          "pending": null
+        },
+        {
+          "next": "Ц",
+          "output": "^Ц",
+          "pending": null
+        },
+        {
+          "next": "Ч",
+          "output": "^Ч",
+          "pending": null
+        },
+        {
+          "next": "Ш",
+          "output": "^Ш",
+          "pending": null
+        },
+        {
+          "next": "Щ",
+          "output": "^Щ",
+          "pending": null
+        },
+        {
+          "next": "Ъ",
+          "output": "^Ъ",
+          "pending": null
+        },
+        {
+          "next": "Ю",
+          "output": "^Ю",
+          "pending": null
+        },
+        {
+          "next": "Я",
+          "output": "^Я",
+          "pending": null
+        },
+        {
+          "next": "а",
+          "output": "^а",
+          "pending": null
+        },
+        {
+          "next": "б",
+          "output": "^б",
+          "pending": null
+        },
+        {
+          "next": "в",
+          "output": "^в",
+          "pending": null
+        },
+        {
+          "next": "г",
+          "output": "^г",
+          "pending": null
+        },
+        {
+          "next": "д",
+          "output": "^д",
+          "pending": null
+        },
+        {
+          "next": "е",
+          "output": "^е",
+          "pending": null
+        },
+        {
+          "next": "ж",
+          "output": "^ж",
+          "pending": null
+        },
+        {
+          "next": "з",
+          "output": "^з",
+          "pending": null
+        },
+        {
+          "next": "и",
+          "output": "^и",
+          "pending": null
+        },
+        {
+          "next": "й",
+          "output": "^й",
+          "pending": null
+        },
+        {
+          "next": "к",
+          "output": "^к",
+          "pending": null
+        },
+        {
+          "next": "л",
+          "output": "^л",
+          "pending": null
+        },
+        {
+          "next": "м",
+          "output": "^м",
+          "pending": null
+        },
+        {
+          "next": "н",
+          "output": "^н",
+          "pending": null
+        },
+        {
+          "next": "о",
+          "output": "^о",
+          "pending": null
+        },
+        {
+          "next": "п",
+          "output": "^п",
+          "pending": null
+        },
+        {
+          "next": "р",
+          "output": "^р",
+          "pending": null
+        },
+        {
+          "next": "с",
+          "output": "^с",
+          "pending": null
+        },
+        {
+          "next": "т",
+          "output": "^т",
+          "pending": null
+        },
+        {
+          "next": "у",
+          "output": "^у",
+          "pending": null
+        },
+        {
+          "next": "ф",
+          "output": "^ф",
+          "pending": null
+        },
+        {
+          "next": "х",
+          "output": "^х",
+          "pending": null
+        },
+        {
+          "next": "ц",
+          "output": "^ц",
+          "pending": null
+        },
+        {
+          "next": "ч",
+          "output": "^ч",
+          "pending": null
+        },
+        {
+          "next": "ш",
+          "output": "^ш",
+          "pending": null
+        },
+        {
+          "next": "щ",
+          "output": "^щ",
+          "pending": null
+        },
+        {
+          "next": "ъ",
+          "output": "^ъ",
+          "pending": null
+        },
+        {
+          "next": "ю",
+          "output": "^ю",
+          "pending": null
+        },
+        {
+          "next": "я",
+          "output": "^я",
+          "pending": null
+        },
+        {
+          "next": "“",
+          "output": "^“",
+          "pending": null
+        },
+        {
+          "next": "„",
+          "output": "^„",
+          "pending": null
+        },
+        {
+          "next": " ",
+          "output": "^",
+          "pending": null
+        },
+        {
+          "next": "dead_circumflex",
+          "output": "^",
+          "pending": null
+        },
+        {
+          "next": "Backspace",
+          "output": "",
+          "pending": null
+        },
+        {
+          "next": "dead_grave",
+          "output": "^",
+          "pending": "dead_grave"
+        },
+        {
+          "next": "dead_tilde",
+          "output": "^",
+          "pending": "dead_tilde"
+        },
+        {
+          "next": "dead_breve",
+          "output": "^",
+          "pending": "dead_breve"
+        },
+        {
+          "next": "dead_ogonek",
+          "output": "^",
+          "pending": "dead_ogonek"
+        },
+        {
+          "next": "dead_doubleacute",
+          "output": "^",
+          "pending": "dead_doubleacute"
+        }
+      ]
+    },
+    {
+      "name": "dead_breve",
+      "spacing": "˘",
+      "combining": "̆",
+      "cases": [
+        {
+          "next": "!",
+          "output": "˘!",
+          "pending": null
+        },
+        {
+          "next": "#",
+          "output": "˘#",
+          "pending": null
+        },
+        {
+          "next": "$",
+          "output": "˘$",
+          "pending": null
+        },
+        {
+          "next": "%",
+          "output": "˘%",
+          "pending": null
+        },
+        {
+          "next": "&",
+          "output": "˘&",
+          "pending": null
+        },
+        {
+          "next": "(",
+          "output": "˘(",
+          "pending": null
+        },
+        {
+          "next": ")",
+          "output": "˘)",
+          "pending": null
+        },
+        {
+          "next": "*",
+          "output": "˘*",
+          "pending": null
+        },
+        {
+          "next": ",",
+          "output": "˘,",
+          "pending": null
+        },
+        {
+          "next": "-",
+          "output": "˘-",
+          "pending": null
+        },
+        {
+          "next": ".",
+          "output": "˘.",
+          "pending": null
+        },
+        {
+          "next": "/",
+          "output": "˘/",
+          "pending": null
+        },
+        {
+          "next": "0",
+          "output": "˘0",
+          "pending": null
+        },
+        {
+          "next": "1",
+          "output": "˘1",
+          "pending": null
+        },
+        {
+          "next": "2",
+          "output": "˘2",
+          "pending": null
+        },
+        {
+          "next": "3",
+          "output": "˘3",
+          "pending": null
+        },
+        {
+          "next": "4",
+          "output": "˘4",
+          "pending": null
+        },
+        {
+          "next": "5",
+          "output": "˘5",
+          "pending": null
+        },
+        {
+          "next": "6",
+          "output": "˘6",
+          "pending": null
+        },
+        {
+          "next": "7",
+          "output": "˘7",
+          "pending": null
+        },
+        {
+          "next": "8",
+          "output": "˘8",
+          "pending": null
+        },
+        {
+          "next": "9",
+          "output": "˘9",
+          "pending": null
+        },
+        {
+          "next": ":",
+          "output": "˘:",
+          "pending": null
+        },
+        {
+          "next": ";",
+          "output": "˘;",
+          "pending": null
+        },
+        {
+          "next": "?",
+          "output": "˘?",
+          "pending": null
+        },
+        {
+          "next": "@",
+          "output": "˘@",
+          "pending": null
+        },
+        {
+          "next": "[",
+          "output": "˘[",
+          "pending": null
+        },
+        {
+          "next": "]",
+          "output": "˘]",
+          "pending": null
+        },
+        {
+          "next": "^",
+          "output": "˘^",
+          "pending": null
+        },
+        {
+          "next": "_",
+          "output": "˘_",
+          "pending": null
+        },
+        {
+          "next": "`",
+          "output": "˘`",
+          "pending": null
+        },
+        {
+          "next": "{",
+          "output": "˘{",
+          "pending": null
+        },
+        {
+          "next": "}",
+          "output": "˘}",
+          "pending": null
+        },
+        {
+          "next": "~",
+          "output": "˘~",
+          "pending": null
+        },
+        {
+          "next": "А",
+          "output": "Ӑ",
+          "pending": null
+        },
+        {
+          "next": "Б",
+          "output": "˘Б",
+          "pending": null
+        },
+        {
+          "next": "В",
+          "output": "˘В",
+          "pending": null
+        },
+        {
+          "next": "Г",
+          "output": "˘Г",
+          "pending": null
+        },
+        {
+          "next": "Д",
+          "output": "˘Д",
+          "pending": null
+        },
+        {
+          "next": "Е",
+          "output": "Ӗ",
+          "pending": null
+        },
+        {
+          "next": "Ж",
+          "output": "Ӂ",
+          "pending": null
+        },
+        {
+          "next": "З",
+          "output": "˘З",
+          "pending": null
+        },
+        {
+          "next": "И",
+          "output": "Й",
+          "pending": null
+        },
+        {
+          "next": "Й",
+          "output": "˘Й",
+          "pending": null
+        },
+        {
+          "next": "К",
+          "output": "˘К",
+          "pending": null
+        },
+        {
+          "next": "Л",
+          "output": "˘Л",
+          "pending": null
+        },
+        {
+          "next": "М",
+          "output": "˘М",
+          "pending": null
+        },
+        {
+          "next": "Н",
+          "output": "˘Н",
+          "pending": null
+        },
+        {
+          "next": "О",
+          "output": "˘О",
+          "pending": null
+        },
+        {
+          "next": "П",
+          "output": "˘П",
+          "pending": null
+        },
+        {
+          "next": "Р",
+          "output": "˘Р",
+          "pending": null
+        },
+        {
+          "next": "С",
+          "output": "˘С",
+          "pending": null
+        },
+        {
+          "next": "Т",
+          "output": "˘Т",
+          "pending": null
+        },
+        {
+          "next": "У",
+          "output": "Ў",
+          "pending": null
+        },
+        {
+          "next": "Ф",
+          "output": "˘Ф",
+          "pending": null
+        },
+        {
+          "next": "Х",
+          "output": "˘Х",
+          "pending": null
+        },
+        {
+          "next": "Ц",
+          "output": "˘Ц",
+          "pending": null
+        },
+        {
+          "next": "Ч",
+          "output": "˘Ч",
+          "pending": null
+        },
+        {
+          "next": "Ш",
+          "output": "˘Ш",
+          "pending": null
+        },
+        {
+          "next": "Щ",
+          "output": "˘Щ",
+          "pending": null
+        },
+        {
+          "next": "Ъ",
+          "output": "˘Ъ",
+          "pending": null
+        },
+        {
+          "next": "Ю",
+          "output": "˘Ю",
+          "pending": null
+        },
+        {
+          "next": "Я",
+          "output": "˘Я",
+          "pending": null
+        },
+        {
+          "next": "а",
+          "output": "ӑ",
+          "pending": null
+        },
+        {
+          "next": "б",
+          "output": "˘б",
+          "pending": null
+        },
+        {
+          "next": "в",
+          "output": "˘в",
+          "pending": null
+        },
+        {
+          "next": "г",
+          "output": "˘г",
+          "pending": null
+        },
+        {
+          "next": "д",
+          "output": "˘д",
+          "pending": null
+        },
+        {
+          "next": "е",
+          "output": "ӗ",
+          "pending": null
+        },
+        {
+          "next": "ж",
+          "output": "ӂ",
+          "pending": null
+        },
+        {
+          "next": "з",
+          "output": "˘з",
+          "pending": null
+        },
+        {
+          "next": "и",
+          "output": "й",
+          "pending": null
+        },
+        {
+          "next": "й",
+          "output": "˘й",
+          "pending": null
+        },
+        {
+          "next": "к",
+          "output": "˘к",
+          "pending": null
+        },
+        {
+          "next": "л",
+          "output": "˘л",
+          "pending": null
+        },
+        {
+          "next": "м",
+          "output": "˘м",
+          "pending": null
+        },
+        {
+          "next": "н",
+          "output": "˘н",
+          "pending": null
+        },
+        {
+          "next": "о",
+          "output": "˘о",
+          "pending": null
+        },
+        {
+          "next": "п",
+          "output": "˘п",
+          "pending": null
+        },
+        {
+          "next": "р",
+          "output": "˘р",
+          "pending": null
+        },
+        {
+          "next": "с",
+          "output": "˘с",
+          "pending": null
+        },
+        {
+          "next": "т",
+          "output": "˘т",
+          "pending": null
+        },
+        {
+          "next": "у",
+          "output": "ў",
+          "pending": null
+        },
+        {
+          "next": "ф",
+          "output": "˘ф",
+          "pending": null
+        },
+        {
+          "next": "х",
+          "output": "˘х",
+          "pending": null
+        },
+        {
+          "next": "ц",
+          "output": "˘ц",
+          "pending": null
+        },
+        {
+          "next": "ч",
+          "output": "˘ч",
+          "pending": null
+        },
+        {
+          "next": "ш",
+          "output": "˘ш",
+          "pending": null
+        },
+        {
+          "next": "щ",
+          "output": "˘щ",
+          "pending": null
+        },
+        {
+          "next": "ъ",
+          "output": "˘ъ",
+          "pending": null
+        },
+        {
+          "next": "ю",
+          "output": "˘ю",
+          "pending": null
+        },
+        {
+          "next": "я",
+          "output": "˘я",
+          "pending": null
+        },
+        {
+          "next": "“",
+          "output": "˘“",
+          "pending": null
+        },
+        {
+          "next": "„",
+          "output": "˘„",
+          "pending": null
+        },
+        {
+          "next": " ",
+          "output": "˘",
+          "pending": null
+        },
+        {
+          "next": "dead_breve",
+          "output": "˘",
+          "pending": null
+        },
+        {
+          "next": "Backspace",
+          "output": "",
+          "pending": null
+        },
+        {
+          "next": "dead_grave",
+          "output": "˘",
+          "pending": "dead_grave"
+        },
+        {
+          "next": "dead_tilde",
+          "output": "˘",
+          "pending": "dead_tilde"
+        },
+        {
+          "next": "dead_circumflex",
+          "output": "˘",
+          "pending": "dead_circumflex"
+        },
+        {
+          "next": "dead_ogonek",
+          "output": "˘",
+          "pending": "dead_ogonek"
+        },
+        {
+          "next": "dead_doubleacute",
+          "output": "˘",
+          "pending": "dead_doubleacute"
+        }
+      ]
+    },
+    {
+      "name": "dead_ogonek",
+      "spacing": "˛",
+      "combining": "̨",
+      "cases": [
+        {
+          "next": "!",
+          "output": "˛!",
+          "pending": null
+        },
+        {
+          "next": "#",
+          "output": "˛#",
+          "pending": null
+        },
+        {
+          "next": "$",
+          "output": "˛$",
+          "pending": null
+        },
+        {
+          "next": "%",
+          "output": "˛%",
+          "pending": null
+        },
+        {
+          "next": "&",
+          "output": "˛&",
+          "pending": null
+        },
+        {
+          "next": "(",
+          "output": "˛(",
+          "pending": null
+        },
+        {
+          "next": ")",
+          "output": "˛)",
+          "pending": null
+        },
+        {
+          "next": "*",
+          "output": "˛*",
+          "pending": null
+        },
+        {
+          "next": ",",
+          "output": "˛,",
+          "pending": null
+        },
+        {
+          "next": "-",
+          "output": "˛-",
+          "pending": null
+        },
+        {
+          "next": ".",
+          "output": "˛.",
+          "pending": null
+        },
+        {
+          "next": "/",
+          "output": "˛/",
+          "pending": null
+        },
+        {
+          "next": "0",
+          "output": "˛0",
+          "pending": null
+        },
+        {
+          "next": "1",
+          "output": "˛1",
+          "pending": null
+        },
+        {
+          "next": "2",
+          "output": "˛2",
+          "pending": null
+        },
+        {
+          "next": "3",
+          "output": "˛3",
+          "pending": null
+        },
+        {
+          "next": "4",
+          "output": "˛4",
+          "pending": null
+        },
+        {
+          "next": "5",
+          "output": "˛5",
+          "pending": null
+        },
+        {
+          "next": "6",
+          "output": "˛6",
+          "pending": null
+        },
+        {
+          "next": "7",
+          "output": "˛7",
+          "pending": null
+        },
+        {
+          "next": "8",
+          "output": "˛8",
+          "pending": null
+        },
+        {
+          "next": "9",
+          "output": "˛9",
+          "pending": null
+        },
+        {
+          "next": ":",
+          "output": "˛:",
+          "pending": null
+        },
+        {
+          "next": ";",
+          "output": "˛;",
+          "pending": null
+        },
+        {
+          "next": "?",
+          "output": "˛?",
+          "pending": null
+        },
+        {
+          "next": "@",
+          "output": "˛@",
+          "pending": null
+        },
+        {
+          "next": "[",
+          "output": "˛[",
+          "pending": null
+        },
+        {
+          "next": "]",
+          "output": "˛]",
+          "pending": null
+        },
+        {
+          "next": "^",
+          "output": "˛^",
+          "pending": null
+        },
+        {
+          "next": "_",
+          "output": "˛_",
+          "pending": null
+        },
+        {
+          "next": "`",
+          "output": "˛`",
+          "pending": null
+        },
+        {
+          "next": "{",
+          "output": "˛{",
+          "pending": null
+        },
+        {
+          "next": "}",
+          "output": "˛}",
+          "pending": null
+        },
+        {
+          "next": "~",
+          "output": "˛~",
+          "pending": null
+        },
+        {
+          "next": "А",
+          "output": "˛А",
+          "pending": null
+        },
+        {
+          "next": "Б",
+          "output": "˛Б",
+          "pending": null
+        },
+        {
+          "next": "В",
+          "output": "˛В",
+          "pending": null
+        },
+        {
+          "next": "Г",
+          "output": "˛Г",
+          "pending": null
+        },
+        {
+          "next": "Д",
+          "output": "˛Д",
+          "pending": null
+        },
+        {
+          "next": "Е",
+          "output": "˛Е",
+          "pending": null
+        },
+        {
+          "next": "Ж",
+          "output": "˛Ж",
+          "pending": null
+        },
+        {
+          "next": "З",
+          "output": "˛З",
+          "pending": null
+        },
+        {
+          "next": "И",
+          "output": "˛И",
+          "pending": null
+        },
+        {
+          "next": "Й",
+          "output": "˛Й",
+          "pending": null
+        },
+        {
+          "next": "К",
+          "output": "˛К",
+          "pending": null
+        },
+        {
+          "next": "Л",
+          "output": "˛Л",
+          "pending": null
+        },
+        {
+          "next": "М",
+          "output": "˛М",
+          "pending": null
+        },
+        {
+          "next": "Н",
+          "output": "˛Н",
+          "pending": null
+        },
+        {
+          "next": "О",
+          "output": "˛О",
+          "pending": null
+        },
+        {
+          "next": "П",
+          "output": "˛П",
+          "pending": null
+        },
+        {
+          "next": "Р",
+          "output": "˛Р",
+          "pending": null
+        },
+        {
+          "next": "С",
+          "output": "˛С",
+          "pending": null
+        },
+        {
+          "next": "Т",
+          "output": "˛Т",
+          "pending": null
+        },
+        {
+          "next": "У",
+          "output": "˛У",
+          "pending": null
+        },
+        {
+          "next": "Ф",
+          "output": "˛Ф",
+          "pending": null
+        },
+        {
+          "next": "Х",
+          "output": "˛Х",
+          "pending": null
+        },
+        {
+          "next": "Ц",
+          "output": "˛Ц",
+          "pending": null
+        },
+        {
+          "next": "Ч",
+          "output": "˛Ч",
+          "pending": null
+        },
+        {
+          "next": "Ш",
+          "output": "˛Ш",
+          "pending": null
+        },
+        {
+          "next": "Щ",
+          "output": "˛Щ",
+          "pending": null
+        },
+        {
+          "next": "Ъ",
+          "output": "˛Ъ",
+          "pending": null
+        },
+        {
+          "next": "Ю",
+          "output": "˛Ю",
+          "pending": null
+        },
+        {
+          "next": "Я",
+          "output": "˛Я",
+          "pending": null
+        },
+        {
+          "next": "а",
+          "output": "˛а",
+          "pending": null
+        },
+        {
+          "next": "б",
+          "output": "˛б",
+          "pending": null
+        },
+        {
+          "next": "в",
+          "output": "˛в",
+          "pending": null
+        },
+        {
+          "next": "г",
+          "output": "˛г",
+          "pending": null
+        },
+        {
+          "next": "д",
+          "output": "˛д",
+          "pending": null
+        },
+        {
+          "next": "е",
+          "output": "˛е",
+          "pending": null
+        },
+        {
+          "next": "ж",
+          "output": "˛ж",
+          "pending": null
+        },
+        {
+          "next": "з",
+          "output": "˛з",
+          "pending": null
+        },
+        {
+          "next": "и",
+          "output": "˛и",
+          "pending": null
+        },
+        {
+          "next": "й",
+          "output": "˛й",
+          "pending": null
+        },
+        {
+          "next": "к",
+          "output": "˛к",
+          "pending": null
+        },
+        {
+          "next": "л",
+          "output": "˛л",
+          "pending": null
+        },
+        {
+          "next": "м",
+          "output": "˛м",
+          "pending": null
+        },
+        {
+          "next": "н",
+          "output": "˛н",
+          "pending": null
+        },
+        {
+          "next": "о",
+          "output": "˛о",
+          "pending": null
+        },
+        {
+          "next": "п",
+          "output": "˛п",
+          "pending": null
+        },
+        {
+          "next": "р",
+          "output": "˛р",
+          "pending": null
+        },
+        {
+          "next": "с",
+          "output": "˛с",
+          "pending": null
+        },
+        {
+          "next": "т",
+          "output": "˛т",
+          "pending": null
+        },
+        {
+          "next": "у",
+          "output": "˛у",
+          "pending": null
+        },
+        {
+          "next": "ф",
+          "output": "˛ф",
+          "pending": null
+        },
+        {
+          "next": "х",
+          "output": "˛х",
+          "pending": null
+        },
+        {
+          "next": "ц",
+          "output": "˛ц",
+          "pending": null
+        },
+        {
+          "next": "ч",
+          "output": "˛ч",
+          "pending": null
+        },
+        {
+          "next": "ш",
+          "output": "˛ш",
+          "pending": null
+        },
+        {
+          "next": "щ",
+          "output": "˛щ",
+          "pending": null
+        },
+        {
+          "next": "ъ",
+          "output": "˛ъ",
+          "pending": null
+        },
+        {
+          "next": "ю",
+          "output": "˛ю",
+          "pending": null
+        },
+        {
+          "next": "я",
+          "output": "˛я",
+          "pending": null
+        },
+        {
+          "next": "“",
+          "output": "˛“",
+          "pending": null
+        },
+        {
+          "next": "„",
+          "output": "˛„",
+          "pending": null
+        },
+        {
+          "next": " ",
+          "output": "˛",
+          "pending": null
+        },
+        {
+          "next": "dead_ogonek",
+          "output": "˛",
+          "pending": null
+        },
+        {
+          "next": "Backspace",
+          "output": "",
+          "pending": null
+        },
+        {
+          "next": "dead_grave",
+          "output": "˛",
+          "pending": "dead_grave"
+        },
+        {
+          "next": "dead_tilde",
+          "output": "˛",
+          "pending": "dead_tilde"
+        },
+        {
+          "next": "dead_circumflex",
+          "output": "˛",
+          "pending": "dead_circumflex"
+        },
+        {
+          "next": "dead_breve",
+          "output": "˛",
+          "pending": "dead_breve"
+        },
+        {
+          "next": "dead_doubleacute",
+          "output": "˛",
+          "pending": "dead_doubleacute"
+        }
+      ]
+    },
+    {
+      "name": "dead_doubleacute",
+      "spacing": "˝",
+      "combining": "̋",
+      "cases": [
+        {
+          "next": "!",
+          "output": "˝!",
+          "pending": null
+        },
+        {
+          "next": "#",
+          "output": "˝#",
+          "pending": null
+        },
+        {
+          "next": "$",
+          "output": "˝$",
+          "pending": null
+        },
+        {
+          "next": "%",
+          "output": "˝%",
+          "pending": null
+        },
+        {
+          "next": "&",
+          "output": "˝&",
+          "pending": null
+        },
+        {
+          "next": "(",
+          "output": "˝(",
+          "pending": null
+        },
+        {
+          "next": ")",
+          "output": "˝)",
+          "pending": null
+        },
+        {
+          "next": "*",
+          "output": "˝*",
+          "pending": null
+        },
+        {
+          "next": ",",
+          "output": "˝,",
+          "pending": null
+        },
+        {
+          "next": "-",
+          "output": "˝-",
+          "pending": null
+        },
+        {
+          "next": ".",
+          "output": "˝.",
+          "pending": null
+        },
+        {
+          "next": "/",
+          "output": "˝/",
+          "pending": null
+        },
+        {
+          "next": "0",
+          "output": "˝0",
+          "pending": null
+        },
+        {
+          "next": "1",
+          "output": "˝1",
+          "pending": null
+        },
+        {
+          "next": "2",
+          "output": "˝2",
+          "pending": null
+        },
+        {
+          "next": "3",
+          "output": "˝3",
+          "pending": null
+        },
+        {
+          "next": "4",
+          "output": "˝4",
+          "pending": null
+        },
+        {
+          "next": "5",
+          "output": "˝5",
+          "pending": null
+        },
+        {
+          "next": "6",
+          "output": "˝6",
+          "pending": null
+        },
+        {
+          "next": "7",
+          "output": "˝7",
+          "pending": null
+        },
+        {
+          "next": "8",
+          "output": "˝8",
+          "pending": null
+        },
+        {
+          "next": "9",
+          "output": "˝9",
+          "pending": null
+        },
+        {
+          "next": ":",
+          "output": "˝:",
+          "pending": null
+        },
+        {
+          "next": ";",
+          "output": "˝;",
+          "pending": null
+        },
+        {
+          "next": "?",
+          "output": "˝?",
+          "pending": null
+        },
+        {
+          "next": "@",
+          "output": "˝@",
+          "pending": null
+        },
+        {
+          "next": "[",
+          "output": "˝[",
+          "pending": null
+        },
+        {
+          "next": "]",
+          "output": "˝]",
+          "pending": null
+        },
+        {
+          "next": "^",
+          "output": "˝^",
+          "pending": null
+        },
+        {
+          "next": "_",
+          "output": "˝_",
+          "pending": null
+        },
+        {
+          "next": "`",
+          "output": "˝`",
+          "pending": null
+        },
+        {
+          "next": "{",
+          "output": "˝{",
+          "pending": null
+        },
+        {
+          "next": "}",
+          "output": "˝}",
+          "pending": null
+        },
+        {
+          "next": "~",
+          "output": "˝~",
+          "pending": null
+        },
+        {
+          "next": "А",
+          "output": "˝А",
+          "pending": null
+        },
+        {
+          "next": "Б",
+          "output": "˝Б",
+          "pending": null
+        },
+        {
+          "next": "В",
+          "output": "˝В",
+          "pending": null
+        },
+        {
+          "next": "Г",
+          "output": "˝Г",
+          "pending": null
+        },
+        {
+          "next": "Д",
+          "output": "˝Д",
+          "pending": null
+        },
+        {
+          "next": "Е",
+          "output": "˝Е",
+          "pending": null
+        },
+        {
+          "next": "Ж",
+          "output": "˝Ж",
+          "pending": null
+        },
+        {
+          "next": "З",
+          "output": "˝З",
+          "pending": null
+        },
+        {
+          "next": "И",
+          "output": "˝И",
+          "pending": null
+        },
+        {
+          "next": "Й",
+          "output": "˝Й",
+          "pending": null
+        },
+        {
+          "next": "К",
+          "output": "˝К",
+          "pending": null
+        },
+        {
+          "next": "Л",
+          "output": "˝Л",
+          "pending": null
+        },
+        {
+          "next": "М",
+          "output": "˝М",
+          "pending": null
+        },
+        {
+          "next": "Н",
+          "output": "˝Н",
+          "pending": null
+        },
+        {
+          "next": "О",
+          "output": "˝О",
+          "pending": null
+        },
+        {
+          "next": "П",
+          "output": "˝П",
+          "pending": null
+        },
+        {
+          "next": "Р",
+          "output": "˝Р",
+          "pending": null
+        },
+        {
+          "next": "С",
+          "output": "˝С",
+          "pending": null
+        },
+        {
+          "next": "Т",
+          "output": "˝Т",
+          "pending": null
+        },
+        {
+          "next": "У",
+          "output": "Ӳ",
+          "pending": null
+        },
+        {
+          "next": "Ф",
+          "output": "˝Ф",
+          "pending": null
+        },
+        {
+          "next": "Х",
+          "output": "˝Х",
+          "pending": null
+        },
+        {
+          "next": "Ц",
+          "output": "˝Ц",
+          "pending": null
+        },
+        {
+          "next": "Ч",
+          "output": "˝Ч",
+          "pending": null
+        },
+        {
+          "next": "Ш",
+          "output": "˝Ш",
+          "pending": null
+        },
+        {
+          "next": "Щ",
+          "output": "˝Щ",
+          "pending": null
+        },
+        {
+          "next": "Ъ",
+          "output": "˝Ъ",
+          "pending": null
+        },
+        {
+          "next": "Ю",
+          "output": "˝Ю",
+          "pending": null
+        },
+        {
+          "next": "Я",
+          "output": "˝Я",
+          "pending": null
+        },
+        {
+          "next": "а",
+          "output": "˝а",
+          "pending": null
+        },
+        {
+          "next": "б",
+          "output": "˝б",
+          "pending": null
+        },
+        {
+          "next": "в",
+          "output": "˝в",
+          "pending": null
+        },
+        {
+          "next": "г",
+          "output": "˝г",
+          "pending": null
+        },
+        {
+          "next": "д",
+          "output": "˝д",
+          "pending": null
+        },
+        {
+          "next": "е",
+          "output": "˝е",
+          "pending": null
+        },
+        {
+          "next": "ж",
+          "output": "˝ж",
+          "pending": null
+        },
+        {
+          "next": "з",
+          "output": "˝з",
+          "pending": null
+        },
+        {
+          "next": "и",
+          "output": "˝и",
+          "pending": null
+        },
+        {
+          "next": "й",
+          "output": "˝й",
+          "pending": null
+        },
+        {
+          "next": "к",
+          "output": "˝к",
+          "pending": null
+        },
+        {
+          "next": "л",
+          "output": "˝л",
+          "pending": null
+        },
+        {
+          "next": "м",
+          "output": "˝м",
+          "pending": null
+        },
+        {
+          "next": "н",
+          "output": "˝н",
+          "pending": null
+        },
+        {
+          "next": "о",
+          "output": "˝о",
+          "pending": null
+        },
+        {
+          "next": "п",
+          "output": "˝п",
+          "pending": null
+        },
+        {
+          "next": "р",
+          "output": "˝р",
+          "pending": null
+        },
+        {
+          "next": "с",
+          "output": "˝с",
+          "pending": null
+        },
+        {
+          "next": "т",
+          "output": "˝т",
+          "pending": null
+        },
+        {
+          "next": "у",
+          "output": "ӳ",
+          "pending": null
+        },
+        {
+          "next": "ф",
+          "output": "˝ф",
+          "pending": null
+        },
+        {
+          "next": "х",
+          "output": "˝х",
+          "pending": null
+        },
+        {
+          "next": "ц",
+          "output": "˝ц",
+          "pending": null
+        },
+        {
+          "next": "ч",
+          "output": "˝ч",
+          "pending": null
+        },
+        {
+          "next": "ш",
+          "output": "˝ш",
+          "pending": null
+        },
+        {
+          "next": "щ",
+          "output": "˝щ",
+          "pending": null
+        },
+        {
+          "next": "ъ",
+          "output": "˝ъ",
+          "pending": null
+        },
+        {
+          "next": "ю",
+          "output": "˝ю",
+          "pending": null
+        },
+        {
+          "next": "я",
+          "output": "˝я",
+          "pending": null
+        },
+        {
+          "next": "“",
+          "output": "˝“",
+          "pending": null
+        },
+        {
+          "next": "„",
+          "output": "˝„",
+          "pending": null
+        },
+        {
+          "next": " ",
+          "output": "˝",
+          "pending": null
+        },
+        {
+          "next": "dead_doubleacute",
+          "output": "˝",
+          "pending": null
+        },
+        {
+          "next": "Backspace",
+          "output": "",
+          "pending": null
+        },
+        {
+          "next": "dead_grave",
+          "output": "˝",
+          "pending": "dead_grave"
+        },
+        {
+          "next": "dead_tilde",
+          "output": "˝",
+          "pending": "dead_tilde"
+        },
+        {
+          "next": "dead_circumflex",
+          "output": "˝",
+          "pending": "dead_circumflex"
+        },
+        {
+          "next": "dead_breve",
+          "output": "˝",
+          "pending": "dead_breve"
+        },
+        {
+          "next": "dead_ogonek",
+          "output": "˝",
+          "pending": "dead_ogonek"
+        }
+      ]
+    }
+  ]
+}

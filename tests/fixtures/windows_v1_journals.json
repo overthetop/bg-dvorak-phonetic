@@ -1,0 +1,25 @@
+[
+  {
+    "name": "legacy-user-create",
+    "journal": {
+      "completed_steps": [],
+      "ordered_operations": [
+        {
+          "after_hash_or_absent": null,
+          "backup_path": null,
+          "before_hash_or_absent": null,
+          "destination": "/tmp/bg-dvorak/layout",
+          "kind": "create",
+          "metadata": [],
+          "staged_path": null
+        }
+      ],
+      "phase": "prepared",
+      "retained_originals": [],
+      "run_id": "3c71e538-a2a6-4a21-8423-e31d4f01d902",
+      "schema_version": 1,
+      "scope": "user",
+      "timestamps": ["2026-01-01T00:00:00+00:00"]
+    }
+  }
+]

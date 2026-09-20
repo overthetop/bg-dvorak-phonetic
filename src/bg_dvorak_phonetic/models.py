@@ -1,11 +1,12 @@
 """Immutable workflow values and strictly versioned recovery records."""
 
+import hashlib
 import json
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from enum import StrEnum
 from pathlib import Path
-from typing import Self
+from typing import Any, Self
 from uuid import UUID, uuid4
 
 
@@ -97,24 +98,138 @@ class FileOperation:
             raise ValueError("Destination must be canonical and absolute")
 
 
+def _fingerprint(value: object) -> str:
+    encoded = json.dumps(
+        value, default=str, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    return hashlib.sha256(encoded.encode()).hexdigest()
+
+
+@dataclass(frozen=True)
+class RegistryValue:
+    name: str
+    value_type: str
+    value: str | int | tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        supported = {
+            "REG_SZ",
+            "REG_EXPAND_SZ",
+            "REG_MULTI_SZ",
+            "REG_BINARY",
+            "REG_DWORD",
+            "REG_QWORD",
+        }
+        if not self.name or self.value_type not in supported:
+            raise ValueError("Unsupported registry value")
+
+
+@dataclass(frozen=True)
+class RegistrySnapshot:
+    exists: bool
+    values: tuple[RegistryValue, ...] = ()
+    security_descriptor: str | None = None
+
+    def __post_init__(self) -> None:
+        names = [item.name.casefold() for item in self.values]
+        if len(names) != len(set(names)):
+            raise ValueError("Case-insensitive duplicate registry value")
+        if not self.exists and (self.values or self.security_descriptor is not None):
+            raise ValueError("Absent registry key cannot contain values")
+
+    @property
+    def fingerprint(self) -> str:
+        return _fingerprint(asdict(self))
+
+
+@dataclass(frozen=True)
+class WindowsFileOperation:
+    resource_id: str
+    kind: str
+    before_fingerprint: str | None
+    after_fingerprint: str | None
+    security_fingerprint: str | None
+    ownership_evidence: str
+    destination: Path
+    staged_digest: str | None = None
+    backup_reference: str | None = None
+    acl_metadata: str | None = None
+    resource_type: str = field(default="file", init=False)
+
+    def __post_init__(self) -> None:
+        if not self.resource_id or self.kind not in {
+            "create",
+            "replace",
+            "remove-owned-duplicate",
+        }:
+            raise ValueError("Unsupported file resource operation")
+        if not self.destination.is_absolute() or ".." in self.destination.parts:
+            raise ValueError("Destination must be canonical and absolute")
+
+
+@dataclass(frozen=True)
+class RegistryOperation:
+    resource_id: str
+    kind: str
+    before_fingerprint: str | None
+    after_fingerprint: str | None
+    security_fingerprint: str | None
+    ownership_evidence: str
+    hive: str
+    view: str
+    subkey: str
+    before: RegistrySnapshot
+    after: RegistrySnapshot
+    key_created: bool
+    resource_type: str = field(default="registry", init=False)
+
+    def __post_init__(self) -> None:
+        if not self.resource_id or self.kind not in {
+            "create",
+            "replace",
+            "remove-owned-duplicate",
+        }:
+            raise ValueError("Unsupported registry resource operation")
+        if not isinstance(self.hive, str) or self.hive != "HKLM" or self.view != "64":
+            raise ValueError("Unsupported registry hive or view")
+        normalized = self.subkey.replace("\\\\", "\\") if isinstance(self.subkey, str) else ""
+        prefix = "SYSTEM\\CurrentControlSet\\Control\\Keyboard Layouts\\"
+        if not normalized.startswith(prefix) or ".." in normalized:
+            raise ValueError("Registry subkey is outside the bounded layout root")
+
+
 @dataclass(frozen=True)
 class ChangePlan:
     platform: str
     scope: str
     action: Action
-    operations: tuple[FileOperation, ...] = ()
+    operations: tuple[Any, ...] = ()
     observed_hashes: tuple[tuple[str, str | None], ...] = ()
     source_hashes: tuple[tuple[str, str], ...] = ()
     validation_results: tuple[str, ...] = ()
     schema_version: int = 1
     run_id: str = field(default_factory=new_id)
+    plan_digest: str = ""
 
     def __post_init__(self) -> None:
         validate_id(self.run_id)
-        if type(self.schema_version) is not int or self.schema_version != 1:
+        if type(self.schema_version) is not int or self.schema_version not in (1, 2):
             raise ValueError("Unsupported plan schema")
         if self.action == Action.NOOP and self.operations:
             raise ValueError("Noop cannot mutate")
+        if self.schema_version == 1 and any(
+            not isinstance(operation, FileOperation) for operation in self.operations
+        ):
+            raise ValueError("Schema-v1 plans contain only file operations")
+        if self.schema_version == 2 and any(
+            isinstance(operation, FileOperation) for operation in self.operations
+        ):
+            raise ValueError("Schema-v2 plans require tagged resource operations")
+        if self.schema_version == 2 and self.action != Action.NOOP:
+            computed = _fingerprint([asdict(operation) for operation in self.operations])
+            if self.plan_digest and self.plan_digest != computed:
+                raise ValueError("Plan digest mismatch")
+            object.__setattr__(self, "plan_digest", computed)
 
 
 @dataclass(frozen=True)
@@ -125,18 +240,25 @@ class RecoveryRecord:
     run_id: str = field(default_factory=new_id)
     schema_version: int = 1
     phase: str = "prepared"
-    ordered_operations: tuple[FileOperation, ...] = ()
+    ordered_operations: tuple[Any, ...] = ()
     completed_steps: tuple[int, ...] = ()
     retained_originals: tuple[str, ...] = ()
     timestamps: tuple[str, ...] = field(default_factory=lambda: (datetime.now(UTC).isoformat(),))
+    platform: str = "posix"
+    request_digest: str = ""
+    source_revision: str = ""
+    installed_revision: str = ""
+    expected_post_state: str = ""
+    intent_step: int | None = None
+    recovery_diagnostics: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         validate_id(self.run_id)
-        if type(self.schema_version) is not int or self.schema_version != 1:
+        if type(self.schema_version) is not int or self.schema_version not in (1, 2):
             raise ValueError("Unsupported journal schema")
         if self.scope not in ("user", "system"):
             raise ValueError("Invalid scope")
-        if self.phase not in (
+        phases = {
             "prepared",
             "applying",
             "verified",
@@ -144,38 +266,89 @@ class RecoveryRecord:
             "rolling_back",
             "restored",
             "recovery_required",
-        ):
+        }
+        if self.phase not in phases:
             raise ValueError("Invalid recovery phase")
         if any(
             type(step) is not int or step < 0 or step >= len(self.ordered_operations)
             for step in self.completed_steps
         ):
             raise ValueError("Invalid completed step")
+        if self.intent_step is not None and (
+            type(self.intent_step) is not int
+            or self.intent_step < 0
+            or self.intent_step >= len(self.ordered_operations)
+        ):
+            raise ValueError("Invalid intent step")
+        if self.schema_version == 1 and any(
+            not isinstance(operation, FileOperation) for operation in self.ordered_operations
+        ):
+            raise ValueError("Schema-v1 journals contain only file operations")
+        if self.schema_version == 2:
+            if self.platform != "windows":
+                raise ValueError("Unsupported journal schema: v2 requires Windows platform")
+            if any(isinstance(operation, FileOperation) for operation in self.ordered_operations):
+                raise ValueError("Unsupported journal schema: v2 requires tagged operations")
 
     def to_json(self) -> str:
-        """Serialize JSON for explicit UTF-8 storage by the transaction engine."""
-        return json.dumps(asdict(self), default=str, ensure_ascii=False, sort_keys=True)
+        """Serialize without changing the established schema-v1 wire representation."""
+        data = asdict(self)
+        if self.schema_version == 1:
+            keep = {
+                "scope",
+                "run_id",
+                "schema_version",
+                "phase",
+                "ordered_operations",
+                "completed_steps",
+                "retained_originals",
+                "timestamps",
+            }
+            data = {name: value for name, value in data.items() if name in keep}
+        return json.dumps(data, default=str, ensure_ascii=False, sort_keys=True)
 
     @classmethod
     def from_json(cls, text: str) -> Self:
         """Parse trusted-root journal data, rejecting unsupported schemas."""
         data = json.loads(text)
-        if (
-            not isinstance(data, dict)
-            or type(data.get("schema_version")) is not int
-            or data.get("schema_version") != 1
-        ):
+        if not isinstance(data, dict) or type(data.get("schema_version")) is not int:
             raise ValueError("Unsupported journal schema")
-        operations = []
-        for raw in data["ordered_operations"]:
-            for name in ("destination", "staged_path", "backup_path"):
-                if raw[name] is not None:
-                    raw[name] = Path(raw[name])
-            raw["metadata"] = tuple(tuple(item) for item in raw["metadata"])
-            operations.append(FileOperation(**raw))
+        version = data["schema_version"]
+        if version not in (1, 2):
+            raise ValueError("Unsupported journal schema")
+        operations: list[Any] = []
+        for source in data["ordered_operations"]:
+            raw = dict(source)
+            if version == 1:
+                for name in ("destination", "staged_path", "backup_path"):
+                    if raw[name] is not None:
+                        raw[name] = Path(raw[name])
+                raw["metadata"] = tuple(tuple(item) for item in raw["metadata"])
+                operations.append(FileOperation(**raw))
+                continue
+            resource_type = raw.pop("resource_type", None)
+            if resource_type == "file":
+                raw["destination"] = Path(raw["destination"])
+                operations.append(WindowsFileOperation(**raw))
+            elif resource_type == "registry":
+                for name in ("before", "after"):
+                    snapshot = raw[name]
+                    snapshot["values"] = tuple(
+                        RegistryValue(**value) for value in snapshot["values"]
+                    )
+                    raw[name] = RegistrySnapshot(**snapshot)
+                operations.append(RegistryOperation(**raw))
+            else:
+                raise ValueError("Unknown resource operation type")
         data["ordered_operations"] = tuple(operations)
-        for name in ("completed_steps", "retained_originals", "timestamps"):
-            data[name] = tuple(data[name])
+        for name in (
+            "completed_steps",
+            "retained_originals",
+            "timestamps",
+            "recovery_diagnostics",
+        ):
+            if name in data:
+                data[name] = tuple(data[name])
         return cls(**data)
 
 

@@ -1,0 +1,6 @@
+#include <windows.h>
+LANGUAGE 2, 1
+STRINGTABLE
+BEGIN
+    1 "Bulgarian (Dvorak phonetic)"
+END
