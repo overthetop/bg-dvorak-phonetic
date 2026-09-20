@@ -11,7 +11,7 @@ import subprocess
 import sys
 import zipfile
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict
 
 ROOT = Path(__file__).resolve().parents[1]
 DISPLAY_NAME = "Bulgarian (Dvorak phonetic)"
@@ -20,6 +20,14 @@ POSITIONS = {"TLDE", "BKSL"} | {
     for prefix, count in [("AE", 12), ("AD", 12), ("AC", 11), ("AB", 10)]
     for index in range(1, count + 1)
 }
+
+
+class ProbeConfiguration(TypedDict):
+    compiler: Path
+    machine: str
+    define: str
+    entry: str
+    libraries: Path
 
 
 def sha256(path: Path) -> str:
@@ -220,6 +228,65 @@ def verify_toolchain(lock: dict[str, Any], compiler_root: Path, kits: Path) -> N
                     raise ValueError(f"Extracted kit mismatch: {info.filename}")
 
 
+def build_typing_probes(
+    lock: dict[str, Any], compiler_root: Path, kits: Path, build: Path
+) -> dict[str, str]:
+    """Build x64 and x86 event probes from one source with no C runtime dependency."""
+    source = ROOT / "tests/native/windows_typing_probe.c"
+    vc_root = compiler_root.parents[2]
+    header_root = vc_root / "include"
+    sdk_include = kits / "microsoft.windows.sdk.cpp/c/Include/10.0.26100.0"
+    include_paths = [sdk_include / "um", sdk_include / "shared", header_root]
+    results: dict[str, str] = {}
+    configurations: dict[str, ProbeConfiguration] = {
+        "x64": {
+            "compiler": compiler_root,
+            "machine": "X64",
+            "define": "_AMD64_",
+            "entry": "probe_entry",
+            "libraries": kits / "microsoft.windows.sdk.cpp.x64/c/um/x64",
+        },
+        "x86": {
+            "compiler": vc_root / "bin/Hostx64/x86",
+            "machine": "X86",
+            "define": "_X86_",
+            "entry": "_probe_entry",
+            "libraries": kits / "microsoft.windows.sdk.cpp.x86/c/um/x86",
+        },
+    }
+    for architecture, configuration in configurations.items():
+        tools = configuration["compiler"]
+        if architecture == "x86":
+            expected = lock.get("probe_compiler_inputs")
+            if not isinstance(expected, list) or not expected:
+                raise ValueError("Missing locked x86 probe compiler inputs")
+            for item in expected:
+                if sha256(tools / item["name"]) != item["sha256"]:
+                    raise ValueError(f"Probe compiler input mismatch: {item['name']}")
+        obj = build / f"windows_typing_probe-{architecture}.obj"
+        executable = build / f"windows_typing_probe-{architecture}.exe"
+        compile_response = build / f"probe-compile-{architecture}.rsp"
+        link_response = build / f"probe-link-{architecture}.rsp"
+        include_args = " ".join(f'/I"{item}"' for item in include_paths)
+        compile_response.write_text(
+            f"/nologo /c /X /GS- /Zl /O2 /Brepro /D{configuration['define']} "
+            f'{include_args} /Fo"{obj}" "{source}"',
+            encoding="utf-16",
+        )
+        subprocess.run([str(tools / "cl.exe"), f"@{compile_response}"], check=True, timeout=120)
+        libraries = configuration["libraries"]
+        link_response.write_text(
+            f"/NOLOGO /SUBSYSTEM:WINDOWS /NODEFAULTLIB /MACHINE:{configuration['machine']} "
+            f"/ENTRY:{configuration['entry']} /Brepro /DYNAMICBASE /NXCOMPAT "
+            f'/OUT:"{executable}" "{obj}" '
+            f'"{libraries / "kernel32.lib"}" "{libraries / "user32.lib"}"',
+            encoding="utf-16",
+        )
+        subprocess.run([str(tools / "link.exe"), f"@{link_response}"], check=True, timeout=120)
+        results[architecture] = sha256(executable)
+    return results
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--generate-only", action="store_true")
@@ -287,6 +354,7 @@ def main(argv: list[str] | None = None) -> int:
             check=True,
             timeout=120,
         )
+        build_typing_probes(lock, args.compiler_root, args.kits, build)
         args.output.mkdir(parents=True, exist_ok=True)
         digest = sha256(build / "bgdv.dll")
         name = f"bgdv_{digest}.dll"

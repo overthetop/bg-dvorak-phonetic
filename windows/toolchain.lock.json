@@ -406,7 +406,9 @@
     "evidence_sha256": "b1155bdbfce8d22c09a64360fe91015f4f853bf31d6b92161b9d443e656499ab",
     "toolset_directory": "14.44.35207",
     "host_architecture": "x64 (Windows emulation on ARM64)",
-    "target_architecture": "x64"
+    "target_architecture": "x64",
+    "probe_capture_run_url": "https://github.com/overthetop/bg-dvorak-phonetic/actions/runs/35495708029",
+    "probe_capture_commit": "a608bcacfa1ea76e1bf667954c1785b80e4c64bb"
   },
   "compiler_headers": [
     {
@@ -1852,6 +1854,333 @@
     {
       "name": "zmmintrin.h",
       "sha256": "ee8d0c6ce34ae423958ec2abc61d31e2a18a00d99761fcec8f4775c8775fdcc2"
+    }
+  ],
+  "probe_compiler_inputs": [
+    {
+      "sha256": "c4b3504af4ea3a3ba93e5cb8ec6ae52bba11beca1ea784dc0a977425d79760b3",
+      "name": "asan_ignorelist.txt",
+      "version": null
+    },
+    {
+      "sha256": "de51e1081c30be9b5b34315ae5c8a923e2c052404deb8126897790a359ff4cd6",
+      "name": "atlprov.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "de08279282ae87f667ccb76d9e390db4838c8036cfb39e062a79966f59cb4bae",
+      "name": "bscmake.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "bb4f31805e726b981e0f0b0008a436219d4ac9f34fdc5776f0c9216dca7e1858",
+      "name": "c1.dll",
+      "version": "19.44.35228.0"
+    },
+    {
+      "sha256": "42bd246c4770ea89f6a2fbc46725c581d0d377d58d55cd1ab89d1793e73f6e01",
+      "name": "c1xx.dll",
+      "version": "19.44.35228.0"
+    },
+    {
+      "sha256": "f151b28867781157a4d1289f24537d63d632e4d79943246b083bbd66411b4c9d",
+      "name": "c2.dll",
+      "version": "19.44.35228.0"
+    },
+    {
+      "sha256": "12b0ba2977b3df21b3399e34af95b9bc151490d9ddec6f42bb23a5fdd9818214",
+      "name": "cfgpersist.dll",
+      "version": ""
+    },
+    {
+      "sha256": "7e970b6b42e87a5b4b4e4ee41034cf20f3573d948a4a92055d1b1bbe5e473cb1",
+      "name": "cl.exe",
+      "version": "19.44.35228.0"
+    },
+    {
+      "sha256": "a501d29c422af1bd2c3f9abb2bb1ab371c177a3f7ccb7fd8823709c57f114bfc",
+      "name": "cl.exe.config",
+      "version": null
+    },
+    {
+      "sha256": "ef1007f794d336dae3f464e0929bf6fa5caffdbd2287ef9ac2f4717109de98c2",
+      "name": "clang_rt.asan_dbg_dynamic-i386.dll",
+      "version": null
+    },
+    {
+      "sha256": "beb5726875a15d7217ac106f0d31b6ec661e533a0bb0ce62785d8dd9a21a8c9a",
+      "name": "clang_rt.asan_dbg_dynamic-i386.pdb",
+      "version": null
+    },
+    {
+      "sha256": "681613431f4375ecacf7c199ec85db45c61be14d96eb60ce68e4ef4e8666bd57",
+      "name": "clang_rt.asan_dynamic-i386.dll",
+      "version": null
+    },
+    {
+      "sha256": "f8ac3f944f84d2809a578f0724da89b3fa34f9854d3c0cb761eff580cc0ad099",
+      "name": "clang_rt.asan_dynamic-i386.pdb",
+      "version": null
+    },
+    {
+      "sha256": "6d42cd490c56d11e640d7524d8ca701a129bb5a4de2c97150862fc7f5e0fa303",
+      "name": "ConcurrencyCheck.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "68af7ec79d86d2d69d86b83b2a317f1d5ec2b64120c2f55ed11ac45260fed187",
+      "name": "CppCoreCheck.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "8e4b47f34c08c2118b1a6913ee923abc0c94881dc4e003d0daf059c1230c7687",
+      "name": "cvtres.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "8c88c162010a8d6b80f2c0433d4ce973ce626afcbc8da5be68bfa2ba68341eba",
+      "name": "d3dcompiler_47.dll",
+      "version": "10.0.10150.0 (th1.150616-1659)"
+    },
+    {
+      "sha256": "dc19096306384365415bb7c7b87501f40280641696327b15785904c535f0584d",
+      "name": "dpcmi.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "bd24f32bb2a9b14e1023a990eeb1804084fbf9a801c6fcbd8b69b32759537267",
+      "name": "dumpbin.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "c6726de09ba83d4480b9c715695b8f04322b44afda721bbbe1664b7cba981276",
+      "name": "editbin.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "75e2511ab5d6b035f8a40878609774f4b228ec523d25dd38e189896a508044ea",
+      "name": "EnumIndex.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "18a6ac873124a291ae22be9f0d1729fdb6a784478efb428c8df7d66184b1bbb2",
+      "name": "EspXEngine.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "c5bf47ad49cef86638bc24d979ccc1a5249725d0a8872a29f7ff89cf0c939980",
+      "name": "HResultCheck.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "afceb636b7b8d4e8f0478bc32b77d96c5c69ff0f5f3681fe7751cac18e0e1967",
+      "name": "ifc.exe",
+      "version": null
+    },
+    {
+      "sha256": "a87611468f65cbc42d47dcb65724076a55d32e63048c172aa25f36808e180fc0",
+      "name": "lib.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "0c2cf70d09eae71d68000c0767e73928eed308fb8ddd1d6d29564db2fca35e27",
+      "name": "link.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "a501d29c422af1bd2c3f9abb2bb1ab371c177a3f7ccb7fd8823709c57f114bfc",
+      "name": "link.exe.config",
+      "version": null
+    },
+    {
+      "sha256": "be0a620b132ff3d196c45bb31dd53119929180ed070837f9cff555ee54ee1180",
+      "name": "llvm-symbolizer.exe",
+      "version": "0"
+    },
+    {
+      "sha256": "a20f6d6c0dae7ac9c7c295b819d085bdfc7cfab123e8fc4ca4ddfd0a88701d04",
+      "name": "Microsoft.Diagnostics.Tracing.EventSource.dll",
+      "version": "1.1.28.0"
+    },
+    {
+      "sha256": "cc52e19735d6152702672feb5911c8ba77f60fdc73df5ed0d601b37415f3a7ed",
+      "name": "Microsoft.VisualStudio.RemoteControl.dll",
+      "version": "16.3.52.20732"
+    },
+    {
+      "sha256": "c6b09bdb01fb84406fb95f77befd68b4f8f0b5d715bb00df817b5e691501c50d",
+      "name": "Microsoft.VisualStudio.Telemetry.dll",
+      "version": "17.14.8.58212"
+    },
+    {
+      "sha256": "4d1d5efd28d72c332ba87e1993cb35e46404753543c5563700b98a97aa3c42a6",
+      "name": "Microsoft.VisualStudio.Utilities.Internal.dll",
+      "version": "16.3.90.25995"
+    },
+    {
+      "sha256": "7e12e075d2f41732ba2d83b5ce5aa1367615d0afdf91bc02945d944516003e34",
+      "name": "ml.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "0a18f9fe0a6d7afd9fbcf921c15eee51e3c982d7297429eabf4122a19e56d4bc",
+      "name": "msobj140.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "8cd754a0fe8a91d853e04c48bf56b5de502897c77c3aa89a2dc82d6b80b9351a",
+      "name": "mspdb140.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "79f50bad07e6f9bb9651cfadaf79201e627533b08fd13358494aee189d976f08",
+      "name": "mspdbcmf.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "ff7482bf01d1dcad8d5e368333e4495ed3572713edeec7044623e5f5fff999b9",
+      "name": "mspdbcore.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "9221dbe740f39a1059dfe6e917984effad6f97312636f001c9191a6bccb34f93",
+      "name": "mspdbsrv.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "80de4791af04fcdd093fb9f9163122a07d9e08321c8a1512b15cdce08acf729e",
+      "name": "mspdbst.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "a35aff50d26a0509e682a4aa5737c28107c9d4c11fbdeffd480b11e2077a0f21",
+      "name": "mspft140.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "a5baa6487efccc4285b1aadd6620b94bbbcd649a77b4068170a5c575b0087e88",
+      "name": "msvcdis140.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "a65e4abcf1df1ee5b4c363a2dfd27c471f78f1520372e38456c4379064d75aa2",
+      "name": "msvcp140_1.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "b0798ec98cb0bade3df33ab66b553282425c6a2b512ff24b2d3f9040c848fe73",
+      "name": "msvcp140_2.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "4b77104b31157c094493667f2919ef857e39f23163df632dbe302c4e6d7e8180",
+      "name": "msvcp140_atomic_wait.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "21ce1d7d4685efff88bae1034215529a5a991d3a1dbb9daf5126963818a935a4",
+      "name": "msvcp140_codecvt_ids.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "20076bc0e3fcb1842cab77dfe8ef816bc099b887c25329847a83e71c98765639",
+      "name": "msvcp140.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "12fde23cc094b3ca180920beaa6afa0bd91f87df473ea2169e29fb8f1b6ffcd8",
+      "name": "Newtonsoft.Json.dll",
+      "version": "13.0.3.27908"
+    },
+    {
+      "sha256": "934ed063a863bafb880272426098168c7edc9fa0a8371238db5184cbcaa064af",
+      "name": "nmake.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "401d6c25a06df63fbc4e729e6275909e77f67a84ce46e7f1be7116ac8eef2c52",
+      "name": "pgocvt.exe",
+      "version": "14.44.35219.0"
+    },
+    {
+      "sha256": "65a0d3fb134ba6a461a2d307627743940e3a0031fb2b751a7b160b0d266621ea",
+      "name": "pgodb140.dll",
+      "version": "14.44.35219.0"
+    },
+    {
+      "sha256": "c2105d1f813fc3acbdf478ee473e22af65a10b30df4c8bc3a78847f3f8dc31b6",
+      "name": "pgomgr.exe",
+      "version": "14.44.35219.0"
+    },
+    {
+      "sha256": "2452cb217044522553fda785f2ce5aba786964bfdecab7a8adb1f33c5007b386",
+      "name": "SecurityChecks.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "06ea95f8388a6b031acb2449fd5663d9d26d720ae13df80c800805f896734430",
+      "name": "System.Memory.dll",
+      "version": "4.6.31308.01"
+    },
+    {
+      "sha256": "3cadcb6b8a7335141c7c357a1d77af1ff49b59b872df494f5025580191d1c0d5",
+      "name": "System.Runtime.CompilerServices.Unsafe.dll",
+      "version": "5.0.20.51904"
+    },
+    {
+      "sha256": "b8febf9eee8867c0dc9ac0f8029dc80322bb1c34a3467916844baf57268bca4d",
+      "name": "tbbmalloc.dll",
+      "version": "2021.4"
+    },
+    {
+      "sha256": "e805364f61cecb3f7730731a77111a258a7198e33cc89e652392651340f00984",
+      "name": "undname.exe",
+      "version": "19.44.35228.0"
+    },
+    {
+      "sha256": "7dd21e35b22c2165f73e8a9f99ecc48a6a0b28406ac02b2dc4e5c446246b78cb",
+      "name": "VariantClear.dll",
+      "version": "14.44.35214.00"
+    },
+    {
+      "sha256": "678ee8d5fde8af7a87a4b4ae17d2316eb0203bc6582ff03baa0f0b19cc78906b",
+      "name": "vcmeta.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "c3feb5700b1cbe6ace93e64e286b6394970e52d36b3b643d8243a1771077d210",
+      "name": "vcruntime140_1.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "077dac1a197b8fbb9bffff1109489fdfba21140a25960b7e94d20bb69687dd84",
+      "name": "vcruntime140_threads.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "b23a5c9ee132fbb72d970165de052f332209992eb4568616b7802052edc4f398",
+      "name": "vcruntime140.dll",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "8b681d72bff0c26f7b95cdb2a79598ca3d8ecb08e259d838226378bdf7e26016",
+      "name": "vctip.exe",
+      "version": "14.44.35228.0"
+    },
+    {
+      "sha256": "b58b1a18fc3e3c9c760f46d3d70684bbe73edab671b2d0d26a203e830ccef49d",
+      "name": "vctip.exe.config",
+      "version": null
+    },
+    {
+      "sha256": "8bfe7d0842bbf727c154b0229e0e91b11b6850a8d1ae300839a91e478a917d42",
+      "name": "xdcmake.exe",
+      "version": "19.44.35228.0"
+    },
+    {
+      "sha256": "a501d29c422af1bd2c3f9abb2bb1ab371c177a3f7ccb7fd8823709c57f114bfc",
+      "name": "xdcmake.exe.config",
+      "version": null
     }
   ]
 }
