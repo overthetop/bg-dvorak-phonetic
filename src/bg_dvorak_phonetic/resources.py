@@ -1,6 +1,6 @@
 """Resource mutation boundary shared by platform transaction engines."""
 
-import fcntl
+import importlib
 import hashlib
 import os
 import tempfile
@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
-from typing import NoReturn
+from typing import Any, NoReturn, cast
 
 
 @dataclass(frozen=True)
@@ -91,6 +91,9 @@ class PosixResourceBackend:
 
     @contextmanager
     def acquire_lock(self, state_root: Path) -> Iterator[None]:
+        if os.name == "nt":
+            raise RuntimeError("POSIX resource locking is unavailable on Windows")
+        fcntl = cast(Any, importlib.import_module("fcntl"))
         path = state_root / ".resource.lock"
         descriptor = os.open(path, os.O_CREAT | os.O_RDWR, 0o600)
         try:
