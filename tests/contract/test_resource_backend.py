@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import pytest
@@ -46,6 +47,7 @@ def test_registry_resources_remain_typed():
         PosixResourceBackend().snapshot_registry(Path("/registry/is/not/a/path"))
 
 
+@pytest.mark.skipif(os.name == "nt", reason="POSIX native lock")
 def test_lock_and_storage_are_injected_boundaries(tmp_path):
     backend = PosixResourceBackend()
     state = tmp_path / "state"

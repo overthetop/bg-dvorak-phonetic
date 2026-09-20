@@ -132,7 +132,7 @@ class WindowsResourceBackend:
 
     def __init__(self, system_root: Path, state_root: Path) -> None:
         _require_windows()
-        self.system_root = system_root.resolve(strict=True)
+        self.system_root = system_root.absolute()
         self.state_root = state_root
         if not self.system_root.is_absolute() or not state_root.is_absolute():
             raise ValueError("Windows roots must be absolute")
