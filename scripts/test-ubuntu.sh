@@ -40,7 +40,7 @@ unset BGDV_TEST_OS_RELEASE BGDV_XKB_ROOT
 [[ $(. /etc/os-release; printf '%s' "$ID") == ubuntu ]] || { printf 'Ubuntu runner required.\n' >&2; exit 1; }
 "$package/install.sh"
 "$package/install.sh"
-python3 -c 'import xml.etree.ElementTree as E; r=E.parse("/usr/share/X11/xkb/rules/evdev.xml").getroot(); assert len(r.findall(".//layout[configItem/name=\"bgdv\"]")) == 1'
+python3 -c 'import xml.etree.ElementTree as E; r=E.parse("/usr/share/X11/xkb/rules/evdev.xml").getroot(); assert sum(e.findtext("configItem/name") == "bgdv" for e in r.findall(".//layout")) == 1'
 xkbcli compile-keymap --layout bgdv > "$work/wayland.xkb"
 grep -Fq 'Cyrillic_a' "$work/wayland.xkb"
 xvfb-run -a sh -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' sh "$work/x11.xkb"
