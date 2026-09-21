@@ -34,6 +34,7 @@ printf '<broken>\n' > "$work/xkb/rules/evdev.xml"
 if "$package/install.sh" >"$work/error.log" 2>&1; then exit 1; fi
 grep -Fq 'existing XKB registry XML is invalid' "$work/error.log"
 cp "$work/valid-registry.xml" "$work/xkb/rules/evdev.xml"
+printf 'Disposable install, repeat install, removal, ownership, and invalid registry checks passed.\n'
 
 # The remaining checks use the runner's disposable Ubuntu XKB root.
 unset BGDV_TEST_OS_RELEASE BGDV_XKB_ROOT
@@ -43,6 +44,7 @@ unset BGDV_TEST_OS_RELEASE BGDV_XKB_ROOT
 python3 -c 'import xml.etree.ElementTree as E; r=E.parse("/usr/share/X11/xkb/rules/evdev.xml").getroot(); assert sum(e.findtext("configItem/name") == "bgdv" for e in r.findall(".//layout")) == 1'
 xkbcli compile-keymap --layout bgdv > "$work/wayland.xkb"
 grep -Fq 'Cyrillic_a' "$work/wayland.xkb"
+printf 'Wayland XKB compilation passed.\n'
 xvfb-run -a sh -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' sh "$work/x11.xkb"
 python3 "$repo/scripts/check-x11-map.py" "$work/x11.xkb"
 
@@ -53,6 +55,7 @@ if python3 "$repo/scripts/check-x11-map.py" "$work/mutated.xkb"; then
   printf 'Mutated key was not detected.\n' >&2
   exit 1
 fi
+printf 'X11 wrong-key mutation was rejected.\n'
 sudo cp "$work/original-bgdv" /usr/share/X11/xkb/symbols/bgdv
 "$package/uninstall.sh"
 [[ ! -e /usr/share/X11/xkb/symbols/bgdv ]]

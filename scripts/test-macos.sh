@@ -17,6 +17,7 @@ installed="$HOME/Library/Keyboard Layouts/bg-dvorak-phonetic.bundle"
 [[ -f "$installed/Contents/Info.plist" ]]
 "$package/uninstall.command"
 [[ ! -e "$installed" ]]
+printf 'Bundle install, repeat install, and removal passed.\n'
 
 mv "$package/bg-dvorak-phonetic.bundle" "$work/missing.bundle"
 if "$package/install.command" >"$work/error.log" 2>&1; then exit 1; fi
@@ -31,4 +32,5 @@ if ! grep -Fq 'invalid bundle Info.plist' "$work/error.log"; then
   cat "$work/error.log" >&2
   exit 1
 fi
+printf 'Missing and malformed bundle checks passed.\n'
 printf 'macOS archive checks passed.\n'
