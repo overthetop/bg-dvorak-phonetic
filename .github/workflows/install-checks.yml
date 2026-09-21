@@ -17,7 +17,7 @@ jobs:
           if [[ "$GITHUB_REF_TYPE" == tag ]]; then version=${GITHUB_REF_NAME#v}; else version=1.2.0; fi
           echo "VERSION=$version" >> "$GITHUB_ENV"
       - name: Install desktop test tools
-        run: sudo apt-get update && sudo apt-get install -y libxkbcommon-tools x11-xkb-utils xauth xvfb libgnome-desktop-3-dev mutter dbus-x11
+        run: sudo apt-get update && sudo apt-get install -y libxkbcommon-tools x11-xkb-utils xauth xvfb libgnome-desktop-3-dev libwayland-dev mutter dbus-x11
       - name: Build release archives
         run: scripts/build-release.sh "$VERSION"
       - name: Test Ubuntu archive, GNOME discovery, Wayland, and X11 mapping

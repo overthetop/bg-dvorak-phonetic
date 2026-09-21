@@ -20,6 +20,7 @@ installed="$HOME/Library/Keyboard Layouts/bg-dvorak-phonetic.bundle"
 export HOME="$real_home"
 clang -framework Carbon -o "$work/check-input-source" "$repo/scripts/check-macos-input-source.c"
 "$work/check-input-source" "$installed"
+python3 "$repo/scripts/check-macos-keylayout.py" "$installed/Contents/Resources/bg-dvorak-phonetic.keylayout"
 export HOME="$work/home"
 "$package/uninstall.command"
 [[ ! -e "$installed" ]]
