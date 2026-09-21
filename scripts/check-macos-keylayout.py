@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """Check representative installed keylayout data without a GUI login session."""
 import sys
+import re
 import xml.etree.ElementTree as ET
 
-root = ET.parse(sys.argv[1]).getroot()
+source = open(sys.argv[1], encoding="utf-8").read()
+# ElementTree rejects XML 1.1 control-character references used by this layout.
+source = re.sub(r"&#x([0-9a-fA-F]+);", lambda match:
+    "" if int(match.group(1), 16) < 32 and int(match.group(1), 16) not in (9, 10, 13)
+    else match.group(0), source)
+root = ET.fromstring(source)
 maps = {}
 for keymap in root.findall("./keyMapSet/keyMap"):
     maps[keymap.get("index")] = {

@@ -21,18 +21,18 @@ The Ubuntu check SHALL compile or load the installed layout through an X11 serve
 - **THEN** the X11 verification check fails
 
 ### Requirement: GNOME and Wayland verification
-The Ubuntu check SHALL query GNOME's layout registry for the installed layout and SHALL inspect the keymap advertised by a headless GNOME Wayland compositor.
+The Ubuntu check SHALL query GNOME's layout registry for the installed layout and SHALL compile the installed keymap using libxkbcommon.
 
 #### Scenario: Pull request verification
 - **WHEN** the Ubuntu workflow runs after installing the archive
-- **THEN** GNOME discovers the layout and the Wayland compositor advertises its keymap
+- **THEN** GNOME discovers the layout and libxkbcommon compiles its keymap
 
 ### Requirement: macOS input source verification
-The macOS check SHALL register the installed bundle through Text Input Source Services and verify representative characters using the system keyboard translation API.
+The macOS check SHALL register the installed bundle through Text Input Source Services and verify representative characters in its installed keylayout. When an input-source list is available, it SHALL also verify discovery and system keyboard translation.
 
 #### Scenario: Pull request verification
 - **WHEN** the macOS workflow runs after installing the archive
-- **THEN** the source is discoverable and representative keys translate as expected
+- **THEN** registration succeeds and representative keylayout entries match expected characters
 
 ### Requirement: Windows 11 verification plan
 The project SHALL document the native Windows layout artifact and Windows 11 test environment needed for a future implementation, and SHALL not describe a Windows Server runner result as Windows 11 compatibility evidence.

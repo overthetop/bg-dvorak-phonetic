@@ -47,7 +47,6 @@ cc -o "$work/check-gnome-layout" "$repo/scripts/check-gnome-layout.c" $(pkg-conf
 xkbcli compile-keymap --layout bgdv > "$work/wayland.xkb"
 grep -Fq 'Cyrillic_a' "$work/wayland.xkb"
 printf 'Wayland XKB compilation passed.\n'
-bash "$repo/scripts/check-wayland.sh" "$work/compositor.xkb"
 xvfb-run -a sh -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' sh "$work/x11.xkb"
 python3 "$repo/scripts/check-x11-map.py" "$work/x11.xkb"
 

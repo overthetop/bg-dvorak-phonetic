@@ -20,6 +20,6 @@
 - [x] 3.2 Add an Xvfb-based X11 check for representative installed key mappings; verify it passes for the intended layout and fails for an intentionally changed key.
 - [x] 3.3 Add a macOS GitHub Actions job that builds the release archive, validates bundle metadata, and checks install, repeat install, and uninstall; verify the job passes and fails when the bundle is missing or malformed.
 - [x] 3.4 Run the complete workflow on a pull request or test branch and verify both platform jobs and their logs clearly identify the checks performed.
-- [ ] 3.5 Check GNOME layout discovery through GnomeXkbInfo and the installed layout through a headless Mutter Wayland session.
-- [ ] 3.6 Register the installed macOS bundle through Text Input Source Services and verify representative keys with UCKeyTranslate.
+- [x] 3.5 Check GNOME layout discovery through GnomeXkbInfo and compile the installed layout through libxkbcommon; record why a headless Mutter keymap check is unavailable.
+- [x] 3.6 Register the installed macOS bundle through Text Input Source Services, verify installed keylayout entries, and use UCKeyTranslate when an input-source list is available.
 - [ ] 3.7 Run both updated jobs on the draft pull request and confirm their results.

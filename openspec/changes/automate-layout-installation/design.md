@@ -36,7 +36,7 @@ The alternative user-level `~/.config/xkb` path is attractive for Wayland client
 
 Use pinned GitHub runner labels such as `ubuntu-24.04` and `macos-15` rather than `-latest`. On Ubuntu, validate registry XML and compile the layout with XKB tooling, then start Xvfb and check representative keysyms through the installed X11 keymap. Run install, repeat install, and uninstall assertions in a disposable runner. On macOS, validate bundle metadata and layout data, then test install, repeat install, and removal in the runner's user home. Release archives should be built and exercised by these jobs so CI tests the user download contents, not only repository paths.
 
-CI queries GNOME discovery with GnomeXkbInfo and reads the keymap advertised by a headless Mutter Wayland session. The macOS job registers the bundle with Text Input Source Services, discovers it, and translates representative keys through UCKeyTranslate. These API checks do not simulate Settings clicks, and no manual GUI release checklist is required.
+CI queries GNOME discovery with GnomeXkbInfo and compiles the installed XKB layout with libxkbcommon. A headless Mutter Wayland session was attempted, but its virtual seat does not expose a keyboard keymap. The macOS job registers the bundle with Text Input Source Services and checks installed keylayout entries; it additionally verifies discovery and UCKeyTranslate when the input-source list is available. GitHub-hosted macOS runners do not expose that list. These checks do not simulate Settings clicks, and no manual GUI release checklist is required.
 
 ### Later Windows 11 phase
 
