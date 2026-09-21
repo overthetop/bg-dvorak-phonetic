@@ -11,7 +11,7 @@
 
 - [x] 2.1 Build versioned macOS and Ubuntu release archives containing the layout, install and removal entry points, and short instructions; verify installation works from extracted archives without a repository checkout.
 - [x] 2.2 Replace README installation steps with download, install, activation, and removal instructions for macOS and Ubuntu GNOME; verify commands and paths against the produced archives.
-- [x] 2.3 Add a release smoke-test checklist for GNOME Wayland, GNOME X11, and macOS that covers layout discovery, selection, and representative typing; verify the checklist records OS and session results and distinguishes them from CI evidence.
+- [x] 2.3 Document automated platform coverage and its GUI limits without a manual release checklist.
 - [x] 2.4 Document the later Windows 11 native-layout artifact, installer lifecycle, and x64 desktop test environment; verify the document identifies Windows Server CI as a packaging check rather than Windows 11 compatibility proof.
 
 ## 3. Automated verification
@@ -20,3 +20,6 @@
 - [x] 3.2 Add an Xvfb-based X11 check for representative installed key mappings; verify it passes for the intended layout and fails for an intentionally changed key.
 - [x] 3.3 Add a macOS GitHub Actions job that builds the release archive, validates bundle metadata, and checks install, repeat install, and uninstall; verify the job passes and fails when the bundle is missing or malformed.
 - [x] 3.4 Run the complete workflow on a pull request or test branch and verify both platform jobs and their logs clearly identify the checks performed.
+- [ ] 3.5 Check GNOME layout discovery through GnomeXkbInfo and the installed layout through a headless Mutter Wayland session.
+- [ ] 3.6 Register the installed macOS bundle through Text Input Source Services and verify representative keys with UCKeyTranslate.
+- [ ] 3.7 Run both updated jobs on the draft pull request and confirm their results.

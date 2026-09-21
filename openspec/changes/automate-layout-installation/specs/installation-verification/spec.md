@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provide repeatable evidence that distributed keyboard layout files and supported installers work, while making graphical desktop coverage visible.
+Provide repeatable automated evidence that distributed keyboard layout files and supported installers work.
 
 ## ADDED Requirements
 
@@ -20,12 +20,19 @@ The Ubuntu check SHALL compile or load the installed layout through an X11 serve
 - **WHEN** a layout edit changes a checked key to an unintended character
 - **THEN** the X11 verification check fails
 
-### Requirement: GNOME Wayland verification boundary
-The project SHALL verify that installed XKB data compiles for Wayland clients and SHALL document a GNOME Wayland desktop smoke test for layout discovery, selection, and typing before release.
+### Requirement: GNOME and Wayland verification
+The Ubuntu check SHALL query GNOME's layout registry for the installed layout and SHALL inspect the keymap advertised by a headless GNOME Wayland compositor.
 
-#### Scenario: Release review
-- **WHEN** a release candidate is reviewed
-- **THEN** the reviewer has a repeatable GNOME Wayland smoke test and can distinguish its result from headless CI checks
+#### Scenario: Pull request verification
+- **WHEN** the Ubuntu workflow runs after installing the archive
+- **THEN** GNOME discovers the layout and the Wayland compositor advertises its keymap
+
+### Requirement: macOS input source verification
+The macOS check SHALL register the installed bundle through Text Input Source Services and verify representative characters using the system keyboard translation API.
+
+#### Scenario: Pull request verification
+- **WHEN** the macOS workflow runs after installing the archive
+- **THEN** the source is discoverable and representative keys translate as expected
 
 ### Requirement: Windows 11 verification plan
 The project SHALL document the native Windows layout artifact and Windows 11 test environment needed for a future implementation, and SHALL not describe a Windows Server runner result as Windows 11 compatibility evidence.

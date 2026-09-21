@@ -7,6 +7,7 @@ work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 unzip -q "$archive" -d "$work"
 package=$(find "$work" -mindepth 1 -maxdepth 1 -type d -name '*-macos' -print -quit)
+repo=$(cd "$(dirname "$0")/.." && pwd)
 [[ -n "$package" ]] || { printf 'macOS archive is empty.\n' >&2; exit 1; }
 plutil -lint "$package/bg-dvorak-phonetic.bundle/Contents/Info.plist"
 export HOME="$work/home"
@@ -15,6 +16,8 @@ mkdir -p "$HOME"
 "$package/install.command"
 installed="$HOME/Library/Keyboard Layouts/bg-dvorak-phonetic.bundle"
 [[ -f "$installed/Contents/Info.plist" ]]
+clang -framework Carbon -o "$work/check-input-source" "$repo/scripts/check-macos-input-source.c"
+"$work/check-input-source" "$installed"
 "$package/uninstall.command"
 [[ ! -e "$installed" ]]
 printf 'Bundle install, repeat install, and removal passed.\n'

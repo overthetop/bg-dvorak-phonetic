@@ -36,7 +36,7 @@ The alternative user-level `~/.config/xkb` path is attractive for Wayland client
 
 Use pinned GitHub runner labels such as `ubuntu-24.04` and `macos-15` rather than `-latest`. On Ubuntu, validate registry XML and compile the layout with XKB tooling, then start Xvfb and check representative keysyms through the installed X11 keymap. Run install, repeat install, and uninstall assertions in a disposable runner. On macOS, validate bundle metadata and layout data, then test install, repeat install, and removal in the runner's user home. Release archives should be built and exercised by these jobs so CI tests the user download contents, not only repository paths.
 
-Headless CI does not prove that GNOME Wayland lists the source or that the macOS GUI can select it. Maintain a short release checklist with a GNOME Wayland session, a GNOME X11 session, and a logged-in macOS session. Each checks discovery, selection, and representative typing. Record the OS/session used when performing the checks.
+CI queries GNOME discovery with GnomeXkbInfo and reads the keymap advertised by a headless Mutter Wayland session. The macOS job registers the bundle with Text Input Source Services, discovers it, and translates representative keys through UCKeyTranslate. These API checks do not simulate Settings clicks, and no manual GUI release checklist is required.
 
 ### Later Windows 11 phase
 
@@ -46,8 +46,8 @@ A separate change should create a native Windows keyboard-layout source and inst
 
 - System XKB registry edits can be overwritten by Ubuntu package updates -> make reinstall idempotent, detect missing registration, and document recovery.
 - Registry format or paths can differ across Ubuntu versions -> target Ubuntu 24.04 first, detect the actual installed XKB root, validate before and after changes, and test Ubuntu 26.04 separately before claiming it supported.
-- Layout data differs between macOS and XKB -> maintain representative mapping checks and a manual typing checklist; a shared generated source is unnecessary unless drift becomes frequent.
-- Hosted CI lacks the actual user desktop -> clearly separate automated checks from release smoke tests and avoid claiming headless checks prove GUI activation.
+- Layout data differs between macOS and XKB -> maintain representative native mapping checks; a shared generated source is unnecessary unless drift becomes frequent.
+- Hosted CI lacks the actual user desktop -> state that API and headless compositor checks do not prove GUI activation.
 
 ## Migration Plan
 

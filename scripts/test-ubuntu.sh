@@ -42,9 +42,12 @@ unset BGDV_TEST_OS_RELEASE BGDV_XKB_ROOT
 "$package/install.sh"
 "$package/install.sh"
 python3 -c 'import xml.etree.ElementTree as E; r=E.parse("/usr/share/X11/xkb/rules/evdev.xml").getroot(); assert sum(e.findtext("configItem/name") == "bgdv" for e in r.findall(".//layout")) == 1'
+cc -o "$work/check-gnome-layout" "$repo/scripts/check-gnome-layout.c" $(pkg-config --cflags --libs gnome-desktop-3.0)
+"$work/check-gnome-layout"
 xkbcli compile-keymap --layout bgdv > "$work/wayland.xkb"
 grep -Fq 'Cyrillic_a' "$work/wayland.xkb"
 printf 'Wayland XKB compilation passed.\n'
+bash "$repo/scripts/check-wayland.sh" "$work/compositor.xkb"
 xvfb-run -a sh -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' sh "$work/x11.xkb"
 python3 "$repo/scripts/check-x11-map.py" "$work/x11.xkb"
 

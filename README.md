@@ -22,4 +22,4 @@ Run `./uninstall.command` to remove the bundle, then remove the input source in 
 
 ## Platform verification
 
-GitHub Actions checks the Ubuntu and macOS release archives, install lifecycle, and XKB mapping. A graphical [release smoke test](docs/release-smoke-test.md) covers selecting and typing with the layout. Windows 11 support is planned; see the [Windows plan](docs/windows-11-plan.md).
+GitHub Actions checks the Ubuntu and macOS release archives and install lifecycle. On Ubuntu it queries GNOME's layout registry, checks the keymap advertised by a headless Wayland compositor, and verifies representative X11 mappings. On macOS it registers the installed input source and translates representative keys through the system keyboard API. These checks run without manual release steps; they do not simulate clicks in system Settings. Windows 11 support is planned; see the [Windows plan](docs/windows-11-plan.md).
