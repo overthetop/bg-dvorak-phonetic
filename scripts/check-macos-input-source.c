@@ -37,7 +37,18 @@ int main(int argc, char **argv) {
     CFArrayRef sources = TISCreateInputSourceList(filter, true);
     CFRelease(filter);
     if (!sources || CFArrayGetCount(sources) != 1) {
-        fprintf(stderr, "macOS did not discover the registered input source.\n");
+        fprintf(stderr, "macOS did not discover the registered input source (matching count: %ld).\n",
+                sources ? (long)CFArrayGetCount(sources) : -1L);
+        CFArrayRef all = TISCreateInputSourceList(NULL, true);
+        if (all) {
+            for (CFIndex i = 0; i < CFArrayGetCount(all); ++i) {
+                TISInputSourceRef item = (TISInputSourceRef)CFArrayGetValueAtIndex(all, i);
+                CFStringRef id = TISGetInputSourceProperty(item, kTISPropertyInputSourceID);
+                if (id && CFStringFind(id, CFSTR("bg-dvorak"), kCFCompareCaseInsensitive).location != kCFNotFound)
+                    CFShow(id);
+            }
+            CFRelease(all);
+        }
         if (sources) CFRelease(sources);
         return 1;
     }

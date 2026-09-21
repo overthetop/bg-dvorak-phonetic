@@ -1,4 +1,4 @@
-#include <gnome-desktop/gnome-xkb-info.h>
+#include <libgnome-desktop/gnome-xkb-info.h>
 #include <glib.h>
 #include <string.h>
 
