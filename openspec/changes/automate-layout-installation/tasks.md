@@ -22,4 +22,4 @@
 - [x] 3.4 Run the complete workflow on a pull request or test branch and verify both platform jobs and their logs clearly identify the checks performed.
 - [x] 3.5 Check GNOME layout discovery through GnomeXkbInfo and compile the installed layout through libxkbcommon; record why a headless Mutter keymap check is unavailable.
 - [x] 3.6 Register the installed macOS bundle through Text Input Source Services, verify installed keylayout entries, and use UCKeyTranslate when an input-source list is available.
-- [ ] 3.7 Run both updated jobs on the draft pull request and confirm their results.
+- [x] 3.7 Run both updated jobs on the draft pull request and confirm their results.
