@@ -1,3 +1,4 @@
+#define GNOME_DESKTOP_USE_UNSTABLE_API
 #include <libgnome-desktop/gnome-xkb-info.h>
 #include <glib.h>
 #include <string.h>

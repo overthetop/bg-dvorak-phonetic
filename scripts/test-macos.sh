@@ -10,14 +10,17 @@ package=$(find "$work" -mindepth 1 -maxdepth 1 -type d -name '*-macos' -print -q
 repo=$(cd "$(dirname "$0")/.." && pwd)
 [[ -n "$package" ]] || { printf 'macOS archive is empty.\n' >&2; exit 1; }
 plutil -lint "$package/bg-dvorak-phonetic.bundle/Contents/Info.plist"
+real_home=$HOME
 export HOME="$work/home"
 mkdir -p "$HOME"
 "$package/install.command"
 "$package/install.command"
 installed="$HOME/Library/Keyboard Layouts/bg-dvorak-phonetic.bundle"
 [[ -f "$installed/Contents/Info.plist" ]]
+export HOME="$real_home"
 clang -framework Carbon -o "$work/check-input-source" "$repo/scripts/check-macos-input-source.c"
 "$work/check-input-source" "$installed"
+export HOME="$work/home"
 "$package/uninstall.command"
 [[ ! -e "$installed" ]]
 printf 'Bundle install, repeat install, and removal passed.\n'
