@@ -1,0 +1,8 @@
+<layout>
+  <configItem>
+    <name>bgdv</name>
+    <shortDescription>bg</shortDescription>
+    <description>Bulgarian (Dvorak phonetic)</description>
+    <languageList><iso639Id>bul</iso639Id></languageList>
+  </configItem>
+</layout>

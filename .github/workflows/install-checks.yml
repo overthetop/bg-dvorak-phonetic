@@ -1,0 +1,64 @@
+name: Install checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select package version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then version=${GITHUB_REF_NAME#v}; else version=1.2.0; fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Install desktop test tools and ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y libxkbcommon-tools x11-xkb-utils xauth xvfb libgnome-desktop-3-dev shellcheck
+      - name: Lint shell scripts
+        run: shellcheck scripts/*.sh linux/*.sh mac-os/*.command
+      - name: Build release archives
+        run: scripts/build-release.sh "$VERSION"
+      - name: Test Ubuntu archive, GNOME discovery, XKB, and X11 mapping
+        run: scripts/test-ubuntu.sh "dist/bg-dvorak-phonetic-$VERSION-ubuntu.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ubuntu-release
+          path: dist/*-ubuntu.zip
+
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select package version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then version=${GITHUB_REF_NAME#v}; else version=1.2.0; fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Build release archives
+        run: scripts/build-release.sh "$VERSION"
+      - name: Test macOS archive, bundle lifecycle, and input source
+        run: scripts/test-macos.sh "dist/bg-dvorak-phonetic-$VERSION-macos.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-release
+          path: dist/*-macos.zip
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [ubuntu, macos]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: '*-release'
+          merge-multiple: true
+          path: dist
+      - name: Publish tested archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes

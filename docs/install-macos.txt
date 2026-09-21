@@ -1,0 +1,8 @@
+macOS
+
+1. Open a terminal in this extracted folder and run ./install.command.
+   You can also double-click install.command in Finder.
+2. Open System Settings > Keyboard > Text Input > Edit > Add and choose Bulgarian (Dvorak phonetic).
+3. If it is not shown, sign out and sign back in, then repeat step 2.
+
+To remove the installed bundle, run ./uninstall.command and remove the input source in Settings.

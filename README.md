@@ -1,57 +1,25 @@
-# What is that?
+# Bulgarian Dvorak Phonetic keyboard layout
 
-`Bulgarian Dvorak Phonetic Keyboard Layout`
+This layout maps the physical keys of US Dvorak to Bulgarian Cyrillic. See the [Linux layout](linux/layout.jpg) and [macOS layout](mac-os/layout.jpg).
 
-If you wonder what Dvorak is you can read more here https://en.wikipedia.org/wiki/Dvorak_keyboard_layout
-This one is a traditional `Bulgarian Dvorak Keyboard Layout` that maps the `US Dvorak` keys to the `Bulgarian Cyrillic` alphabet.
+## Install on Ubuntu GNOME 24.04
 
-Dvorak is an alternative typing layout for English based languages. It is one of the most popular alternative layouts and if you have invested into Dvorak and haven't maintained your Qwerty touchtyping it can be quite awkward to go back.
+Download an Ubuntu installer ZIP (version 1.2.0 or later) from [Releases](https://github.com/overthetop/bg-dvorak-phonetic/releases) and extract it. Open a terminal in the extracted folder and run:
 
-Cyrillic Phonetic is a keyboard layout that is designed to make typing Cyrillic for native english speakers easier, by transliterating (finding similar sounds and letters across both languages) the keys. This often makes learning to type Cyrillic easier for English speakers because it doesn't require memorizing a completly new layout that is the typical Cyrillic layout.
+```sh
+./install.sh
+```
 
-Linux Layout
-![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/linux/layout.jpg?raw=true)
+Enter your administrator password if prompted. In **Settings > Keyboard > Input Sources**, add **Bulgarian (Dvorak phonetic)**. If the layout is not listed, sign out and back in, then try again. The installer supports both GNOME Wayland and GNOME X11 sessions; it does not restart your display manager.
 
-Mac OS Layout
-![alt text](https://github.com/overthetop/bg-dvorak-phonetic/blob/main/mac-os/layout.jpg?raw=true)
+To remove it, run `./uninstall.sh` from the extracted folder and remove the input source in Settings. An Ubuntu XKB package update may replace the system registry entry; rerun `./install.sh` if the layout disappears. If you previously followed the old manual instructions, remove those edits separately after confirming they are yours; the uninstaller only removes files and registration it owns.
 
-# Instalation Mac OS
- 
- - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
- - The layout is created with `Ukelele` `v.3.5.7` https://software.sil.org/ukelele/, but you don't need to install it
- - Copy `/mac-os/bg-dvorak-phonetic.bundle` dir into `~/Library/Keyboard Layouts`
- - Go to System Settings -> Keyboard on your Mac machine and hit the + button
- - Select your layout `bg-dvorak-phonetic` from the list and add it
- - You should be able to switch layouts with `^ + Space` shortcut and use it right away 
+## Install on macOS
 
-# Installation Linux
+Download a macOS installer ZIP (version 1.2.0 or later) from [Releases](https://github.com/overthetop/bg-dvorak-phonetic/releases) and extract it. Run `./install.command` in Terminal from the extracted folder, or double-click it in Finder. Then open **System Settings > Keyboard > Text Input > Edit > Add** and select **Bulgarian (Dvorak phonetic)**. Sign out and back in if it does not appear immediately.
 
- - Clone this git repository on your local computer `git clone --depth 1 --branch v1.0.0 https://github.com/overthetop/bg-dvorak-phonetic.git`
- - Append all the contents of `/linux/symbols-bg-dv` file in the end of `/usr/share/X11/xkb/symbols/bg` file of your Linux distro
- - Insert all the contents of `/linux/evdev.xml` under `configItem > bg > variantList` element of `/usr/share/X11/xkb/rules/evdev.xml` file:
-    
-    ```xml
-    <layout>
-    <configItem>
-        <name>bg</name>
-        <!-- Keyboard indicator for Bulgarian layouts -->
-        <shortDescription>bg</shortDescription>
-        <description>Bulgarian</description>
-        <languageList>
-        <iso639Id>bul</iso639Id>
-        </languageList>
-    </configItem>
-    <variantList>
-        <variant>
-        <configItem>
-            <name>bg-dvorak-phonetic</name>
-            <description>Bulgarian (Dvorak phonetic)</description>
-        </configItem>
-        </variant>
-        <!--more variants follow ... -->
-    </variantList>
-    ```
+Run `./uninstall.command` to remove the bundle, then remove the input source in Settings. Installation is for the current user and does not require administrator access.
 
- - Reboot or `sudo systemctl restart display-manager` (warning: closes everything!)
- - If you'd like, you can fiddle a bit with it, so run `setxkbmap -layout bg-dvorak-phonetic` to reload changes
+## Platform verification
 
+GitHub Actions checks the Ubuntu and macOS release archives and install lifecycle. On Ubuntu it queries GNOME's layout registry, compiles the installed XKB layout for Wayland clients, and verifies representative X11 mappings. On macOS it registers the installed bundle through the system API and checks representative keys in the installed layout. If a macOS input-source list is available, the check also verifies discovery and system key translation. GitHub-hosted macOS runners do not expose that list, and headless Wayland sessions do not provide a keyboard seat, so these jobs do not prove GUI activation or typing. No manual release checklist is required. Windows 11 support is planned; see the [Windows plan](docs/windows-11-plan.md).

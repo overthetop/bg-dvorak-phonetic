@@ -1,0 +1,9 @@
+Ubuntu GNOME 24.04 (Wayland or X11)
+
+1. Open a terminal in this extracted folder and run ./install.sh.
+2. Enter your administrator password if prompted.
+3. Open Settings > Keyboard > Input Sources > Add and choose Bulgarian (Dvorak phonetic).
+4. If it is not shown, sign out and sign back in, then repeat step 3.
+
+To remove the installed files, run ./uninstall.sh and remove the input source in Settings.
+The system XKB registry is managed by Ubuntu packages. If an Ubuntu update removes this layout registration, run ./install.sh again.
