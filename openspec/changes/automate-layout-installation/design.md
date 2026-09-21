@@ -20,7 +20,7 @@ The repository contains one macOS `.bundle`, one XKB symbols section, and a smal
 
 ### Distribution and script languages
 
-Publish versioned release ZIP archives containing the relevant layout asset, a short installer entry point, removal entry point, and instructions. The macOS entry point is a shell script usable from Terminal or Finder; Ubuntu uses Bash plus Ubuntu's existing system tools. Avoid Python as an end-user prerequisite and avoid a cross-platform installer framework. A repository checkout remains usable for development.
+Publish versioned release ZIP archives containing the relevant layout asset, a short installer entry point, removal entry point, and instructions. The macOS entry point is a shell script usable from Terminal or Finder; Ubuntu uses Bash plus Ubuntu's existing system tools. Ubuntu's Python 3 standard library validates XML without a third-party dependency. Avoid a cross-platform installer framework. A repository checkout remains usable for development.
 
 ### macOS installation
 

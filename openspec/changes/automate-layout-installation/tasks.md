@@ -19,4 +19,4 @@
 - [x] 3.1 Add an Ubuntu 24.04 GitHub Actions job that builds the release archive and checks install, repeat install, uninstall, registry validity, and XKB compilation; verify the job passes and fails when the registry entry is deliberately invalidated.
 - [x] 3.2 Add an Xvfb-based X11 check for representative installed key mappings; verify it passes for the intended layout and fails for an intentionally changed key.
 - [x] 3.3 Add a macOS GitHub Actions job that builds the release archive, validates bundle metadata, and checks install, repeat install, and uninstall; verify the job passes and fails when the bundle is missing or malformed.
-- [ ] 3.4 Run the complete workflow on a pull request or test branch and verify both platform jobs and their logs clearly identify the checks performed.
+- [x] 3.4 Run the complete workflow on a pull request or test branch and verify both platform jobs and their logs clearly identify the checks performed.
