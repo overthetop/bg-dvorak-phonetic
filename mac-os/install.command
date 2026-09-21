@@ -12,7 +12,9 @@ source_bundle="$source_dir/$bundle"
 plutil -lint "$source_bundle/Contents/Info.plist" >/dev/null || fail 'invalid bundle Info.plist.'
 keylayout="$source_bundle/Contents/Resources/bg-dvorak-phonetic.keylayout"
 [[ -s "$keylayout" ]] || fail 'keylayout file is missing or empty.'
-grep -q '<keyboard ' "$keylayout" && grep -q '</keyboard>' "$keylayout" || fail 'keylayout structure is missing.'
+if ! grep -q '<keyboard ' "$keylayout" || ! grep -q '</keyboard>' "$keylayout"; then
+  fail 'keylayout structure is missing.'
+fi
 
 destination_dir="$HOME/Library/Keyboard Layouts"
 mkdir -p "$destination_dir" || fail "cannot create $destination_dir"

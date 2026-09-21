@@ -63,7 +63,7 @@ printf 'Disposable install, repeat install, removal, ownership, and invalid regi
 
 # The remaining checks use the runner's disposable Ubuntu XKB root.
 unset BGDV_TEST_OS_RELEASE BGDV_XKB_ROOT
-[[ $(. /etc/os-release; printf '%s' "$ID") == ubuntu ]] || { printf 'Ubuntu runner required.\n' >&2; exit 1; }
+grep -Eq '^ID="?ubuntu"?$' /etc/os-release || { printf 'Ubuntu runner required.\n' >&2; exit 1; }
 "$package/install.sh"
 "$package/install.sh"
 python3 -c 'import xml.etree.ElementTree as E; r=E.parse("/usr/share/X11/xkb/rules/evdev.xml").getroot(); assert sum(e.findtext("configItem/name") == "bgdv" for e in r.findall(".//layout")) == 1'
@@ -76,13 +76,17 @@ cc "${gnome_cflags[@]}" -o "$work/check-gnome-layout" "$repo/scripts/check-gnome
 xkbcli compile-keymap --layout bgdv > "$work/wayland.xkb"
 grep -Fq 'Cyrillic_a' "$work/wayland.xkb"
 printf 'Wayland XKB compilation passed.\n'
-xvfb-run -a sh -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' sh "$work/x11.xkb"
+# $1 belongs to the shell started by xvfb-run.
+# shellcheck disable=SC2016
+xvfb-run -a bash -o pipefail -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' bash "$work/x11.xkb"
 python3 "$repo/scripts/check-x11-map.py" "$work/x11.xkb"
 
 cp /usr/share/X11/xkb/symbols/bgdv "$work/original-bgdv"
 mutation_pending=1
 sudo sed -i 's/Cyrillic_a, Cyrillic_A/Cyrillic_o, Cyrillic_A/' /usr/share/X11/xkb/symbols/bgdv
-xvfb-run -a sh -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' sh "$work/mutated.xkb"
+# $1 belongs to the shell started by xvfb-run.
+# shellcheck disable=SC2016
+xvfb-run -a bash -o pipefail -c 'setxkbmap -layout bgdv -print | xkbcomp -xkb - "$1"' bash "$work/mutated.xkb"
 if python3 "$repo/scripts/check-x11-map.py" "$work/mutated.xkb"; then
   printf 'Mutated key was not detected.\n' >&2
   exit 1
