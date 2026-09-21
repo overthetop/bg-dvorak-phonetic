@@ -19,15 +19,19 @@ mkdir -p "$destination_dir" || fail "cannot create $destination_dir"
 staging=$(mktemp -d "$destination_dir/.bg-dvorak-phonetic.XXXXXX") || fail 'cannot create staging directory.'
 backup=
 cleanup() {
-  status=$?
+  local status
+  status=$1
   if (( status != 0 )) && [[ -n "$backup" && -d "$backup" ]]; then
-    mv "$backup" "$destination_dir/$bundle" || printf 'Recovery needed: restore %s manually.\n' "$backup" >&2
+    if ! mv "$backup" "$destination_dir/$bundle"; then
+      printf 'Recovery needed: restore %s manually.\n' "$backup" >&2
+      return
+    fi
   fi
   rm -rf "$staging"
 }
-trap cleanup EXIT
+trap 'cleanup "$?"' EXIT
 cp -R "$source_bundle" "$staging/$bundle" || fail 'cannot stage the bundle.'
-if [[ -e "$destination_dir/$bundle" ]]; then
+if [[ -e "$destination_dir/$bundle" || -L "$destination_dir/$bundle" ]]; then
   [[ -d "$destination_dir/$bundle" && ! -L "$destination_dir/$bundle" ]] || fail 'destination is not an owned bundle directory.'
   plutil -lint "$destination_dir/$bundle/Contents/Info.plist" >/dev/null || fail 'existing bundle is not this layout.'
   existing_id=$(plutil -extract CFBundleIdentifier raw -o - "$destination_dir/$bundle/Contents/Info.plist") || fail 'cannot identify existing bundle.'

@@ -21,7 +21,7 @@ for platform in ubuntu macos; do
     cp "$repo/mac-os/install.command" "$repo/mac-os/uninstall.command" "$directory/"
     cp "$repo/docs/install-macos.txt" "$directory/INSTALL.txt"
   fi
-  rm -f "$repo/dist/$package.zip"
-  (cd "$work" && zip -qr "$repo/dist/$package.zip" "$package")
+  (cd "$work" && zip -qr "$work/$package.zip" "$package")
+  mv -f "$work/$package.zip" "$repo/dist/$package.zip"
   printf '%s\n' "$repo/dist/$package.zip"
 done

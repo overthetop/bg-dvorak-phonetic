@@ -26,7 +26,7 @@ fi
 
 validate_xml() { python3 -c 'import sys, xml.etree.ElementTree as ET; ET.parse(sys.argv[1])' "$1"; }
 validate_xml "$registry" || fail 'existing XKB registry XML is invalid.'
-if [[ -e "$symbols" ]]; then
+if [[ -e "$symbols" || -L "$symbols" ]]; then
   [[ -f "$symbols" && ! -L "$symbols" ]] || fail "$symbols is not a regular file."
   head -n 1 "$symbols" | grep -Fxq '// bgdv: managed by bg-dvorak-phonetic' || fail "$symbols is not owned by this project."
 fi
@@ -48,26 +48,32 @@ fi
 
 work=$(mktemp -d "$root/rules/.bgdv.XXXXXX") || fail 'cannot stage changes.'
 backup="$work/evdev.xml"
-cp -p "$registry" "$backup" || fail 'cannot back up XKB registry.'
 had_symbols=0
+committed=0
+cleanup() {
+  local status recovery_failed
+  status=$1
+  recovery_failed=0
+  if (( status != 0 && committed != 0 )); then
+    cp -p "$backup" "$registry" || recovery_failed=1
+    if (( had_symbols )); then
+      cp -p "$work/bgdv" "$symbols" || recovery_failed=1
+    else
+      rm -f "$symbols" || recovery_failed=1
+    fi
+  fi
+  if (( recovery_failed )); then
+    printf 'Recovery failed; backups are preserved in %s.\n' "$work" >&2
+    return
+  fi
+  rm -rf "$work"
+}
+trap 'cleanup "$?"' EXIT
+cp -p "$registry" "$backup" || fail 'cannot back up XKB registry.'
 if [[ -f "$symbols" ]]; then
   cp -p "$symbols" "$work/bgdv" || fail 'cannot back up installed symbols.'
   had_symbols=1
 fi
-committed=0
-cleanup() {
-  status=$?
-  if (( status != 0 && committed != 0 )); then
-    cp -p "$backup" "$registry" || printf 'Recovery needed: restore %s to %s.\n' "$backup" "$registry" >&2
-    if (( had_symbols )); then
-      cp -p "$work/bgdv" "$symbols" || printf 'Recovery needed: restore %s to %s.\n' "$work/bgdv" "$symbols" >&2
-    else
-      rm -f "$symbols"
-    fi
-  fi
-  rm -rf "$work"
-}
-trap cleanup EXIT
 
 awk -v begin="$begin" -v end="$end" '
   index($0, begin) { skip=1; next }

@@ -26,6 +26,19 @@ export HOME="$work/home"
 [[ ! -e "$installed" ]]
 printf 'Bundle install, repeat install, and removal passed.\n'
 
+ln -s "$work/nonexistent" "$installed"
+if "$package/install.command" >"$work/error.log" 2>&1; then
+  printf 'Dangling bundle symlink was accepted.\n' >&2
+  exit 1
+fi
+grep -Fq 'not an owned bundle directory' "$work/error.log"
+if "$package/uninstall.command" >"$work/error.log" 2>&1; then
+  printf 'Dangling bundle symlink was removed.\n' >&2
+  exit 1
+fi
+grep -Fq 'not an owned bundle directory' "$work/error.log"
+rm "$installed"
+
 mv "$package/bg-dvorak-phonetic.bundle" "$work/missing.bundle"
 if "$package/install.command" >"$work/error.log" 2>&1; then exit 1; fi
 grep -Fq 'missing' "$work/error.log"

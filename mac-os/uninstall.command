@@ -4,7 +4,7 @@ set -euo pipefail
 fail() { printf 'Removal failed: %s\n' "$*" >&2; exit 1; }
 [[ $(uname -s) == Darwin ]] || fail 'this uninstaller requires macOS.'
 bundle="$HOME/Library/Keyboard Layouts/bg-dvorak-phonetic.bundle"
-if [[ ! -e "$bundle" ]]; then
+if [[ ! -e "$bundle" && ! -L "$bundle" ]]; then
   printf 'Layout is already absent.\n'
   exit 0
 fi
